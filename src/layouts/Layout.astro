@@ -1,5 +1,5 @@
 ---
-import Nav from '../components/Nav.astro';
+import Nav from "../components/Nav.astro";
 
 export interface Props {
     title: string;
@@ -7,6 +7,7 @@ export interface Props {
 }
 
 const props = Astro.props;
+const url = Astro.url;
 ---
 
 <!DOCTYPE html>
@@ -14,8 +15,27 @@ const props = Astro.props;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <title>{props.title}</title>
+
+        <meta name="title" content={props.title} />
+        <meta name="description" content={props.description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={url} />
+        <meta property="og:title" content={props.title} />
+        <meta property="og:description" content={props.description} />
+        <meta property="og:image" content={"https://kubre.in/assets/me.jpg"} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={url} />
+        <meta property="twitter:title" content={props.title} />
+        <meta property="twitter:description" content={props.description} />
+        <meta
+            property="twitter:image"
+            content={"https://kubre.in/assets/me.jpg"}
+        />
+        <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
     </head>
     <body>
         <Nav />
