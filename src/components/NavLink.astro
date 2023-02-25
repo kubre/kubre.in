@@ -8,13 +8,13 @@ const { href, title } = Astro.props;
 
 const { pathname } = new URL(Astro.request.url);
 const isActive = pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
-const activeClasses = "bg-slate-100 text-slate-900";
+const activeClasses = "border-white";
 ---
 
 <a
   class={`${
     isActive && activeClasses
-  } py-2 px-2 md:w-36 uppercase rounded transition hover:bg-slate-100 hover:text-slate-900 flex align-center justify-center`}
+  } text-sm uppercase px-3 transition flex items-center justify-center border-b border-transparent`}
   href={href}
 >
   {title}

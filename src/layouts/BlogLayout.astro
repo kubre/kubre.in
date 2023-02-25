@@ -1,0 +1,87 @@
+---
+import NavBar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+    frontmatter: {
+        title: string;
+        description: string;
+        image: string;
+        slug: string;
+        publishedAt: Date;
+        tags: string[];
+    };
+}
+
+const formatter = new Intl.DateTimeFormat("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+const { frontmatter } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{frontmatter.title}</title>
+        <style is:global>
+            body {
+                font-family: "Arial", "Helvetica", sans-serif;
+                @apply bg-black text-white;
+            }
+
+            h2 {
+                @apply text-3xl font-bold my-6;
+            }
+
+            p {
+                @apply text-lg my-4 leading-relaxed text-gray-200;
+            }
+
+            .astro-code {
+                @apply my-4 rounded border border-gray-900 p-4;
+            }
+        </style>
+    </head>
+    <body>
+        <NavBar />
+        <main class="max-w-screen-md mx-auto">
+            <h1 class="text-4xl font-semibold my-8">{frontmatter.title}</h1>
+            <span class="font-mono text-gray-200"
+                >📅 {formatter.format(new Date(frontmatter.publishedAt))}</span
+            >
+            <figure class="my-8">
+                <img
+                    src={"/assets/" + frontmatter.image}
+                    alt={frontmatter.title}
+                    class="invert w-full h-auto p-4"
+                />
+            </figure>
+            <section class="content">
+                <slot />
+            </section>
+            <section class="mx-auto my-10 max-w-screen-md">
+                <script
+                    src="https://giscus.app/client.js"
+                    data-repo="kubre/kubre.in"
+                    data-repo-id="R_kgDOHjf5Dw"
+                    data-category="Comments"
+                    data-category-id="DIC_kwDOHjf5D84CP9az"
+                    data-mapping="pathname"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="transparent_dark"
+                    data-lang="en"
+                    crossorigin="anonymous"
+                    async
+                ></script>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

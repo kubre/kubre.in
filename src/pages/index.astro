@@ -3,60 +3,64 @@ import Avatar from "../components/Avatar.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Home">
-  <main
-    class="block md:grid md:grid-cols-2 pb-8 pt-4 md:pt-8 h-auto md:h-[600px]"
-  >
-    <div class="flex justify-center flex-col">
-      <Avatar />
-    </div>
-    <div class="pt-8 max-w-md flex justify-center items-center">
-      <div class="grid gap-y-4 px-8">
-        <div>
-          <h2 class="font-bold text-xl">
-            📚 FullStack Engineer at{" "}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://www.hellotars.com/"
-            >
-              TARS
-            </a>
-          </h2>
-          <p class="text-sm pt-1 pl-4">(Dec 2021 - Present)</p>
-          <p class="pl-4 pt-2 text-slate-300">
-            From Dec 2021 working at TARS from chatbot builder to live chat.
-            Building new features everyday.
-          </p>
+<Layout title="Home" description="Vaibhav's Homepage on the internet">
+    <main
+        class="block md:grid md:grid-cols-2 pb-8 pt-4 md:pt-8 h-auto md:h-[600px]"
+    >
+        <div class="flex justify-center flex-col">
+            <Avatar />
         </div>
-        <div class="mt-2">
-          <h2 class="font-bold text-xl">⏰ Freelancer</h2>
-          <p class="text-sm pt-1 pl-4">(Jun 2018 - Dec 2021)</p>
-          <p class="pl-4 pt-2 text-slate-300">
-            Worked as Freelancer making websites and mobile apps, alongside
-            being a CS Student. Checkout the websites I worked on{" "}
-            <a
-              class="text-sky-500 hover:bg-sky-500 hover:text-white transition"
-              target="_blank"
-              rel="noreferrer"
-              href="https://taxglobe.in">TaxGlobe.in</a
-            >,{" "}
-            <a
-              class="text-sky-500 hover:bg-sky-500 hover:text-white transition"
-              target="_blank"
-              rel="noreferrer"
-              href="https://gatearch.in">GateArch.in</a
-            >,{" "}
-            <a
-              class="text-sky-500 hover:bg-sky-500 hover:text-white transition"
-              target="_blank"
-              rel="noreferrer"
-              href="https://wonderlearning.in/admin">Wonder Learning</a
-            >
-            , and more.
-          </p>
+        <div class="pt-8 max-w-md flex justify-center items-center">
+            <div class="grid gap-y-4 px-8">
+                <div class="grid gap-y-1">
+                    <h2 class="font-bold text-xl">
+                        📚 FullStack Engineer at{" "}
+                        <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://www.hellotars.com/"
+                        >
+                            TARS
+                        </a>
+                    </h2>
+                    <p class="text-sm pt-1 pl-4">(Dec 2021 - Present)</p>
+                    <p class="pl-4 pt-2 text-slate-300">
+                        Working primarly as a Fullstack MERN Engineer. From
+                        refactoring codebases to React to building new features
+                        like Livechat and OpenAI integrations into the
+                        TARS platform.
+                    </p>
+                </div>
+                <div class="mt-4 grid gap-y-1">
+                    <h2 class="font-bold text-xl">⏰ Freelancer</h2>
+                    <p class="text-sm pt-1 pl-4">(Jun 2018 - Dec 2021)</p>
+                    <p class="pl-4 pt-2 text-slate-300">
+                        Worked as Freelancer making websites and mobile apps,
+                        alongside being a CS Student. Checkout the websites I
+                        worked on{" "}
+                        <a
+                            class="text-sky-500 hover:bg-sky-500 hover:text-white transition"
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://taxglobe.in">TaxGlobe.in</a
+                        >,{" "}
+                        <a
+                            class="text-sky-500 hover:bg-sky-500 hover:text-white transition"
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://gatearch.in">GateArch.in</a
+                        >,{" "}
+                        <a
+                            class="text-sky-500 hover:bg-sky-500 hover:text-white transition"
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://wonderlearning.in/admin"
+                            >Wonder Learning</a
+                        >
+                        , and more.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
+    </main>
 </Layout>

@@ -1,25 +1,30 @@
 ---
-import NavBar from "../components/NavBar.astro";
-import "../styles/global.css";
+import NavBar from "../components/Navbar.astro";
 
 export interface Props {
-  title: string;
+    title: string;
+    description: string;
 }
 
-const { title } = Astro.props;
+const props = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body>
-    <NavBar />
-    <slot />
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{props.title}</title>
+    </head>
+    <body>
+        <NavBar />
+        <slot />
+        <style is:global>
+            body {
+                font-family: "Arial", "Helvetica", sans-serif;
+                @apply bg-black text-white;
+            }
+        </style>
+    </body>
 </html>
