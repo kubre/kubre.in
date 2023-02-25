@@ -1,6 +1,6 @@
 ---
 import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
+import Nav from "../components/Nav.astro";
 
 export interface Props {
     frontmatter: {
@@ -48,7 +48,7 @@ const { frontmatter } = Astro.props;
         </style>
     </head>
     <body>
-        <Navbar />
+        <Nav />
         <main class="max-w-screen-md mx-auto">
             <h1 class="text-4xl font-semibold my-8">{frontmatter.title}</h1>
             <span class="font-mono text-gray-200"

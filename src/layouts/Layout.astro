@@ -1,5 +1,5 @@
 ---
-import Navbar from '../components/Navbar.astro';
+import Nav from '../components/Nav.astro';
 
 export interface Props {
     title: string;
@@ -18,7 +18,7 @@ const props = Astro.props;
         <title>{props.title}</title>
     </head>
     <body>
-        <Navbar />
+        <Nav />
         <slot />
         <style is:global>
             body {
