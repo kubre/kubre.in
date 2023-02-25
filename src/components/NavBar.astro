@@ -1,14 +1,14 @@
 ---
-import Navlink from "./Navlink.astro";
+import Navitem from "./Navitem.astro";
 ---
 
 <nav
-  class="py-4 flex text-center justify-center px-4 md:px-8 gap-x-2 md:gap-x-8 max-w-screen-xl mx-auto"
+    class="py-4 flex text-center justify-center px-4 md:px-8 gap-x-2 md:gap-x-8 max-w-screen-xl mx-auto"
 >
-  <h3 class="flex items-center text-lg md:text-2xl font-bold mr-auto">
-    <a href="/">Vaibhav Kubre</a>
-  </h3>
-  <Navlink title="🚀  Index" href="/" />
-  <!-- <Navlink title="💼  Resume" href="/resume" /> -->
-  <Navlink title="☕  Blog" href="/blog" />
+    <h3 class="flex items-center text-lg md:text-2xl font-bold mr-auto">
+        <a href="/">Vaibhav Kubre</a>
+    </h3>
+    <Navitem title="🚀  Index" href="/" />
+    <!-- <Navlink title="💼  Resume" href="/resume" /> -->
+    <Navitem title="☕  Blog" href="/blog" />
 </nav>
