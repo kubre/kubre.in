@@ -1,4 +1,5 @@
 ---
+import "@fontsource/source-code-pro";
 import Nav from "../components/Nav.astro";
 
 export interface Props {
@@ -36,6 +37,11 @@ const url = Astro.url;
             content={"https://kubre.in/assets/me.jpg"}
         />
         <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
+        <style is:global>
+            body {
+                @apply font-mono;
+            }
+        </style>
     </head>
     <body>
         <Nav />
