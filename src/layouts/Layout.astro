@@ -16,14 +16,16 @@ const url = Astro.url;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
+        <title>{props.title} - kubre.in</title>
+        <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
 
-        <meta name="title" content={props.title} />
+        <meta name="title" content={props.title + " - kubre.in"} />
         <meta name="description" content={props.description} />
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
-        <meta property="og:title" content={props.title} />
+        <meta property="og:title" content={props.title + " - kubre.in"} />
         <meta property="og:description" content={props.description} />
         <meta property="og:image" content={"https://kubre.in/assets/me.jpg"} />
 
@@ -36,7 +38,6 @@ const url = Astro.url;
             property="twitter:image"
             content={"https://kubre.in/assets/me.jpg"}
         />
-        <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
         <style is:global>
             body {
                 @apply font-mono;

@@ -28,14 +28,15 @@ const url = Astro.url;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
+        <title>{frontmatter.title} - kubre.in</title>
 
-        <meta name="title" content={frontmatter.title} />
+        <meta name="title" content={frontmatter.title + " - kubre.in"} />
         <meta name="description" content={frontmatter.description} />
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
-        <meta property="og:title" content={frontmatter.title} />
+        <meta property="og:title" content={frontmatter.title + " - kubre.in"} />
         <meta property="og:description" content={frontmatter.description} />
         <meta
             property="og:image"
@@ -55,10 +56,9 @@ const url = Astro.url;
             content={"https://kubre.in/assets/" + frontmatter.image}
         />
 
-        <meta name="description" content={frontmatter.description} />
         <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
         <style is:global>
-            body {;
+            body {
                 @apply font-mono text-lg bg-black text-white;
             }
 
@@ -78,7 +78,9 @@ const url = Astro.url;
     <body>
         <Nav />
         <main class="max-w-screen-md mx-auto px-4 md:px-0 pt-16">
-            <h1 class="text-4xl font-bold mb-4 text-gray-100">{frontmatter.title}</h1>
+            <h1 class="text-4xl font-bold mb-4 text-gray-100">
+                {frontmatter.title}
+            </h1>
             <span class="font-mono text-gray-200"
                 >📅 {formatter.format(new Date(frontmatter.publishedAt))}</span
             >
