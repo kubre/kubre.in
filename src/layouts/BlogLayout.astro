@@ -1,5 +1,7 @@
 ---
 import "@fontsource/source-code-pro";
+import "@fontsource/roboto";
+import "@fontsource/roboto-serif";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 
@@ -59,11 +61,13 @@ const url = Astro.url;
         <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
         <style is:global>
             body {
-                @apply font-mono text-lg bg-black text-white text-justify;
+                font-family: "Roboto", sans;
+                @apply bg-black text-white;
+                /* @apply text-lg bg-black text-white; */
             }
 
             h2 {
-                @apply text-3xl font-bold mb-6 mt-12 text-gray-100;
+                @apply text-3xl font-bold mb-6 mt-12 text-gray-100 font-serif;
             }
 
             p {
@@ -73,11 +77,11 @@ const url = Astro.url;
             .astro-code {
                 @apply my-4 rounded border border-gray-900 p-4;
             }
-            
+
             ol {
                 @apply list-decimal list-inside;
             }
-            
+
             ul {
                 @apply list-disc list-inside;
             }
@@ -86,7 +90,7 @@ const url = Astro.url;
     <body>
         <Nav />
         <main class="max-w-screen-md mx-auto px-4 md:px-0 pt-16">
-            <h1 class="text-4xl font-bold mb-4 text-gray-100">
+            <h1 class="text-4xl font-bold font-serif mb-4 text-gray-100">
                 {frontmatter.title}
             </h1>
             <span class="font-mono text-gray-200"
