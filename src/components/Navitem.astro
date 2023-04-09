@@ -1,21 +1,21 @@
 ---
 export interface Props {
-  title: string;
-  href: string;
+    title: string;
+    href: string;
 }
 
 const { href, title } = Astro.props;
 
 const { pathname } = new URL(Astro.request.url);
 const isActive = pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
-const activeClasses = "border-white";
+const activeClasses = "bg-white text-black font-bold";
 ---
 
 <a
-  class={`${
-    isActive && activeClasses
-  } text-sm uppercase px-3 transition flex items-center justify-center border-b border-transparent`}
-  href={href}
+    class={`${
+        isActive && activeClasses
+    } text-sm uppercase px-8 py-4 transition flex items-center justify-center border border-transparent hover:bg-white/90 hover:text-black`}
+    href={href}
 >
-  {title}
+    {title}
 </a>

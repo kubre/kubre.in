@@ -1,17 +1,15 @@
 ---
-import Avatar from "../components/Avatar.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Home" description="My Resume">
-  <main class="grid grid-cols-1 md:grid-cols-2 gap-y-8 pb-8 pt-4 md:pt-8 h-auto md:h-[600px]">
-    <div class="order-2 md:order-1 flex flex-col justify-center">
-      <Avatar />
-    </div>
-    <div class="order-1 md:order-2 w-full max-w-lg px-8">
-      <h2 class="text-xl font-bold my-4 md:mt-0 md:mb-8">
-
-      </h2>
-    </div>
-  </main>
+<Layout title="Resume" description="My Resume">
+    <main class="pt-4 md:pt-8 h-[calc(100vh-15%)]">
+        <embed
+            class="max-w-screen-lg mx-auto w-full h-full"
+            src="/Vaibhav-Kubre-Resume.pdf"
+            width="500"
+            height="375"
+            type="application/pdf"
+        />
+    </main>
 </Layout>
