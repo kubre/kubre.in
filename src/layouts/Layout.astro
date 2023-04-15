@@ -5,6 +5,7 @@ import Nav from "../components/Nav.astro";
 export interface Props {
     title: string;
     description: string;
+    class: string;
 }
 
 const props = Astro.props;
@@ -39,10 +40,10 @@ const url = Astro.url;
             content={"https://kubre.in/assets/me.jpg"}
         />
     </head>
-    <body>
+    <body class={props.class}>
         <Nav />
         <slot />
-        <style is:global>
+        <style>
             body {
                 @apply font-sans bg-black text-white;
                 height: 100vh;

@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import PostCard from "../components/PostCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import PostCard from "../../components/PostCard.astro";
 
-const posts = await Astro.glob("./posts/*.md").then((posts) => {
+const posts = await Astro.glob("./*.md").then((posts) => {
     return posts.sort((a, b) => {
         return (
             new Date(b.frontmatter.publishedAt).valueOf() -
@@ -15,6 +15,7 @@ const posts = await Astro.glob("./posts/*.md").then((posts) => {
 <Layout
     title="Blog"
     description="Vaibhav's articles realted to tech and stuff he likes"
+    class="font-sans"
 >
     <header class="my-12 mx-auto max-w-screen-lg">
         <h2 class="text-3xl">🕐 Recent Posts</h2>
@@ -24,12 +25,12 @@ const posts = await Astro.glob("./posts/*.md").then((posts) => {
     >
         {
             posts.map((post) => {
-                const { title, publishedAt, image } = post.frontmatter;
+                // const { title, publishedAt, image } = post.frontmatter;
                 return (
                     <PostCard
-                        title={title}
-                        publishedAt={publishedAt}
-                        image={image}
+                        title={post.frontmatter.title}
+                        publishedAt={post.frontmatter.publishedAt}
+                        image={post.frontmatter.image}
                         url={post.url || ""}
                     />
                 );
