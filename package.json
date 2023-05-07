@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^3.0.1",
+    "@astrojs/vercel": "^3.3.0",
     "@fontsource/roboto": "^4.5.8",
     "@fontsource/roboto-serif": "^4.5.12",
     "@fontsource/source-code-pro": "^4.5.14",
