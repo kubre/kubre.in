@@ -14,17 +14,22 @@ const formatter = new Intl.DateTimeFormat("en-IN", {
 const { title, image, publishedAt, url } = Astro.props;
 ---
 
-<a href={url}>
-    <div
-        class="p-4 flex flex-col gap-y-3 transition-colors border border-transparent hover:border-zinc-400 rounded h-full"
-    >
-        <img
-            class="invert rounded border borer-gray-500 h-64 w-auto object-contain"
-            src={"/assets/" + image}
-        />
-        <h3 class="text-2xl font-semibold">{title}</h3>
-        <span class="text-gray-300 text-md"
-            >📆 {formatter.format(new Date(publishedAt))}</span
+<div class="flex h-full justify-between">
+    <div class="flex flex-col px-2 py-1 items-start">
+        <p class="text-sm p-0 font-semibold">{title}</p>
+        <span class="pb-4 text-xs"
+            >&#9716; {formatter.format(new Date(publishedAt))}</span
+        >
+        <a
+            href={url}
+            class="border border-white/60 bg-white/50 px-2 text-sm w-28"
+            >Read More &rarr;</a
         >
     </div>
-</a>
+    <a href={url}>
+        <img
+            class="invert border border-black/80 h-48 w-48 max-w-[12rem] object-contain p-1"
+            src={"/assets/" + image}
+        />
+    </a>
+</div>
