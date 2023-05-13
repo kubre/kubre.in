@@ -4,13 +4,18 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Home" description="Vaibhav's Homepage on the internet">
-    <main class="block md:grid pb-8 pt-8 md:pt-18 h-auto">
+    <main class="grid pb-8 pt-8 md:pt-18 h-auto">
         <div class="space-y-2">
-            <button class="border w-20 focus:bg-white focus:text-black peer">
-                &#9658; RUN
+            <button
+                class="border uppercase px-2 focus:bg-white/70 focus:text-black text-sm peer"
+            >
+                &#9658; Execute
             </button>
-            <pre
-                class="py-1 px-2 border border-l-4"><span class="text-gray-400 hidden lg:block">/**
+            <fieldset class="border border-l-4 px-2 py-1">
+                <legend class="px-2 py-0 border ml-auto text-xs">
+                    index.js
+                </legend>
+                <pre><span class="text-gray-400 hidden lg:block">/**
 * Love for Computers, Engineering, and Science.
 */</span><span class="text-gray-400 lg:hidden">/**
 * Love for Computers, Engineering,
@@ -18,15 +23,19 @@ import Layout from "../layouts/Layout.astro";
 */</span>function vaibhav() &lcub;
   console.log(<span class="text-gray-400">"Fullstack Engineer"</span>);
 &rcub;</pre>
-            <div
+            </fieldset>
+            <fieldset
                 class="border px-2 py-1 text-black border-black peer-focus:text-white peer-focus:border-white"
             >
+                <legend class="px-2 py-0 border border-inherit ml-auto text-xs">
+                    bash
+                </legend>
                 <div>$ node index.js</div>
                 <div>Fullstack Engineer</div>
-            </div>
+            </fieldset>
         </div>
         <div class="h-4"></div>
-        <code class="text-sm pb-2 pt-4">Contacts</code>
+        <code class="text-sm pb-2 pt-4 uppercase">Contacts</code>
         <div class="grid grid-cols-4 text-center lg:grid-cols-6 gap-x-2">
             <a
                 target="_blank"
