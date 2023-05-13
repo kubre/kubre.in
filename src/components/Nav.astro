@@ -2,13 +2,12 @@
 import Navitem from "./Navitem.astro";
 ---
 
-<nav
-    class="py-4 flex text-center justify-center px-4 md:px-8 gap-x-2 md:gap-x-8 max-w-screen-xl mx-auto font-sans"
->
-    <h3 class="flex items-center text-lg md:text-2xl font-bold mr-auto">
-        <a href="/">Vaibhav Kubre</a>
-    </h3>
-    <Navitem title="🚀  Index" href="/" />
-    <Navitem title="☕  Blog" href="/blog" />
-    <Navitem title="💼  Resume" href="/resume" />
+<nav class="flex justify-between pb-2 pt-8 border-b border-gray-700">
+    <a href="/" class="uppercase font-extrabold">Vaibhav Kubre</a>
+    <div class="grid lg:grid-cols-4 gap-x-2">
+        <Navitem title="Index" href="/" />
+        <Navitem title="Blog" href="/blog" />
+        <Navitem title="Work" href="/work" />
+        <Navitem title="Resume" href="/resume" />
+    </div>
 </nav>

@@ -3,14 +3,105 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Resume" description="My Resume">
-    <main class="pt-4 md:pt-8 h-[calc(100vh-15%)]">
-        <a href="/Vaibhav-Kubre-Resume.pdf" download="Vaibhav-Kubre-Resume.pdf" class="hidden"></a>
-        <embed
-            class="max-w-screen-lg mx-auto w-full h-full"
-            src="/Vaibhav-Kubre-Resume.pdf"
-            width="596"
-            height="842"
-            type="application/pdf"
-        />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+    <main class="pt-4 md:pt-8 pb-16">
+        <a
+            href="/Vaibhav-Kubre-Resume.pdf"
+            download="Vaibhav-Kubre-Resume.pdf"
+            class="border border-white hover:bg-white hover:text-black ml-auto p-1"
+            >↓ Download PDF Version</a
+        >
+        <div class="h-4"></div>
+        <table class="border-y border-r border-l-4 border-white">
+            <thead class="border-b border-double uppercase">
+                <tr>
+                    <th class="w-1/3">Company</th>
+                    <th>Job</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-dashed">
+                    <td class="p-1 border-r align-text-top" rowspan="2">
+                        TARS Technologies Inc<br /><small>Banglore, India</small
+                        >
+                    </td>
+                    <td class="p-1">
+                        Fullstack Engineer
+                        <small>(DEC 2021 - PRESENT)</small>
+                    </td>
+                </tr>
+                <tr class="border-b">
+                    <td class="px-2 py-1">
+                        <ul
+                            class="list-disc list-inside text-justify space-y-2 text-sm"
+                        >
+                            <li>
+                                Researched and Integrated a live chat system at
+                                TARS with open-source platforms for Web and
+                                WhatsApp platforms, enabling efficient customer
+                                support during peak traffic, like FIFA 2022
+                                event.
+                            </li><li>
+                                Led backend development for LLM integration in
+                                Tars Chatbot builder, Where the entire websites
+                                of 1000's pages can crawl in 30 seconds by using
+                                concurrency.
+                            </li>
+                            <li>
+                                Refactored TARS dashboard and backend into
+                                React, Typescript, Webpack 5, and its plugins.
+                                Reduced webpack build times by 90% by using
+                                caching and moving type checking on a different
+                                thread.
+                            </li>
+                            <li>
+                                Consistently resolved customer issues and
+                                provided customer-specific solutions every week,
+                                working closely with sales and customer success
+                                teams as a solutions engineer.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="border-b border-dashed">
+                    <td class="px-2 border-r align-text-top" rowspan="2">
+                        Freelancing <br /><small>Aurangabad, India</small>
+                    </td>
+                    <td class="px-2">Fullstack Engineer</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="px-2 py-1">
+                        <ul
+                            class="list-disc space-y-2 list-inside text-justify text-sm text-gray-100"
+                        >
+                            <li>
+                                Constructed GateArch's online exam portal for
+                                administering mock exams for architecture
+                                students.
+                            </li>
+                            <li>
+                                Collaborated with Wonder Learning to implement
+                                their learning management system, allowing 20+
+                                schools to transition to online learning during
+                                the pandemic, using Laravel.
+                            </li>
+                            <li>
+                                Developed taxglobe.in for the TaxGlobe community
+                                to share market trends and purchase books.
+                            </li>
+                            <li>
+                                And many more like Swapnapurti Travels ,
+                                TechVision Global , and more. With 100% positive
+                                feedback and at least a year of maintenance.
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 </Layout>
