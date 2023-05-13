@@ -43,12 +43,12 @@ const url = Astro.url;
         <Nav />
         <slot />
         <footer class="pt-1 pb-4 border-t border-gray-700 text-sm text-gray-700">
-            &copy; 2018 - {new Date().getFullYear()}, Vaibhav Kubre. Creative
+            &copy; 2018 - {new Date().getFullYear()}, Vaibhav Kubre.<wbr /> Creative
             Commons Attribution 4.0 International License
         </footer>
         <style>
             body {
-                @apply font-mono bg-black text-white;
+                @apply font-mono bg-black text-white px-2;
                 height: 100vh;
                 z-index: -1;
             }
