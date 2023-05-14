@@ -3,9 +3,9 @@ import Navitem from "./Navitem.astro";
 ---
 
 <nav class="flex flex-col justify-between pb-2 pt-2 lg:pt-8 gap-y-2">
-    <div class="uppercase flex justify-between items-center border-b border-gray-700 pb-1">
+    <div class="uppercase flex items-center justify-between border-b border-gray-700 pb-1">
         <span class="font-black">Vaibhav Kubre</span>
-        <span class="bg-green-700 px-2 py-0 text-xs border border-white/50">&#9095; PROD</span>
+        <a href="/about" class="bg-green-700 font-semibold px-2 py-0 text-xs border border-white/50">&#9095; MAIN</a>
     </div>
     <div class="grid grid-cols-4 gap-x-2 pt-2 lg:pt-0">
         <Navitem title="Home" href="/" />

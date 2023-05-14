@@ -12,7 +12,7 @@ import Layout from "../layouts/Layout.astro";
                 &#9658; run
             </button>
             <fieldset class="border border-l-4 px-2 py-1">
-                <legend class="px-2 py-0 border ml-auto text-xs">
+                <legend class="px-2 py-0 border-x ml-auto text-xs">
                     index.js
                 </legend>
                 <pre><span class="text-gray-400 hidden lg:block">/**
@@ -25,12 +25,12 @@ import Layout from "../layouts/Layout.astro";
 &rcub;</pre>
             </fieldset>
             <fieldset
-                class="border px-2 py-1 text-black border-black peer-focus:text-white peer-focus:border-white"
+                class="border border-l-4 px-2 py-1 opacity-0 peer-focus:opacity-100"
             >
-                <legend class="px-2 py-0 border border-inherit ml-auto text-xs">
+                <legend class="px-2 py-0 border-x ml-auto text-xs">
                     bash
                 </legend>
-                <div>$ node index.js</div>
+                <div><span class="text-gray-500">$</span> node index.js</div>
                 <div>Fullstack Engineer</div>
             </fieldset>
         </div>
