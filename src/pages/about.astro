@@ -45,19 +45,20 @@ import Layout from "../layouts/Layout.astro";
                 transform: translate(0, 240px);
             }
             50% {
-                transform: translate(120px, 340px);
+                transform: translate(120px, 345px);
             }
             75% {
-                transform: translate(275px, 140px);
+                transform: translate(280px, 140px);
             }
             100% {
                 transform: translate(120px, 0);
             }
         }
     </style>
-    <main class="pt-8 pb-16 grid lg:grid-cols-2 gap-x-4 gap-y-2">
-        <strong class="cols-span-2">kubre.in tech stack</strong>
-        <div class="col-span-2 flex gap-4">
+    <main class="py-8 grid lg:grid-cols-2 gap-x-4 gap-y-6">
+        <strong class="col-span-2">Engineering Technology</strong>
+        <p class="col-span-2 text-sm">What kubre.in uses?</p>
+        <div class="col-span-2 flex flex-col lg:flex-row gap-4">
             <table class="border-l-4 h-auto self-start w-full">
                 <thead class="border-t border-dashed text-sm uppercase">
                     <tr>
@@ -94,11 +95,12 @@ import Layout from "../layouts/Layout.astro";
                     </tr>
                 </tbody>
             </table>
-            <div
-                class="h-[370px] aspect-square w-[370px] border-2 font-bold border-white/40 mx-auto"
+            <fieldset
+                class="h-[370px] aspect-square w-[370px] border font-bold mx-auto relative"
             >
-                <div class="px-2 bg-red-700 dvd inline-block">kubre.in</div>
-            </div>
+            <p class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute text-white/40">No Signal</p>
+                <div class="px-2 bg-red-700 border border-white/40 dvd inline-block text-sm">kubre.in</div>
+            </fieldset>
         </div>
     </main>
 </Layout>
