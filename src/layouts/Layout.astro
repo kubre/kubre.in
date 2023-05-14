@@ -1,6 +1,7 @@
 ---
 import "@fontsource/ibm-plex-mono";
 import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 
 export interface Props {
     title: string;
@@ -42,10 +43,7 @@ const url = Astro.url;
     <body class="max-w-screen-md mx-auto">
         <Nav />
         <slot />
-        <footer class="pt-1 pb-4 border-t border-gray-700 text-sm text-gray-700">
-            &copy; 2018 - {new Date().getFullYear()}, Vaibhav Kubre.<wbr /> Creative
-            Commons Attribution 4.0 International License
-        </footer>
+        <Footer /> 
         <style>
             body {
                 @apply font-mono bg-black text-white px-2;

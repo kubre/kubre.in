@@ -1,0 +1,11 @@
+---
+export interface Props {
+    color: string;
+}
+
+const { color } = Astro.props;
+---
+
+<span class={`text-center text-sm px-1 py-0 ${color} border border-black/10`}>
+    <slot />
+</span>
