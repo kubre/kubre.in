@@ -40,13 +40,13 @@ const url = Astro.url;
             content={"https://kubre.in/assets/me.jpg"}
         />
     </head>
-    <body>
+    <body class="px-2 lg:px-0">
         <Nav />
         <slot />
         <Footer /> 
         <style>
             body {
-                @apply font-mono bg-black text-white px-2 max-w-screen-md mx-auto;
+                @apply font-mono bg-black text-white max-w-screen-md mx-auto;
                 height: 100vh;
                 z-index: -1;
             }
