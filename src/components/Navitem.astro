@@ -15,6 +15,6 @@ const isActive = pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
     class="capitalize text-sm px-4 py-0 flex items-center justify-center gap-x-2 border border-transparent hover:bg-white/90 hover:text-black border-white" 
     href={href}
 >
-    {isActive && <span class="text-xs bg-red-500 h-2 w-2 rounded-lg" />}
-    <span>{title} {hasNew && <small class="animate-pulse bg-blue-700 px-1 text-xs">new</small>}</span>
+    {isActive && <div class="text-xs bg-red-500 h-2 w-2 rounded-lg" />}
+    {title}</span>
 </a>
