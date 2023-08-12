@@ -4,6 +4,7 @@ export interface Props {
     image: string;
     publishedAt: Date;
     url: string;
+    readTime: number;
 }
 
 const formatter = new Intl.DateTimeFormat("en-IN", {
@@ -11,24 +12,26 @@ const formatter = new Intl.DateTimeFormat("en-IN", {
     month: "long",
     day: "numeric",
 });
-const { title, image, publishedAt, url } = Astro.props;
+const { title, image, publishedAt, url, readTime } = Astro.props;
 ---
 
-<div class="flex h-full justify-between">
-    <div class="flex flex-col px-2 py-1 items-start">
+<div class="flex justify-between">
+    <div class="flex h-full flex-col px-2 py-1 items-start">
         <p class="text-sm mb-1 font-semibold">{title}</p>
         <span class="pb-4 text-xs"
-            >&#9716; {formatter.format(new Date(publishedAt))}</span
+            >&#9716; {formatter.format(new Date(publishedAt))} | &#9749; {
+                readTime
+            } mins</span
         >
         <a
             href={url}
-            class="border border-white bg-white/90 text-black px-2 text-sm w-28 font-semibold"
+            class="border border-white bg-white/90 text-black px-2 text-sm w-30 font-semibold"
             >Read More &rarr;</a
         >
     </div>
     <a href={url}>
         <img
-            class="invert border border-black/80  h-32 w-32 lg:h-48 lg:w-48 max-w-[12rem] object-contain p-1"
+            class="invert border border-black/80 h-32 w-32 lg:h-48 lg:w-48 max-w-[12rem] object-contain p-1"
             src={"/assets/" + image}
         />
     </a>

@@ -39,14 +39,32 @@ const url = Astro.url;
             property="twitter:image"
             content={"https://kubre.in/assets/me.jpg"}
         />
+        <style is:global>
+            ::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+                border-radius: 10px;
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+
+            ::-webkit-scrollbar {
+                width: 4px;
+                @apply bg-gray-500;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+                @apply bg-gray-300;
+            }
+        </style>
     </head>
-    <body class="px-2 lg:px-0">
+    <body class="px-4 lg:px-0 max-w-screen-md mx-auto">
         <Nav />
         <slot />
-        <Footer /> 
+        <Footer />
         <style>
             body {
-                @apply font-mono bg-black text-white max-w-screen-md mx-auto;
+                @apply font-mono bg-black text-white;
                 height: 100vh;
                 z-index: -1;
             }

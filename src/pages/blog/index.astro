@@ -3,12 +3,19 @@ import Layout from "../../layouts/Layout.astro";
 import PostCard from "../../components/PostCard.astro";
 
 const posts = await Astro.glob("./*.md").then((posts) => {
-    return posts.sort((a, b) => {
-        return (
-            new Date(b.frontmatter.publishedAt).valueOf() -
-            new Date(a.frontmatter.publishedAt).valueOf()
-        );
-    });
+    return posts
+        .sort((a, b) => {
+            return (
+                new Date(b.frontmatter.publishedAt).valueOf() -
+                new Date(a.frontmatter.publishedAt).valueOf()
+            );
+        })
+        .map((post) => {
+            return {
+                ...post,
+                readTime: Math.ceil(post.rawContent().split(" ").length / 200),
+            };
+        });
 });
 ---
 
@@ -16,21 +23,24 @@ const posts = await Astro.glob("./*.md").then((posts) => {
     title="Blog"
     description="Vaibhav's articles realted to tech and stuff he likes"
 >
-    <p class="uppercase pt-8 pb-2 text-sm font-bold border-b border-dashed border-white/60">&#9716; Recent Posts</p>
-    <main class="pb-8 grid gap-y-4">
-        </>
-        {
-            posts.map((post) => {
-                // const { title, publishedAt, image } = post.frontmatter;
-                return (
-                    <PostCard
-                        title={post.frontmatter.title}
-                        publishedAt={post.frontmatter.publishedAt}
-                        image={post.frontmatter.image}
-                        url={post.url || ""}
-                    />
-                );
-            })
-        }
-    </main>
+    <p
+        class="uppercase pt-8 pb-4 text-sm font-bold border-b border-dashed border-white/60"
+    >
+        &#9716; Recent Posts
+    </p>
+    <main class="py-8 grid gap-y-4"></main>
+    {
+        posts.map((post) => {
+            // const { title, publishedAt, image } = post.frontmatter;
+            return (
+                <PostCard
+                    title={post.frontmatter.title}
+                    publishedAt={post.frontmatter.publishedAt}
+                    image={post.frontmatter.image}
+                    url={post.url || ""}
+                    readTime={post.readTime}
+                />
+            );
+        })
+    }
 </Layout>

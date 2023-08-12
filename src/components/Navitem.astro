@@ -5,16 +5,20 @@ export interface Props {
     hasNew?: boolean;
 }
 
-const { href, title, hasNew = false } = Astro.props;
+const { href, title } = Astro.props;
 
 const { pathname } = new URL(Astro.request.url);
 const isActive = pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
 ---
 
 <a
-    class="capitalize text-sm px-4 py-0 flex items-center justify-center gap-x-2 border border-transparent hover:bg-white/90 hover:text-black border-white" 
+    class="capitalize text-sm px-4 py-0 flex items-center justify-center gap-x-2 border border-transparent hover:bg-white/90 hover:text-black border-white"
     href={href}
 >
-    {isActive && <div class="text-xs bg-red-500 h-2 w-2 rounded-lg" />}
-    {title}</span>
-</a>
+    {
+        isActive && (
+            <div class="text-xs bg-red-500 h-2 w-2 flex-none rounded-lg" />
+        )
+    }
+    {title}</a
+>

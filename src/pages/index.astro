@@ -9,7 +9,7 @@ import Layout from "../layouts/Layout.astro";
             <button
                 class="border uppercase px-2 focus:bg-white/70 focus:text-black text-sm peer"
             >
-                &#9658; run
+                &#9658; EXECUTE
             </button>
             <fieldset class="border border-l-4 px-2 py-1">
                 <legend class="px-2 py-0 border-x ml-auto text-xs">
@@ -36,26 +36,33 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <div class="h-4"></div>
         <code class="text-xs pb-2 pt-4 uppercase font-semibold">Contacts</code>
-        <div class="grid grid-cols-3 text-sm text-center lg:grid-cols-6 gap-x-2">
+        <div
+            class="grid grid-cols-4 text-xs text-center lg:grid-cols-6 lg:text-sm gap-x-2"
+        >
             <a
                 target="_blank"
                 class="bg-blue-700 hover:bg-blue-700/90 px-1 border border-white/40"
-                href="mailto:v@kubre.in?subject=Hello"
-            >&#x2197; v@kubre.in</a>
+                href="mailto:v@kubre.in?subject=Hello">Email</a
+            >
             <a
                 target="_blank"
                 class="bg-blue-700 hover:bg-blue-700/90 px-2 border border-white/40"
-                href="https://linkedin.com/in/kubre"
-            >&#x2197; LinkedIn</a>
+                href="https://linkedin.com/in/kubre">LinkedIn</a
+            >
             <a
                 target="_blank"
                 class="bg-blue-700 hover:bg-blue-700/90 px-2 border border-white/40"
-                href="https://github.com/kubre"
-            >&#x2197; GitHub</a>
+                href="https://github.com/kubre">GitHub</a
+            >
+            <a
+                target="_blank"
+                class="bg-blue-700 hover:bg-blue-700/90 px-2 border border-white/40"
+                href="https://x.com/kubre_in">&#120143;</a
+            >
         </div>
     </main>
     <script>
-        console.warn("What are you looking for? This is HTML Site");
+        console.info("What are you looking for? This is HTML Site.");
         console.log(`⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⢻⡻⠿⣿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣟⣫⡾⠛⠛⠛⠛⠛⠛⠿⣾⣽⡻⣿⣿⣿⣿⣿
