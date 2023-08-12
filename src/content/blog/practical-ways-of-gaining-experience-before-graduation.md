@@ -1,9 +1,7 @@
 ---
-layout: ../../layouts/BlogLayout.astro
 title: Level up years of experience before graduating
 description: Ways to gain experience even before you graduate from college as computer science student.
-image: practical-ways-of-gaining-experience-before-graduation.png
-slug: practical-ways-of-gaining-experience-before-graduation
+image: ../../assets/practical-ways-of-gaining-experience-before-graduation.png
 publishedAt: 2023-02-26
 tags: ["computer science", "skills", "ideas", "internships"]
 ---

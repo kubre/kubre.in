@@ -1,9 +1,7 @@
 ---
-layout: ../../layouts/BlogLayout.astro
-title: 'Learn JavaScript and use Typescript'
+title: "Learn JavaScript and use Typescript"
 description: "How to start using typescript in your projects without getting overwhelmed by all of the features it has to offer."
-image: "learn-javascript-and-use-typescript.jpg"
-slug: "learn-javascript-and-use-typescript"
+image: ../../assets/learn-javascript-and-use-typescript.jpg
 publishedAt: 2022-07-03
 tags: ["javascript", "typescript", "learn typescript"]
 ---

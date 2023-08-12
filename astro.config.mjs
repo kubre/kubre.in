@@ -7,10 +7,14 @@ import vercel from "@astrojs/vercel/serverless";
 // https://astro.build/config
 export default defineConfig({
     integrations: [tailwind()],
-    output: "server",
+    output: "hybrid",
     adapter: vercel({
         analytics: true,
+        imageService: true,
     }),
+    experimental: {
+        assets: true,
+    },
     markdown: {
         shikiConfig: {
             // Choose from Shiki's built-in themes (or add your own)
@@ -19,7 +23,7 @@ export default defineConfig({
             // Add custom languages
             // Note: Shiki has countless langs built-in, including .astro!
             // https://github.com/shikijs/shiki/blob/main/docs/languages.md
-            langs: ['typescript', 'javascript', 'bash', 'php'],
+            langs: ["typescript", "javascript", "bash", "php"],
             // Enable word wrap to prevent horizontal scrolling
             wrap: true,
         },

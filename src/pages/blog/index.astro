@@ -1,19 +1,23 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PostCard from "../../components/PostCard.astro";
+import { getCollection } from "astro:content";
 
-const posts = await Astro.glob("./*.md").then((posts) => {
+const posts = await getCollection("blog").then((posts) => {
     return posts
         .sort((a, b) => {
             return (
-                new Date(b.frontmatter.publishedAt).valueOf() -
-                new Date(a.frontmatter.publishedAt).valueOf()
+                new Date(b.data.publishedAt).valueOf() -
+                new Date(a.data.publishedAt).valueOf()
             );
         })
         .map((post) => {
             return {
                 ...post,
-                readTime: Math.ceil(post.rawContent().split(" ").length / 200),
+                data: {
+                    ...post.data,
+                    readTime: Math.ceil(post.body.split(" ").length / 200),
+                },
             };
         });
 });
@@ -26,21 +30,9 @@ const posts = await Astro.glob("./*.md").then((posts) => {
     <p
         class="uppercase pt-8 pb-4 text-sm font-bold border-b border-dashed border-white/60"
     >
-        &#9716; Recent Posts
+        &#9716; Blog Posts
     </p>
-    <main class="py-8 grid gap-y-4"></main>
-    {
-        posts.map((post) => {
-            // const { title, publishedAt, image } = post.frontmatter;
-            return (
-                <PostCard
-                    title={post.frontmatter.title}
-                    publishedAt={post.frontmatter.publishedAt}
-                    image={post.frontmatter.image}
-                    url={post.url || ""}
-                    readTime={post.readTime}
-                />
-            );
-        })
-    }
+    <main class="py-8 grid gap-y-8">
+        {posts.map((post) => <PostCard post={post} />)}
+    </main>
 </Layout>
