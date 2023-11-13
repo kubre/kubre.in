@@ -101,6 +101,11 @@ const url = Astro.url;
                 @apply ml-4;
             }
 
+            .spaced-list > ul,
+            .spaced-list > ol {
+                @apply space-y-4 mb-8;
+            }
+
             .content blockquote {
                 @apply border-l-4 border-white/50 px-2 py-1 my-4;
             }
@@ -182,8 +187,7 @@ const url = Astro.url;
                 data-lang="en"
                 data-loading="lazy"
                 crossorigin="anonymous"
-                async
-            ></script>
+                async></script>
         </section>
     </body>
     <Footer />
