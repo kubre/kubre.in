@@ -9,7 +9,7 @@ tags:
     ["vaibhav kubre's work", "taxglobe", "taxglobe website", "design document"]
 ---
 
-**GitHub: https://github.com/kubre/TaxGlobe**
+<a class="underline" href="https://github.com/kubre/TaxGlobe" target="_blank" rel="noopener noreferrer">Github Source Code</a>
 
 <aside class="note">
 💡 This is not a full-blown Technical Document, but rather in my own words a small overview of what went behind in making TaxGlobe's website. If you have a question or want to know more, reach out to me at v@kubre.in as always.
