@@ -6,12 +6,7 @@ hideHeaderImage: true
 slug: "wonder-learning"
 publishedAt: 2023-05-17
 tags:
-    [
-        "vaibhav kubre's work",
-        "wonder learning",
-        "wonder learning website",
-        "design document",
-    ]
+    [ "vaibhav kubre's work", "wonder learning", "wonder learning website", "design document", ]
 ---
 
 <a class="underline" href="https://github.com/kubre/WonderLearning" target="_blank" rel="noopener noreferrer">Github Source Code</a>
