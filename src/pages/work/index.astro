@@ -1,41 +1,41 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import WorkCard from "../../components/WorkCard.astro";
+
+const docs = await getCollection("work").then((docs) => {
+    return docs
+        .sort((a, b) => {
+            return (
+                new Date(b.data.publishedAt).valueOf() -
+                new Date(a.data.publishedAt).valueOf()
+            );
+        })
+        .map((doc) => {
+            return {
+                ...doc,
+                data: {
+                    ...doc.data,
+                    readTime: Math.ceil(doc.body.split(" ").length / 200),
+                },
+            };
+        });
+});
 ---
 
-<Layout title="Work" description="My Personal work or documents related to it.">
+<Layout
+    title="Work"
+    description="My Personal work and documents related to it."
+>
     <main class="pt-8 pb-4 grid gap-y-4">
-        <fieldset class="border border-dashed px-2 py-1">
+        <fieldset class="border border-dashed px-2 py-1 my-4">
             <legend class="ml-auto text-xs border-x border-dashed px-2"
-                >Note</legend
-            >
+                >Note
+            </legend>
             I worked on several projects and here are details for few of them, although
             called as Design Documents they do not follow any formal structure just
             my thoughts on how projects were finished.
         </fieldset>
-        <ul class="list-disc list-inside space-y-1 text-sm">
-            <li>
-                <a
-                    class="text-blue-700 visited:text-purple-700 underline font-semibold"
-                    href="/work/taxglobe">TaxGlobe</a
-                >
-            </li>
-            <li>
-                <a
-                    class="text-blue-700 visited:text-purple-700 underline font-semibold"
-                    href="/work/gatearch">GateArch</a
-                >
-            </li>
-            <li>
-                <a
-                    class="text-blue-700 visited:text-purple-700 underline font-semibold"
-                    href="/work/wonder-learning">Wonder Learning</a
-                >
-            </li>
-            <li class="text-white/80">Working on adding more...</li>
-        </ul>
-        <p class="text-sm text-white/80">
-            As of now pages are in Notion, But I'm working on designing
-            beautiful pages themed same as this website.
-        </p>
+        {docs.map((doc) => <WorkCard post={doc} />)}
     </main>
 </Layout>
