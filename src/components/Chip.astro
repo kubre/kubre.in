@@ -1,11 +1,11 @@
 ---
 export interface Props {
-    color: string;
+    color?: string;
 }
 
-const { color } = Astro.props;
+const { color = "bg-white/10 hover:bg-white/30" } = Astro.props;
 ---
 
-<span class={`text-center text-sm px-1 py-0 ${color} border border-black/10`}>
+<span class={`text-center text-sm px-1 py-0 ${color} border border-white/90`}>
     <slot />
 </span>
