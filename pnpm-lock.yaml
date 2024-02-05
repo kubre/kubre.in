@@ -5,6 +5,7 @@ specifiers:
   '@astrojs/vercel': ^3.8.1
   '@fontsource/ibm-plex-mono': ^5.0.8
   '@vercel/analytics': ^1.0.2
+  '@vercel/speed-insights': ^1.0.9
   astro: ^2.10.7
   tailwindcss: ^3.3.3
 
@@ -13,6 +14,7 @@ dependencies:
   '@astrojs/vercel': 3.8.1_astro@2.10.7
   '@fontsource/ibm-plex-mono': 5.0.8
   '@vercel/analytics': 1.0.2
+  '@vercel/speed-insights': 1.0.9
   astro: 2.10.7
   tailwindcss: 3.3.3
 
@@ -995,6 +997,31 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /@vercel/speed-insights/1.0.9:
+    resolution: {integrity: sha512-f+XFP0O+aZ4Olj9h+BitkB1b4NJQaxtyCb69wWuDxytJHY6Pa4QtZPdBUftHOcajUCHRVeq062fk3MKXKtjNVQ==}
+    requiresBuild: true
+    peerDependencies:
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19
+      svelte: ^4
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
     dev: false
 
   /@vscode/emmet-helper/2.9.2:
