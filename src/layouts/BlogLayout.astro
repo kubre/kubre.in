@@ -1,7 +1,7 @@
 ---
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-
+import SpeedInsights from '@vercel/speed-insights/astro';
 export interface Props {
     frontmatter: {
         title: string;
@@ -69,7 +69,7 @@ const url = Astro.url;
             .content p {
                 @apply mb-4 leading-relaxed;
             }
-            
+
             .content a {
                 @apply text-blue-400 hover:text-blue-300 underline visited:text-purple-500;
             }
@@ -193,6 +193,7 @@ const url = Astro.url;
                 crossorigin="anonymous"
                 async></script>
         </section>
+        <Footer />
+        <SpeedInsights />
     </body>
-    <Footer />
 </html>
