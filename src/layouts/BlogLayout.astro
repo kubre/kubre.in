@@ -1,7 +1,7 @@
 ---
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-import SpeedInsights from '@vercel/speed-insights/astro';
+import SpeedInsights from "@vercel/speed-insights/astro";
 export interface Props {
     frontmatter: {
         title: string;
@@ -66,6 +66,10 @@ const url = Astro.url;
                 @apply text-xl uppercase font-bold mb-6 mt-12 text-gray-100;
             }
 
+            .content h3 {
+                @apply text-base uppercase font-bold mb-3 mt-6 text-gray-100;
+            }
+
             .content p {
                 @apply mb-4 leading-relaxed;
             }
@@ -79,11 +83,11 @@ const url = Astro.url;
             }
 
             .content ol {
-                @apply list-decimal list-inside space-y-2 mb-4;
+                @apply list-decimal list-outside space-y-2 mb-4 ml-8;
             }
 
             .content ul {
-                @apply list-disc list-inside space-y-2 mb-4;
+                @apply list-disc list-outside space-y-2 mb-4 ml-8;
             }
 
             .content li p {
@@ -102,7 +106,17 @@ const url = Astro.url;
             .content ol ol,
             .content ul ul,
             .content ol ul {
-                @apply ml-4;
+                @apply ml-8;
+            }
+
+            .content ul ol,
+            ol ol {
+                list-style: lower-alpha;
+            }
+
+            .content ul ul,
+            ol ul {
+                list-style: square;
             }
 
             .spaced-list > ul,
@@ -132,7 +146,7 @@ const url = Astro.url;
             }
 
             .content table {
-                @apply w-full border border-collapse mb-8;
+                @apply w-full border-l-4 border border-collapse mb-8;
             }
 
             .content table th {
