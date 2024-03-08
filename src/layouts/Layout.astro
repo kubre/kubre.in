@@ -58,6 +58,12 @@ const url = Astro.url;
                 @apply bg-gray-300;
             }
         </style>
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Vaibhav Kubre's Blog"
+            href={`${Astro.site}rss.xml`}
+        />
     </head>
     <body class="px-4 lg:px-0 max-w-screen-md mx-auto">
         <Nav />
