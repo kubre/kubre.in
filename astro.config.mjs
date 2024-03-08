@@ -8,6 +8,7 @@ import vercel from "@astrojs/vercel/serverless";
 export default defineConfig({
     integrations: [tailwind()],
     output: "hybrid",
+    site: "https://www.kubre.in",
     adapter: vercel({
         analytics: true,
         imageService: true,
