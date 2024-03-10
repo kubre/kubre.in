@@ -2,7 +2,7 @@
 import "@fontsource/ibm-plex-mono";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-import SpeedInsights from '@vercel/speed-insights/astro';
+import SpeedInsights from "@vercel/speed-insights/astro";
 export interface Props {
     frontmatter: {
         title: string;
@@ -61,6 +61,12 @@ const url = Astro.url;
         <style is:global>
             body {
                 @apply font-mono bg-black text-white;
+            }
+
+            ::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
+                border-radius: 10px;
+                background-color: rgba(0, 0, 0, 0.3);
             }
 
             ::-webkit-scrollbar {
