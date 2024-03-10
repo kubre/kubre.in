@@ -1,7 +1,7 @@
 ---
 title: "Depot Gato (Game Design Document)"
 description: "Game Design Document for depot gato project"
-image: ../../assets/gatearch-front-page.png
+image: ../../assets/depot-gato.png
 hideHeaderImage: true
 slug: "depot-gato"
 publishedAt: 2024-02-05
