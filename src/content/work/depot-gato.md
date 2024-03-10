@@ -62,12 +62,52 @@ It does not have to be anything deep. All these gatos are very silly and it's ju
 
 ### Game Mechanics
 
-| Mechanic                                                                                                                                                                                                                                         | Example                               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
-| **Cannon** <br/> Cannon that point towards user's mouse,<br/> when clicked shoots and has a cool-down time.                                                                                                                                      | ![Cannon GIF](/images/cannon.gif)     |
-| **Spawn Lanes** <br/> Balloons only spawn set positions called lanes, in the beginning only 1 lanes is open but as levels progress more lanes are opened up-to 4                                                                                 | ![Spawn Lanes GIF](/images/lanes.gif) |
-| **Enemy** <br/> Balloons as enemy move up with set speed. Their speed is represented by colors.                                                                                                                                                  | ![Enemy GIF](/images/enemy.gif)       |
-| **Lives** <br/> Rather than having fix lives, every lane has a live represented by _spike_, which means if player loses spike on that lane they will lose game if balloon escapes same lane but not if it escapes in another lane that has spike | ![Lives GIF](/images/lives.gif)       |
+<table>
+  <thead class="text-center">
+    <tr>
+      <th>Example</th>
+      <th>Mechanic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="w-[140px]"><img class="w-32 h-32 rounded" src="/images/cannon.gif" alt="Cannon GIF"></td>
+      <td class="not-prose">
+        <p><strong>Cannon</strong><br>
+          Cannon that points towards the user's mouse,<br>
+          when clicked, shoots and has a cool-down time.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><img  class="w-32 h-32 rounded" src="/images/lanes.gif" alt="Spawn Lanes GIF"></td>
+      <td class="not-prose">
+        <p><strong>Spawn Lanes</strong><br>
+          Balloons only spawn at set positions called lanes;<br>
+          in the beginning, only 1 lane is open, but as levels progress, more lanes are opened up to 4.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><img  class="w-32 h-32 rounded" src="/images/enemy.gif" alt="Enemy GIF"></td>
+      <td class="not-prose">
+        <p><strong>Enemy</strong><br>
+          Balloons, as enemies, move up with set speed.<br>
+          Their speed is represented by colors.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><img class="w-32 h-32 rounded" src="/images/lives.gif" alt="Lives GIF"></td>
+      <td class="not-prose">
+        <p><strong>Lives</strong><br>
+          Rather than having fixed lives, every lane has a live represented by a <em>spike</em>, which means if the player loses a spike on that lane, they will lose the game if the balloon escapes the same lane, but not if it escapes in another lane that has a spike.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## Art
 

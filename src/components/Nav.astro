@@ -4,7 +4,7 @@ import Navitem from "./Navitem.astro";
 
 <nav class="flex flex-col justify-between pb-2 pt-2 lg:pt-8 gap-y-2">
     <div
-        class="uppercase flex items-center justify-between border-b border-gray-700 pb-1"
+        class="uppercase flex items-center justify-between border-b border-gray-700 py-2"
     >
         <span class="font-black">Vaibhav Kubre</span>
         <a
@@ -13,7 +13,7 @@ import Navitem from "./Navitem.astro";
             >&#9095; MAIN</a
         >
     </div>
-    <div class="grid grid-cols-4 gap-x-2 pt-2 lg:pt-0">
+    <div class="grid grid-cols-4 gap-x-2 pt-2">
         <Navitem title="Home" href="/" />
         <Navitem title="Blog" href="/blog" />
         <Navitem title="Work" href="/work" hasNew={true} />
