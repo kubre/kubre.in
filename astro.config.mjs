@@ -10,6 +10,9 @@ export default defineConfig({
     output: "hybrid",
     site: "https://www.kubre.in",
     adapter: vercel({
+        webAnalytics: {
+            enabled: true,
+        },
         analytics: true,
         imageService: true,
     }),
