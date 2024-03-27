@@ -12,14 +12,11 @@ dependencies:
     specifier: ^5.1.0
     version: 5.1.0(astro@4.4.15)(tailwindcss@3.4.1)
   '@astrojs/vercel':
-    specifier: ^7.3.5
-    version: 7.3.5(astro@4.4.15)
+    specifier: ^7.4.0
+    version: 7.4.0(astro@4.4.15)
   '@fontsource/ibm-plex-mono':
     specifier: ^5.0.12
     version: 5.0.12
-  '@vercel/analytics':
-    specifier: ^1.2.2
-    version: 1.2.2
   '@vercel/speed-insights':
     specifier: ^1.0.10
     version: 1.0.10
@@ -61,6 +58,10 @@ packages:
 
   /@astrojs/internal-helpers@0.2.1:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
+    dev: false
+
+  /@astrojs/internal-helpers@0.3.0:
+    resolution: {integrity: sha512-tGmHvrhpzuz0JBHaJX8GywN9g4rldVNHtkoVDC3m/DdzBO70jGoVuc0uuNVglRYnsdwkbG0K02Iw3nOOR3/Y4g==}
     dev: false
 
   /@astrojs/markdown-remark@4.2.1:
@@ -128,13 +129,14 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/vercel@7.3.5(astro@4.4.15):
-    resolution: {integrity: sha512-fWfWu1jHDKJnNp2qJfX+EjDtM7uV6od+D2UHvIwfGu12YFmqggwmuukntvB/X+b/E/AVBA8geftHobpoBJEY0g==}
+  /@astrojs/vercel@7.4.0(astro@4.4.15):
+    resolution: {integrity: sha512-KMCDCOV+UwsJnDX4Q/FE18S0+XwOlu3e6UA/Jr/v2vh0v24aDpkbA0L9DmV4c1ETHLY/vxfjey40gk30iSXNKw==}
     peerDependencies:
       astro: ^4.2.0
     dependencies:
-      '@astrojs/internal-helpers': 0.2.1
+      '@astrojs/internal-helpers': 0.3.0
       '@vercel/analytics': 1.2.2
+      '@vercel/edge': 1.1.1
       '@vercel/nft': 0.26.4
       astro: 4.4.15
       esbuild: 0.19.12
@@ -879,6 +881,10 @@ packages:
       server-only: 0.0.1
     dev: false
 
+  /@vercel/edge@1.1.1:
+    resolution: {integrity: sha512-NtKiIbn9Cq6HWGy+qRudz28mz5nxfOJWls5Pnckjw1yCfSX8rhXdvY/il3Sy3Zd5n/sKCM2h7VSCCpJF/oaDrQ==}
+    dev: false
+
   /@vercel/nft@0.26.4:
     resolution: {integrity: sha512-j4jCOOXke2t8cHZCIxu1dzKLHLcFmYzC3yqAK6MfZznOL1QIJKd0xcFsXK3zcqzU7ScsE2zWkiMMNHGMHgp+FA==}
     engines: {node: '>=16'}
@@ -1157,8 +1163,8 @@ packages:
     dev: false
     optional: true
 
-  /bare-fs@2.2.1:
-    resolution: {integrity: sha512-+CjmZANQDFZWy4PGbVdmALIwmt33aJg8qTkVjClU6X4WmZkTPBDxRHiBn7fpqEWEfF3AC2io++erpViAIQbSjg==}
+  /bare-fs@2.2.2:
+    resolution: {integrity: sha512-X9IqgvyB0/VA5OZJyb5ZstoN62AzD7YxVGog13kkfYWYqJYcK0kcqLZ6TrmH5qr4/8//ejVcX4x/a0UvaogXmA==}
     requiresBuild: true
     dependencies:
       bare-events: 2.2.1
@@ -3762,7 +3768,7 @@ packages:
       pump: 3.0.0
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 2.2.1
+      bare-fs: 2.2.2
       bare-path: 2.1.0
     dev: false
     optional: true
