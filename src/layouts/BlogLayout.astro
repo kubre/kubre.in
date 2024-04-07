@@ -1,5 +1,4 @@
 ---
-import "@fontsource/ibm-plex-mono";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -59,6 +58,14 @@ const url = Astro.url;
 
         <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
         <style is:global>
+            @font-face {
+                font-family: "Monaspace Neon";
+                src: url("/fonts/MonaspaceNeon-Regular.woff") format('woff');
+                font-weight: normal;
+                font-style: normal;
+                font-display: swap;
+            }
+
             body {
                 @apply font-mono bg-black text-white;
             }

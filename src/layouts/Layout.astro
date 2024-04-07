@@ -41,6 +41,14 @@ const url = Astro.url;
             content={"https://kubre.in/assets/me.jpg"}
         />
         <style is:global>
+            @font-face {
+                font-family: "Monaspace Neon";
+                src: url("/fonts/MonaspaceNeon-Regular.woff") format('woff');
+                font-weight: normal;
+                font-style: normal;
+                font-display: swap;
+            }
+
             ::-webkit-scrollbar-track {
                 -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.6);
                 border-radius: 10px;

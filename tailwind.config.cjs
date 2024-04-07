@@ -4,11 +4,11 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                mono: ["IBM\\ Plex\\ Mono", "Source\\ Code\\ Pro", "Consolas", "Menlo", "monospace"],
+                mono: ["Monaspace\ Neon", "IBM\ Plex\\ Mono", "Source\\ Code\\ Pro", "Consolas", "Menlo", "monospace"],
             },
         },
     },
     plugins: [
-        require('@tailwindcss/typography'),
+        require("@tailwindcss/typography"),
     ],
 };
