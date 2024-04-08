@@ -27,12 +27,7 @@ const posts = await getCollection("blog").then((posts) => {
     title="Blog"
     description="Vaibhav's articles realted to tech and stuff he likes"
 >
-    <p
-        class="uppercase pt-8 pb-4 text-sm font-bold border-b border-dashed border-white/60"
-    >
-        &#9716; Blog Posts
-    </p>
-    <main class="py-8 grid gap-y-8">
+    <main class="py-12 grid gap-y-8">
         {posts.map((post) => <PostCard post={post} />)}
     </main>
 </Layout>

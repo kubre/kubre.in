@@ -15,20 +15,20 @@ const post = Astro.props.post;
 
 <div class="flex justify-between">
     <div class="flex h-full flex-col px-2 py-1 items-start">
-        <p class="text-sm mb-1 font-semibold">{post.data.title}</p>
+        <p class="text-sm mb-1">{post.data.title}</p>
         <span class="pb-4 text-xs"
             >&#9716; {formatter.format(new Date(post.data.publishedAt))} | &#9749;
             {post.data.readTime} mins</span
         >
         <a
             href={"/blog/" + post.slug}
-            class="border border-white bg-white/90 text-black px-2 text-sm w-30 font-semibold"
+            class="border border-white bg-white/90 text-black px-2 pt-[2px] text-sm w-30 rounded"
             >Read More &rarr;</a
         >
     </div>
     <a href={"/blog/" + post.slug}>
         <img
-            class="invert border border-black/80 h-32 w-32 lg:h-32 lg:w-32 max-w-[12rem] object-contain p-1"
+            class="invert h-32 w-32 lg:h-32 lg:w-32 max-w-[12rem] object-contain p-1"
             src={post.data.image.src}
         />
     </a>
