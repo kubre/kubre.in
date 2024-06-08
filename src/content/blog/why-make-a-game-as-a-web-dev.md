@@ -6,7 +6,7 @@ publishedAt: 2024-02-06
 tags: [softwareengineering, story, videogame, steppingoutofcomfortzone]
 ---
 
-When I was kid we had a Samsung CRT TV. Nothing special about but it had few embedded games. One of it was a game where you shoot from left side of the screen and balloons appear on right side. The moment you miss it's game over. It was bare bones had nothing other than moving ellipses as balloons and no levels or any fancy stuff. But I loved that interactive experience so much, This was the first game I experienced. This got me introduced to video games. After that I played many games and since school I always wanted to make one myself. This was the initial reason even why I decided even to study Computer Science in the first place.
+When I was kid we had a <a title="Found the TV model but did not found the game" target="_blank" href="https://manualzz.com/doc/4257542/samsung-cb-21n30mj-user-manual">Samsung CRT TV</a>. Nothing special about but it had few embedded games. One of it was a game where you shoot from left side of the screen and balloons appear on right side. The moment you miss it's game over. It was bare bones had nothing other than moving ellipses as balloons and no levels or any fancy stuff. But I loved that interactive experience so much, This was the first game I experienced. This got me introduced to video games. After that I played many games and since school I always wanted to make one myself. This was the initial reason even why I decided even to study Computer Science in the first place.
 
 ## Experience
 

@@ -22,7 +22,7 @@ Depot Gato is simple 2D tower defense style game where you shoot balloons down w
 
 ### Inspirations
 
--   **Balloon Popping From Samsung CRT TV:** Random balloon popping game from Samsung CRT TV. It was really bare bone had nothing other than moving circles and popping them. But the _core concept_ is extremely simple and easy to make.
+-   **Balloon Popping From <a title="Found the TV model but did not found the game" target="_blank" href="https://manualzz.com/doc/4257542/samsung-cb-21n30mj-user-manual">Samsung CRT TV</a>:** Random balloon popping game from Samsung CRT TV. It was really bare bone had nothing other than moving circles and popping them. But the _core concept_ is extremely simple and easy to make.
 
 -   **Plant vs Zombies:** It's tower defense game but giving the tower a **personality** is what brings the charm into the mechanics. Also the **Spawning Lanes** and **Lawn mowers as lives** are interesting mechanics.
 
