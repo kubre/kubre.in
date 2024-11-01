@@ -18,39 +18,52 @@ import Layout from "../layouts/Layout.astro";
          */
         const canvas = document.getElementById("canvas") as HTMLCanvasElement;
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        const docWidth = document.body.clientWidth;
-        const pixelSize = 5;
+        const pixelSize = 10;
+        const pixelArt = []; // To store each drawing as an array of {x, y, color}
 
-        function drawPixel(x: number, y: number) {
-            // ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        // Adjust canvas size and fill background
+        canvas.width = document.body.clientWidth;
+        canvas.height = 500; // Customize height
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        function drawPixel(x, y, color = "#FFFFFF") {
+            ctx.fillStyle = color;
+            ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
         }
 
-        canvas.width = docWidth;
-        ctx.fillStyle = "white";
-        ctx.strokeStyle = "white";
-        const rect = canvas.getBoundingClientRect();
+        // Save and serialize pixel
+        function savePixel(x, y) {
+            pixelArt.push({ x, y, color: ctx.fillStyle });
+        }
+
+        // Mouse events to place pixels
         canvas.addEventListener("mousedown", function (e) {
-            if (e.buttons === 1) {
-                let start_pos_x = e.clientX - rect.left;
-                let start_pos_y = e.clientY - rect.top;
-                ctx.moveTo(start_pos_x, start_pos_y);
-                console.log(start_pos_x, start_pos_y);
-                // drawPixel((e.clientX - rect.left) / pixelSize,
-                //       (e.clientY - rect.top) / pixelSize);
-            }
+            const x = Math.floor((e.clientX - canvas.offsetLeft) / pixelSize);
+            const y = Math.floor((e.clientY - canvas.offsetTop) / pixelSize);
+            drawPixel(x, y);
+            savePixel(x, y);
         });
 
-        canvas.addEventListener("mouseup", function (e) {
-            console.log("IM MOUSEUP");
-            let end_pos_x = e.clientX - rect.left;
-            let end_pos_y = e.clientY - rect.top;
-            console.log(end_pos_x, end_pos_y);
+        // Serialize and save in a KV store
+        function serializeArt() {
+            const serializedData = JSON.stringify(pixelArt);
+            localStorage.setItem("pixelArt", serializedData); // Replace with KV store method if needed
+            console.log("Saved art:", serializedData);
+        }
 
-            ctx.lineTo(end_pos_x, end_pos_y);
-            ctx.lineWidth = 15;
-            ctx.stroke();
-            // drawPixel((e.clientX - rect.left) / pixelSize,
-            //       (e.clientY - rect.top) / pixelSize);
-        });
+        // Load and render saved pixel art from storage
+        function loadArt() {
+            const savedData = JSON.parse(
+                localStorage.getItem("pixelArt") || "[]"
+            );
+            savedData.forEach(({ x, y, color }) => {
+                ctx.fillStyle = color;
+                drawPixel(x, y);
+            });
+        }
+
+        // Optional: Load art on page load
+        window.onload = loadArt;
     </script>
 </Layout>
