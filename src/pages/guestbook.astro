@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Guestbook"
+    description="Leave your sign and twitter I will definitely check it out"
+>
+    <h2 class="text-2xl py-8">Guest Book</h2>
+    <canvas width="500" height="300" id="canvas"></canvas>
+    <script>
+        /*
+         * [ ] Simple paint
+         * [ ] Serlialize the drawing
+         * [ ] Save it in memory, render a list
+         * [ ] Store it in KV store
+         * [ ] Incremental Generational of the sign page with list
+         */
+        const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+        const docWidth = document.body.clientWidth;
+        const pixelSize = 5;
+
+        function drawPixel(x: number, y: number) {
+            // ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
+        }
+
+        canvas.width = docWidth;
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "white";
+        const rect = canvas.getBoundingClientRect();
+        canvas.addEventListener("mousedown", function (e) {
+            if (e.buttons === 1) {
+                let start_pos_x = e.clientX - rect.left;
+                let start_pos_y = e.clientY - rect.top;
+                ctx.moveTo(start_pos_x, start_pos_y);
+                console.log(start_pos_x, start_pos_y);
+                // drawPixel((e.clientX - rect.left) / pixelSize,
+                //       (e.clientY - rect.top) / pixelSize);
+            }
+        });
+
+        canvas.addEventListener("mouseup", function (e) {
+            console.log("IM MOUSEUP");
+            let end_pos_x = e.clientX - rect.left;
+            let end_pos_y = e.clientY - rect.top;
+            console.log(end_pos_x, end_pos_y);
+
+            ctx.lineTo(end_pos_x, end_pos_y);
+            ctx.lineWidth = 15;
+            ctx.stroke();
+            // drawPixel((e.clientX - rect.left) / pixelSize,
+            //       (e.clientY - rect.top) / pixelSize);
+        });
+    </script>
+</Layout>

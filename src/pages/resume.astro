@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Chip from "../components/Chip.astro";
 import Contacts from "../components/Contacts.astro";
 ---
 
@@ -24,151 +23,157 @@ import Contacts from "../components/Contacts.astro";
             <a
                 href="/Vaibhav-Kubre-Resume.pdf"
                 download="Vaibhav-Kubre-Resume.pdf"
-                class="border border-white pt-[3px] rounded text-sm bg-white/90 text-black hover:bg-white/80 py-1 px-2 col-span-2"
+                class="border border-white pt-[5px] rounded text-sm bg-white/90 text-black hover:bg-white/80 py-1 px-2 col-span-2"
                 >↓ Download PDF Version</a
             >
         </div>
         <div>
-            <div class="py-1 uppercase font-semibold text-2xl border-b mb-8">
-                Languages and Technologies
+            <div class="py-1 uppercase font-semibold text-xl border-b mb-8">
+                Technologies, Languages, and Skills
             </div>
 
             <div class="grid grid-cols-4">
                 <span class="font-semibold col-span-4 md:col-span-1"
-                    >Languages:</span
-                ><span class="col-span-4 md:col-span-3 pb-2">
-                    Python, JavaScript, TypeScript, PHP, Java</span
+                    >Programming Languages:</span
                 >
+                <span class="col-span-4 md:col-span-3 pb-2">
+                    Python, Golang, TypeScript/JavaScript, PHP, Java, Kotlin
+                </span>
+
                 <span class="font-semibold col-span-4 md:col-span-1"
-                    >Databases:</span
-                ><span class="col-span-4 md:col-span-3 pb-2"
-                    >MySQL, SQLite, MongoDB, Weaviate</span
+                    >Databases & Storage:</span
                 >
+                <span class="col-span-4 md:col-span-3 pb-2">
+                    PostgreSQL, MySQL, MongoDB, Clickhouse, Weaviate Vector DB
+                </span>
+
                 <span class="font-semibold col-span-4 md:col-span-1"
-                    >Frameworks:</span
-                ><span class="col-span-4 md:col-span-3 pb-2"
-                    >ExpressJs, Django, FastAPI, ReactJs/NextJS, TailwindCSS, Langchain, Laravel</span
+                    >Web & Framework:</span
                 >
+                <span class="col-span-4 md:col-span-3 pb-2">
+                    React.js, Express.js, FastAPI, Django, Laravel, TailwindCSS,
+                    LangChain
+                </span>
+
                 <span class="font-semibold col-span-4 md:col-span-1"
-                    >Technologies:</span
-                ><span class="col-span-4 md:col-span-3 pb-2"
-                    >Nodejs, REST APIs, GraphQL, WebSockets, Docker, Kubernetes,
-                    AWS, Git, Shell Scripting (bash), Linux, OpenAI GPT</span
+                    >Cloud & DevOps:</span
                 >
+                <span class="col-span-4 md:col-span-3 pb-2">
+                    Docker, Kubernetes, AWS, Google Cloud (GCS), CI/CD, Git
+                </span>
+
                 <span class="font-semibold col-span-4 md:col-span-1"
-                    >Others:</span
-                ><span class="col-span-4 md:col-span-3"
-                    >Design Patterns, Data Structures and Algorithms, Continues
-                    Integration and Deployment</span
+                    >AI/ML & APIs:</span
                 >
+                <span class="col-span-4 md:col-span-3 pb-2">
+                    OpenAI GPT, Anthropic Claude, REST, GraphQL, WebSockets
+                </span>
+
+                <span class="font-semibold col-span-4 md:col-span-1"
+                    >Core Skills:</span
+                >
+                <span class="col-span-4 md:col-span-3">
+                    Data Structures & Algorithms, System Design, Linux/Bash,
+                    Design Patterns
+                </span>
             </div>
         </div>
         <div class="col-span-2 pt-8">
-            <div class="py-1 uppercase font-semibold text-2xl border-b mb-8">
+            <div class="py-1 uppercase font-semibold text-xl border-b mb-8">
                 Work Experience
             </div>
             <div class="grid">
-                <span class="font-bold hidden md:inline-block"
+                <span class="font-bold md:inline-block col-span-3 text-lg"
+                    >Senior Software Engineer</span
+                >
+                <span class="font-bold md:inline-block md:col-span-2"
+                    >Corsearch <span class="font-normal text-sm text-gray-300 hidden md:inline-block">(Mumbai, Maharashtra)</span
+                    ></span
+                >
+                <span class="font-bold text-end md:inline-block text-xs text-gray-300 col-span-2 md:col-span-1 content-center"
+                    >May 2024 - Present</span
+                >
+                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
+                    <li>
+                        Engineered Python microservices for automated content
+                        monitoring, leveraging web scraping and API integrations
+                        to detect pirated content across torrent sites with 24/7
+                        real-time tracking.
+                    </li>
+                    <li>
+                        Worked on scalable web scraping infrastructure using
+                        Python and in-house scraping framework to monitor
+                        streaming sites, enabling automated content protection
+                        and violation detection.
+                    </li>
+                    <li>
+                        Architected microservices using Golang and Python,
+                        deployed via Google Kubernetes Engine (GKE) for content
+                        protection system, improving system reliability and
+                        scalability through containerized infrastructure.
+                    </li>
+                    <li>
+                        Implemented data analytics dashboard using Metabase,
+                        integrating multiple databases (PostgreSQL, MySQL,
+                        MongoDB, ClickhouseDB) to provide real-time monitoring
+                        and actionable insights for content protection.
+                    </li>
+                </ul>
+                <div class="min-h-[80px] col-span-3"></div>
+                <span class="font-bold md:inline-block col-span-3 text-lg"
                     >Full Stack Engineer</span
                 >
-                <span class="font-bold hidden md:inline-block text-center"
-                    >TARS<span class="font-normal">(Bangalore, India)</span
+                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
+                    >TARS <span class="font-normal text-sm text-gray-300 hidden md:inline-block">(Bangalore, India)</span
                     ></span
                 >
-                <span class="font-bold text-right hidden md:inline-block"
-                    >July 2022-Present</span
+                <span class="font-bold text-right md:inline-block text-xs text-gray-300 col-span-2 md:col-span-1 content-center"
+                    >Dec 2021 - Apr 2024</span
                 >
-                <span class="md:hidden col-span-3 flex justify-between"
-                    ><span class="font-semibold">Fullstack Engineer - TARS</span
-                    >
-                    <span class="text-right">July 2022-Present</span></span
-                >
-                <ul class="pt-2 col-span-3 list-disc list-inside space-y-2">
+                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
                     <li>
-                        Achieved 1000% growth in new chatbots, boosting platform
-                        sign-ups; engineered Python API backend which turns the
-                        website URL into an ai-chatbot in 30 seconds.
+                        Engineered Python/FastAPI backend system that automates
+                        AI chatbot creation from website URLs, integrating
+                        LangChain and Large Language Models (LLM), resulting in
+                        1000% growth in user sign-ups and 30-second deployment
+                        time.
                     </li>
                     <li>
-                        Deployed Python API backend handling thousands of API
-                        requests using Docker, GitHub Actions, AWS EKS, and
-                        Prometheus-Grafana for seamless CI/CD, cloud deployment,
-                        and monitoring respectively.
+                        Architected high-performance microservices
+                        infrastructure using Docker, AWS EKS, and Python,
+                        handling 10,000+ concurrent API requests with automated
+                        CI/CD pipeline via GitHub Actions and Prometheus-Grafana
+                        monitoring.
                     </li>
-                    <li>
-                        Built livechat into WhatsApp chatbot backend helping
-                        customers like Vodafone Qatar handle support during
-                        stressful events like FIFA 2022 and many more.
-                    </li>
-                    <li>
-                        Improved bundling performance by 90% by upgrading to
-                        Webpack 5, and its plugins by using caching, identifying
-                        and refactoring slow points, and moving type-checking
-                        into separate a thread. Also improved developer's
-                        productivity by introducing typescript and strict
-                        type-checking at build time.
-                    </li>
-                    <li>
-                        Halved customer success team's solution delivery time by
-                        creating a UI that automated their workflow for testing
-                        solutions.
-                    </li>
-                </ul>
-                <div class="min-h-[40px] col-span-3"></div>
-                <span class="font-bold hidden md:inline-block"
-                    >Junior Fullstack Engineer</span
-                >
-                <span class="font-bold hidden md:inline-block text-center"
-                    >TARS<span class="font-normal">(Bangalore, India)</span
-                    ></span
-                >
-                <span class="font-bold text-right hidden md:inline-block"
-                    >Dec 2021 - Jun 2022</span
-                >
-                <span class="md:hidden col-span-3 flex justify-between"
-                    ><span class="font-semibold"
-                        >Junior Fullstack Engineer - TARS
-                    </span>
-                    <span class="text-right">Dec 2021 - Jun 2022</span></span
-                >
-                <ul class="pt-2 col-span-3 list-disc list-inside space-y-1">
-                    <li>
-                        Built livechat into web chatbot which requires no
-                        additional sign-up and can be used by any existing Tars
-                        customers.
-                    </li>
-                    <li>
-                        Helped increase query response time by 20% and increased
-                        developers' productivity by refactoring and documenting
-                        old parts of the NodeJS backend code.
-                    </li>
-                    <li>
-                        Improved dashboard performance and development time by
-                        helping in rewriting existing backbone-js code into
-                        React.
-                    </li>
-                    <li>
-                        Integrated Zendesk Livechat into Tars WhatsApp chatbot
-                        backend, Letting businesses connect their agents to
-                        customers via WhatsApp.
-                    </li>
-                </ul>
 
-                <div class="min-h-[40px] col-span-3"></div>
-                <span class="font-bold hidden md:inline-block"
+                    <li>
+                        Developed scalable WhatsApp Business API integration for
+                        enterprise customer support, implementing real-time chat
+                        functionality that successfully managed peak traffic
+                        during FIFA 2022 for Vodafone Qatar.
+                    </li>
+
+                    <li>
+                        Implemented frontend optimization using Webpack 5,
+                        TypeScript, and parallel processing, achieving 90%
+                        faster build times through advanced caching strategies
+                        and type-safe code architecture. Built automated testing
+                        framework for UI/UX validation, leveraging Selenium and
+                        Jest for end-to-end testing, reducing the customer
+                        success team's solution delivery time by 200%.
+                    </li>
+                </ul>
+                <div class="min-h-[80px] col-span-3"></div>
+                <span class="font-bold md:inline-block col-span-3 text-lg"
                     >Full Stack Engineer</span
                 >
-                <span class="font-bold hidden md:inline-block text-center"
+                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
                     >kubre.in</span
                 >
-                <span class="font-bold text-right hidden md:inline-block"
+                <span class="font-bold text-right md:inline-block text-xs text-gray-300 col-span-2 md:col-span-1 content-center"
                     >Jan 2019 - Nov 2021</span
                 >
-                <span class="md:hidden col-span-3 flex justify-between"
-                    ><span class="font-semibold">Freelnace Web Developer</span>
-                    <span class="text-right">Jan 2019 - Nov 2021</span></span
-                >
-                <ul class="pt-2 col-span-3 list-disc list-inside space-y-1">
+                <ul class="pt-4 col-span-3 list-disc list-inside space-y-1">
                     <li>
                         Developed a website for the TaxGlobe community to share
                         market trends and purchase books using Livewire,
@@ -198,18 +203,18 @@ import Contacts from "../components/Contacts.astro";
             </div>
         </div>
         <div>
-            <div class="py-1 uppercase font-semibold text-2xl border-b mb-8">
+            <div class="py-1 uppercase font-semibold text-xl border-b mb-8">
                 Education
             </div>
             <ul class="list-disc list-inside space-y-2">
                 <li>
-                    <span class="float-right">2019–2022</span>
-                    B. Tech in CSE (9.3 CGPA)<br /> Dr. Babasaheb Amedbkar Technical
+                    <span class="float-right text-xs text-gray-300 pt-1">2019-2022</span>
+                    B. Tech in CSE <span class="text-sm text-gray-300">(9.3 CGPA)</span><br /> Dr. Babasaheb Amedbkar Technical
                     University, Maharashtra, India.
                 </li>
                 <li>
-                    <span class="float-right">2015–2019</span>
-                    Diploma in CSE (8 CGPA) <br />Maharashtra State Board of
+                    <span class="float-right text-xs text-gray-300 pt-1">2015-2019</span>
+                    Diploma in CSE <span class="text-sm text-gray-300">(8.0 CGPA)<br />Maharashtra State Board of
                     Technical Education, Maharashtra India.
                 </li>
             </ul>
