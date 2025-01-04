@@ -1,21 +1,18 @@
 ---
-title: "TaxGlobe Website (Design Document)"
+title: "TaxGlobe Website"
 description: "Design Document for taxglobe.in project"
 image: ../../assets/taxglobe-1.jpg
 hideHeaderImage: true
 slug: "taxglobe"
-publishedAt: 2023-05-17
+publishedAt: 2021-02-13
 tags:
     ["vaibhav kubre's work", "taxglobe", "taxglobe website", "design document"]
 ---
+<blockquote>
+This is not a full-blown Technical Document, but rather in my own words a small overview of what went behind in making TaxGlobe's website. If you have a question or want to know more, reach out to me at v@kubre.in as always.
+</blockquote>
 
-<a class="underline" href="https://github.com/kubre/TaxGlobe" target="_blank" rel="noopener noreferrer">Github Source Code</a>
-
-<aside class="note">
-💡 This is not a full-blown Technical Document, but rather in my own words a small overview of what went behind in making TaxGlobe's website. If you have a question or want to know more, reach out to me at v@kubre.in as always.
-</aside>
-
-## 🗨️ Overview
+# Overview
 
 TaxGlobe is a website designed for Chartered Accountants (CAs) and CA students. This website allows users to share their thoughts, follow each other, and purchase software or books. This document details how the entire website was built from scratch using Laravel.
 
@@ -35,11 +32,11 @@ TaxGlobe is a website designed for Chartered Accountants (CAs) and CA students. 
 | Storage        | 40 GB NVME SSD |
 | OS             | Ubuntu 20.04   |
 
-<aside class="note">
-💡 Since it is a monolithic application, the entire website can be hosted on a single VPS, which works well for hundreds of users.
-</aside>
+<blockquote>
+Since it is a monolithic application, the entire website can be hosted on a single VPS, which works well for hundreds of users.
+</blockquote>
 
-## 🛡️ Why this stack?
+# Why this stack?
 
 Before I start describing the application and process, Here is the reason why all the above choices in the stack were made.
 
@@ -54,7 +51,7 @@ Before I start describing the application and process, Here is the reason why al
 
 </div>
 
-## 📝 Goals and Guidelines
+# Goals and Guidelines
 
 Before even any part of the code started I flushed out all the requirements over long calls during which I not only gave examples of how features could be implemented but actively helped Taxglobe to convey their full requirements to me. During this, I noted down all the details, and I made a proper draft of all the requirements You can take a look at the bottom of `Readme.md` on GitHub.
 
@@ -62,7 +59,7 @@ Before even any part of the code started I flushed out all the requirements over
 2. **Shop:** TaxGLobe sells many books and software. The shop section would host these physical and virtual products. Users can purchase them and pay for them online, download/print invoices, etc.
 3. **Admin Panel:** This will help Taxglobe to manage and monitor the entire website activity. This includes users registering to the website, moderating posts, adding products to the shop, updating shop orders, analytics, and more.
 
-## 🛠️ Architectural Strategy
+# Architectural Strategy
 
 ![Diagram1](../../assets/taxglobe-1.jpg)
 
@@ -102,7 +99,7 @@ Most of the application follows the above architecture.
 You can clearly see how I architected the entire application using tried and tested MVC patterns. This helped to organize the code way better than doing it from scratch.
 </p>
 
-## 🚚 Deployment & Maintenance
+# Deployment & Maintenance
 
 -   The project was deployed to a VPS server as stated above in the hardware stack.
 -   The entire project is version controlled by using git.
@@ -128,3 +125,5 @@ You can clearly see how I architected the entire application using tried and tes
 -   Not only this but using a simple cron job and simple bash I made weekly backups which were downloaded back to my local system in I ever need to restore it, in case of losing it attack or something.
 
 > During the entire process, I maintained constant contact with the TaxGlobe team to receive feedback on the progress. The project was completed down to the smallest details and received 100% positive feedback.
+
+<a class="underline" href="https://github.com/kubre/TaxGlobe" target="_blank" rel="noopener noreferrer">Github Source Code</a>

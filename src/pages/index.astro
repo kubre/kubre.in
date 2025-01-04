@@ -1,42 +1,75 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Contacts from "../components/Contacts.astro";
 ---
 
-<Layout title="Home" description="Vaibhav's Homepage on the internet">
-    <main class="grid pb-8 pt-8 md:pt-18 h-auto">
-        <div class="space-y-2">
-            <button
-                class="rounded border uppercase px-2 pt-[2px] focus:bg-white/70 focus:text-black text-sm peer"
+<Layout title="Profile" description="Vaibhav's Homepage on the internet">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+        }
+        .has-tooltip:hover .tooltip {
+            visibility: visible;
+            z-index: 100;
+        }
+    </style>
+    <main class="space-y-12 pt-8 md:pt-12 pb-8 relative">
+        <div class="col-span-2 bg-white relative">
+            <div
+                class="px-3 md:px-4 justify-around absolute space-y-[7.38rem] md:space-y-[9.12rem] -top-3 bottom-0 z-10"
             >
-                &#9658; EXECUTE
-            </button>
-            <fieldset class="border px-2 py-1 rounded text-sm">
-                <legend class="px-2 py-0 border-x ml-auto text-xs">
-                    index.js
-                </legend>
-                <pre><span class="text-gray-400 hidden lg:block">/**
-* Obsession and reliability are the only two skills I have.
-*/</span><span class="text-gray-400 lg:hidden">/**
-* Obsession and reliability are
-   the only two skills I have.
-*/
-</span>&lpar;function vaibhav() &lcub;
-  console.log(<span class="text-gray-400">"Senior Engineer"</span>);
-&rcub;&rpar;&lpar;&rpar;;</pre>
-            </fieldset>
-            <fieldset
-                class="border px-2 py-1 rounded opacity-0 peer-focus:opacity-100"
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full md:block"></div>
+            </div>
+            <div
+                class="mx-12 md:mx-14 px-4 py-12 border-x border-enamel text-carbon leading-6 md:leading-6 text-xs md:text-sm"
             >
-                <legend class="px-2 py-0 border-x ml-auto text-xs">
-                    bash
-                </legend>
-                <div><span class="text-gray-500">$</span> node index.js</div>
-                <div>Senior Engineer</div>
-            </fieldset>
+                ## Profile: Senior Software Engineer<br /><br class="" />
+                ## Skills (in his own words): <br />
+                "<span class="">Obsession</span> and <span class=""
+                    >reliability</span
+                > are the only two skills I have."<br /><br />
+
+                ## Further comments:<br />
+                "Love for computers is beyond everything."<br /><br />
+
+                ## Interests:
+                <figure>
+                    <img
+                        class="mt-4 invert grayscale contrast-200 border"
+                        alt="Event Horizon"
+                        src="/images/black-hole.jpg"
+                        title="After years of research and number crunching with help of computers, We found this."
+                    />
+                    <figcaption class="text-center">
+                        Fig 1: Event Horizon
+                    </figcaption>
+                </figure>
+            </div>
+            <div
+                class="px-3 md:px-4 justify-around absolute space-y-[7.38rem] md:space-y-[9.12rem] -top-3 bottom-0 right-0 z-10"
+            >
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full"></div>
+                <div class="h-6 w-6 bg-enamel rounded-full md:block"></div>
+            </div>
         </div>
-        <div class="h-4"></div>
-        <Contacts/>
+        <div class="h-min-[80px]"></div>
+        <div class="flex">
+            <a
+                class="text-md ml-auto px-2 bg-yellow-200 underline"
+                href="/resume">Complete Resume →</a
+            >
+        </div>
     </main>
     <script>
         console.info("What are you looking for? This is HTML Site.");

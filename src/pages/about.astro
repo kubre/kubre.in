@@ -2,38 +2,29 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout
-    title="About Site"
-    description="What kubre.in uses?"
->
+<Layout title="About Site" description="What kubre.in uses?">
     <style>
-        table * {
-            @apply border-collapse border;
-        }
-
-        table tbody td {
-            @apply px-2 py-1;
-        }
-
         .dvd {
-            animation: dvd infinite linear 10s, cycle infinite step-end 10s;
+            animation:
+                dvd infinite linear 10s,
+                cycle infinite step-end 10s;
         }
 
         @keyframes cycle {
             0% {
-                @apply bg-red-700;
+                @apply bg-red-500;
             }
             25% {
                 @apply bg-yellow-500;
             }
             50% {
-                @apply bg-green-700;
+                @apply bg-green-500;
             }
             75% {
-                @apply bg-blue-700;
+                @apply bg-blue-500;
             }
             100% {
-                @apply bg-red-700;
+                @apply bg-red-500;
             }
         }
 
@@ -56,26 +47,21 @@ import Layout from "../layouts/Layout.astro";
         }
     </style>
     <main class="py-8 grid lg:grid-cols-2 gap-x-4 gap-y-6">
-        <strong class="col-span-2">Engineering Technology</strong>
-        <p class="col-span-2 text-sm">What kubre.in uses?</p>
-        <div class="col-span-2 flex flex-col lg:flex-row gap-4">
-            <table class="border-l-4 h-auto self-start w-full">
-                <thead class="border-t border-dashed text-sm uppercase">
+        <h1 class="col-span-2 uppercase text-2xl font-bold text-carbon-lighter">
+            Engineering Technology
+        </h1>
+        <p class="col-span-2">What kubre.in uses?</p>
+        <div class="col-span-2 flex flex-col lg:flex-row gap-8">
+            <table>
+                <thead>
                     <tr>
-                        <th class="bg-white/40 text-start" colspan="2"
-                            >Software Stack</th
-                        >
+                        <th class="text-start" colspan="2">Software Stack</th>
                     </tr>
                 </thead>
-                <tbody class="text-sm">
+                <tbody>
                     <tr>
                         <td>Environment</td>
-                        <td
-                            ><span
-                                class="bg-green-700 font-semibold px-2 py-0 text-xs border border-white/50"
-                                >PROD</span
-                            ></td
-                        >
+                        <td>PROD</td>
                     </tr>
                     <tr>
                         <td>Frontend</td>
@@ -96,10 +82,18 @@ import Layout from "../layouts/Layout.astro";
                 </tbody>
             </table>
             <fieldset
-                class="h-[370px] aspect-square w-[370px] border font-bold mx-auto relative"
+                class="h-[370px] aspect-square w-[370px] border border-carbon mx-auto relative"
             >
-            <p class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute text-white/40">No Signal</p>
-                <div class="px-2 bg-red-700 border border-white/40 dvd inline-block text-sm">kubre.in</div>
+                <p
+                    class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute"
+                >
+                    No Signal
+                </p>
+                <div
+                    class="px-2 bg-red-200 border border-white/40 dvd inline-block text-sm"
+                >
+                    kubre.in
+                </div>
             </fieldset>
         </div>
     </main>

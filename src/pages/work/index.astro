@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import WorkCard from "../../components/WorkCard.astro";
+import PostCard from "../../components/PostCard.astro";
 
 const docs = await getCollection("work").then((docs) => {
     return docs
@@ -28,14 +28,20 @@ const docs = await getCollection("work").then((docs) => {
     description="My Personal work and documents related to it."
 >
     <main class="pt-8 pb-4 grid gap-y-4">
-        <fieldset class="border rounded px-2 py-1 my-4 text-sm">
-            <legend class="ml-auto text-xs border-x px-2"
-                >Note
-            </legend>
+        <fieldset class="bg-white text-sm px-2 py-1 my-4">
+            <legend class="ml-auto px-2 bg-carbon-lightest text-white">Note </legend>
             I worked on several projects and here are details for few of them, although
             called as Design Documents they do not follow any formal structure just
             my thoughts on how projects were finished.
         </fieldset>
-        {docs.map((doc) => <WorkCard post={doc} />)}
+        <div class="relative mt-12 ml-0 lg:ml-[200px]">
+            <div
+                class="hidden absolute top-3 bottom-0 right-full mr-7 md:mr-[3.25rem] w-px bg-carbon-lighter sm:block"
+            >
+            </div>
+            <div class="space-y-16">
+                {docs.map((post) => <PostCard post={post} base="/work/" />)}
+            </div>
+        </div>
     </main>
 </Layout>
