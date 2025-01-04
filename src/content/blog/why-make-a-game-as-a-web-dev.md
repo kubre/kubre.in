@@ -6,9 +6,11 @@ publishedAt: 2024-02-06
 tags: [softwareengineering, story, videogame, steppingoutofcomfortzone]
 ---
 
+# Introduction
+
 When I was kid we had a <a title="Found the TV model but did not found the game" target="_blank" href="https://manualzz.com/doc/4257542/samsung-cb-21n30mj-user-manual">Samsung CRT TV</a>. Nothing special about but it had few embedded games. One of it was a game where you shoot from left side of the screen and balloons appear on right side. The moment you miss it's game over. It was bare bones had nothing other than moving ellipses as balloons and no levels or any fancy stuff. But I loved that interactive experience so much, This was the first game I experienced. This got me introduced to video games. After that I played many games and since school I always wanted to make one myself. This was the initial reason even why I decided even to study Computer Science in the first place.
 
-## Experience
+# Experience
 
 I've looked into making games before multiple failed attempts at using game engines like unity, unreal or even the one that don't require you to learn code. But due to multiple reasons I really never finished and released something out. Unlike web dev projects where I was not only able to learn and work on vast variety of problems but also able to showcase them and eventually start as freelancer and then as a full time. 
 
@@ -35,7 +37,7 @@ I also so many parallel problems that I already face in web but now in different
 If you want to find more about the game you can find game design document document I wrote for this game [here](/work/depot-gato). It's not 
 too big or technical but it's a small overview of what went behind in making the Depot Gato.
 
-## 🤔 Why make a game as a Web Dev?
+# Why make a game as a Web Dev?
 
 Other than personal nostalgia it's just great idea to step out of your comfort zone and try something new. If you're custom to certain flow and knowledge you're not challenging yourself enough. Working on game you get to enter this new domain of unknown challenges and problems. It's a great way to test yourself whether you've grown as a problem solver or you've been merely remembering things. Coding practices to problems would change but the core skills of your ability to solve complex problems by breaking them down to smaller ones and then solving them would remain same.
 

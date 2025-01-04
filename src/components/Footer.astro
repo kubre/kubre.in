@@ -1,7 +1,13 @@
 ---
+import Contacts from "./Contacts.astro";
 ---
 
-<footer class="pt-4 pb-8 px-2 lg:px-0 border-t text-center border-gray-700 text-xs text-gray-300">
-    &copy; 2018 - {new Date().getFullYear()}, Vaibhav Kubre.<wbr /> Creative Commons
-    Attribution 4.0 International License.
-</footer>
+<div>
+    <div class="pt-8 pb-4 text-sm" id="contact"><Contacts /></div>
+    <footer
+        class="pt-8 pb-8 px-2 lg:px-0 text-center border-carbon text-xs text-carbon"
+    >
+        &copy; 2018 - {new Date().getFullYear()}, Vaibhav Kubre.<wbr /> Creative
+        Commons Attribution 4.0 International License.
+    </footer>
+</div>

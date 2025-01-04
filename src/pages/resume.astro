@@ -23,13 +23,143 @@ import Contacts from "../components/Contacts.astro";
             <a
                 href="/Vaibhav-Kubre-Resume.pdf"
                 download="Vaibhav-Kubre-Resume.pdf"
-                class="border border-white pt-[5px] rounded text-sm bg-white/90 text-black hover:bg-white/80 py-1 px-2 col-span-2"
-                >↓ Download PDF Version</a
+                class="underline ml-auto bg-yellow-200">↓ Download PDF Version</a
             >
         </div>
-        <div>
-            <div class="py-1 uppercase font-semibold text-xl border-b mb-8">
-                Technologies, Languages, and Skills
+        <div class="col-span-2 px-1">
+            <div class="py-1 uppercase font-semibold text-2xl mb-8">
+                # Work Experience
+            </div>
+            <div class="grid">
+                <span class="font-bold md:inline-block col-span-3 text-lg"
+                    >Senior Software Engineer</span
+                >
+                <span class="font-bold md:inline-block md:col-span-2"
+                    >Corsearch <span
+                        class="font-normal text-sm text-carbon hidden md:inline-block"
+                        >(Mumbai, Maharashtra)</span
+                    ></span
+                >
+                <span
+                    class="font-bold text-end md:inline-block text-sm font-thin text-carbon/80 col-span-2 md:col-span-1 content-center"
+                    >May 2024 - Present</span
+                >
+                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
+                    <li>
+                        Engineered Python microservices for automated content
+                        monitoring, leveraging web scraping and API integrations
+                        to detect pirated content across torrent sites with 24/7
+                        real-time tracking.
+                    </li>
+                    <li>
+                        Worked on scalable web scraping infrastructure using
+                        Python and in-house scraping framework to monitor
+                        streaming sites, enabling automated content protection
+                        and violation detection.
+                    </li>
+                    <li>
+                        Architected microservices using Golang and Python,
+                        deployed via Google Kubernetes Engine (GKE) for content
+                        protection system, improving system reliability and
+                        scalability through containerized infrastructure.
+                    </li>
+                    <li>
+                        Implemented data analytics dashboard using Metabase,
+                        integrating multiple databases (PostgreSQL, MySQL,
+                        MongoDB, ClickhouseDB) to provide real-time monitoring
+                        and actionable insights for content protection.
+                    </li>
+                </ul>
+                <div class="min-h-[80px] col-span-3"></div>
+                <span class="font-bold md:inline-block col-span-3 text-lg"
+                    >Full Stack Engineer</span
+                >
+                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
+                    >TARS <span
+                        class="font-normal text-sm text-carbon hidden md:inline-block"
+                        >(Bangalore, India)</span
+                    ></span
+                >
+                <span
+                    class="font-bold text-right md:inline-block text-sm font-thin text-carbon/80 col-span-2 md:col-span-1 content-center"
+                    >Dec 2021 - Apr 2024</span
+                >
+                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
+                    <li>
+                        Engineered Python/FastAPI backend system that automates
+                        AI chatbot creation from website URLs, integrating
+                        LangChain and Large Language Models (LLM), resulting in
+                        1000% growth in user sign-ups and 30-second deployment
+                        time.
+                    </li>
+                    <li>
+                        Architected high-performance microservices
+                        infrastructure using Docker, AWS EKS, and Python,
+                        handling 10,000+ concurrent API requests with automated
+                        CI/CD pipeline via GitHub Actions and Prometheus-Grafana
+                        monitoring.
+                    </li>
+
+                    <li>
+                        Developed scalable WhatsApp Business API integration for
+                        enterprise customer support, implementing real-time chat
+                        functionality that successfully managed peak traffic
+                        during FIFA 2022 for Vodafone Qatar.
+                    </li>
+
+                    <li>
+                        Implemented frontend optimization using Webpack 5,
+                        TypeScript, and parallel processing, achieving 90%
+                        faster build times through advanced caching strategies
+                        and type-safe code architecture. Built automated testing
+                        framework for UI/UX validation, leveraging Selenium and
+                        Jest for end-to-end testing, reducing the customer
+                        success team's solution delivery time by 200%.
+                    </li>
+                </ul>
+                <div class="min-h-[80px] col-span-3"></div>
+                <span class="font-bold md:inline-block col-span-3 text-lg"
+                    >Full Stack Engineer</span
+                >
+                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
+                    >kubre.in</span
+                >
+                <span
+                    class="font-bold text-right md:inline-block text-sm font-thin text-carbon/80 col-span-2 md:col-span-1 content-center"
+                    >Jan 2019 - Nov 2021</span
+                >
+                <ul class="pt-4 col-span-3 list-disc list-inside space-y-1">
+                    <li>
+                        Developed a website for the TaxGlobe community to share
+                        market trends and purchase books using Livewire,
+                        AlpineJS, and MySQL. Read more in detail at <a
+                            href="/work/taxglobe"
+                            class="underline">Design Document</a
+                        >.
+                    </li>
+                    <li>
+                        Collaborated with Wonder Learning to implement their
+                        learning management system, allowing 20+ schools to
+                        transition to online learning during the pandemic using
+                        Laravel, VueJS, and MySQL. Read more in detail at <a
+                            href="/work/wonder-learning"
+                            class="underline">Design Document</a
+                        >.
+                    </li>
+                    <li>
+                        Constructed GateArch's online exam portal for
+                        administering mock exams for architecture students using
+                        Laravel and MySQL. Read more in detail at <a
+                            href="/work/gatearch"
+                            class="underline">Design Document</a
+                        >.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pt-8">
+            <div class="py-1 uppercase font-semibold text-2xl mb-8">
+                # Technologies, Languages, and Skills
             </div>
 
             <div class="grid grid-cols-4">
@@ -78,147 +208,32 @@ import Contacts from "../components/Contacts.astro";
                 </span>
             </div>
         </div>
-        <div class="col-span-2 pt-8">
-            <div class="py-1 uppercase font-semibold text-xl border-b mb-8">
-                Work Experience
-            </div>
-            <div class="grid">
-                <span class="font-bold md:inline-block col-span-3 text-lg"
-                    >Senior Software Engineer</span
-                >
-                <span class="font-bold md:inline-block md:col-span-2"
-                    >Corsearch <span class="font-normal text-sm text-gray-300 hidden md:inline-block">(Mumbai, Maharashtra)</span
-                    ></span
-                >
-                <span class="font-bold text-end md:inline-block text-xs text-gray-300 col-span-2 md:col-span-1 content-center"
-                    >May 2024 - Present</span
-                >
-                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
-                    <li>
-                        Engineered Python microservices for automated content
-                        monitoring, leveraging web scraping and API integrations
-                        to detect pirated content across torrent sites with 24/7
-                        real-time tracking.
-                    </li>
-                    <li>
-                        Worked on scalable web scraping infrastructure using
-                        Python and in-house scraping framework to monitor
-                        streaming sites, enabling automated content protection
-                        and violation detection.
-                    </li>
-                    <li>
-                        Architected microservices using Golang and Python,
-                        deployed via Google Kubernetes Engine (GKE) for content
-                        protection system, improving system reliability and
-                        scalability through containerized infrastructure.
-                    </li>
-                    <li>
-                        Implemented data analytics dashboard using Metabase,
-                        integrating multiple databases (PostgreSQL, MySQL,
-                        MongoDB, ClickhouseDB) to provide real-time monitoring
-                        and actionable insights for content protection.
-                    </li>
-                </ul>
-                <div class="min-h-[80px] col-span-3"></div>
-                <span class="font-bold md:inline-block col-span-3 text-lg"
-                    >Full Stack Engineer</span
-                >
-                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
-                    >TARS <span class="font-normal text-sm text-gray-300 hidden md:inline-block">(Bangalore, India)</span
-                    ></span
-                >
-                <span class="font-bold text-right md:inline-block text-xs text-gray-300 col-span-2 md:col-span-1 content-center"
-                    >Dec 2021 - Apr 2024</span
-                >
-                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
-                    <li>
-                        Engineered Python/FastAPI backend system that automates
-                        AI chatbot creation from website URLs, integrating
-                        LangChain and Large Language Models (LLM), resulting in
-                        1000% growth in user sign-ups and 30-second deployment
-                        time.
-                    </li>
-                    <li>
-                        Architected high-performance microservices
-                        infrastructure using Docker, AWS EKS, and Python,
-                        handling 10,000+ concurrent API requests with automated
-                        CI/CD pipeline via GitHub Actions and Prometheus-Grafana
-                        monitoring.
-                    </li>
-
-                    <li>
-                        Developed scalable WhatsApp Business API integration for
-                        enterprise customer support, implementing real-time chat
-                        functionality that successfully managed peak traffic
-                        during FIFA 2022 for Vodafone Qatar.
-                    </li>
-
-                    <li>
-                        Implemented frontend optimization using Webpack 5,
-                        TypeScript, and parallel processing, achieving 90%
-                        faster build times through advanced caching strategies
-                        and type-safe code architecture. Built automated testing
-                        framework for UI/UX validation, leveraging Selenium and
-                        Jest for end-to-end testing, reducing the customer
-                        success team's solution delivery time by 200%.
-                    </li>
-                </ul>
-                <div class="min-h-[80px] col-span-3"></div>
-                <span class="font-bold md:inline-block col-span-3 text-lg"
-                    >Full Stack Engineer</span
-                >
-                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
-                    >kubre.in</span
-                >
-                <span class="font-bold text-right md:inline-block text-xs text-gray-300 col-span-2 md:col-span-1 content-center"
-                    >Jan 2019 - Nov 2021</span
-                >
-                <ul class="pt-4 col-span-3 list-disc list-inside space-y-1">
-                    <li>
-                        Developed a website for the TaxGlobe community to share
-                        market trends and purchase books using Livewire,
-                        AlpineJS, and MySQL. Read more in detail at <a
-                            href="/work/taxglobe"
-                            class="underline">Design Document</a
-                        >.
-                    </li>
-                    <li>
-                        Collaborated with Wonder Learning to implement their
-                        learning management system, allowing 20+ schools to
-                        transition to online learning during the pandemic using
-                        Laravel, VueJS, and MySQL. Read more in detail at <a
-                            href="/work/wonder-learning"
-                            class="underline">Design Document</a
-                        >.
-                    </li>
-                    <li>
-                        Constructed GateArch's online exam portal for
-                        administering mock exams for architecture students using
-                        Laravel and MySQL. Read more in detail at <a
-                            href="/work/gatearch"
-                            class="underline">Design Document</a
-                        >.
-                    </li>
-                </ul>
-            </div>
-        </div>
         <div>
-            <div class="py-1 uppercase font-semibold text-xl border-b mb-8">
-                Education
+            <div class="py-1 uppercase font-semibold text-2xl mb-8">
+                # Education
             </div>
             <ul class="list-disc list-inside space-y-2">
                 <li>
-                    <span class="float-right text-xs text-gray-300 pt-1">2019-2022</span>
-                    B. Tech in CSE <span class="text-sm text-gray-300">(9.3 CGPA)</span><br /> Dr. Babasaheb Amedbkar Technical
-                    University, Maharashtra, India.
+                    <span
+                        class="float-right text-sm font-thin text-carbon/80 pt-1"
+                        >2019-2022</span
+                    >
+                    B. Tech in CSE <span class="text-sm text-carbon"
+                        >(9.3 CGPA)</span
+                    ><br /> Dr. Babasaheb Amedbkar Technical University, Maharashtra,
+                    India.
                 </li>
                 <li>
-                    <span class="float-right text-xs text-gray-300 pt-1">2015-2019</span>
-                    Diploma in CSE <span class="text-sm text-gray-300">(8.0 CGPA)<br />Maharashtra State Board of
-                    Technical Education, Maharashtra India.
+                    <span
+                        class="float-right text-sm font-thin text-carbon/80 pt-1"
+                        >2015-2019</span
+                    >
+                    Diploma in CSE <span class="text-sm text-carbon"
+                        >(8.0 CGPA)<br />Maharashtra State Board of Technical
+                        Education, Maharashtra India.
+                    </span>
                 </li>
             </ul>
         </div>
-        <div><Contacts hideTitle={true} /></div>
     </main>
 </Layout>

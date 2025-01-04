@@ -3,33 +3,46 @@ import { CollectionEntry } from "astro:content";
 
 export interface Props {
     post: CollectionEntry<"blog">;
+    base: string,
 }
 
 const formatter = new Intl.DateTimeFormat("en-IN", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
 });
 const post = Astro.props.post;
+const base = Astro.props.base;
 ---
 
-<div class="flex justify-between">
-    <div class="flex h-full flex-col px-2 py-1 items-start">
-        <p class="text-sm mb-1">{post.data.title}</p>
-        <span class="pb-4 text-xs"
-            >&#9716; {formatter.format(new Date(post.data.publishedAt))} | &#9749;
-            {post.data.readTime} mins</span
-        >
-        <a
-            href={"/blog/" + post.slug}
-            class="border border-white bg-white/90 text-black px-2 pt-[2px] text-sm w-30 rounded"
-            >Read More &rarr;</a
-        >
+<article class="relative group">
+    <span
+        class="hidden absolute right-full mr-6 top-0 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem)] overflow-visible sm:block text-carbon-lighter"
+        >♦</span
+    >
+    <div class="flex justify-between">
+        <a class="w-full px-0 md:px-2 h-full mb-2" href={base + post.slug}>
+            <h3
+                class="text-base text-lg tracking-tight text-carbon pt-8 lg:pt-0"
+            >
+                {post.data.title}
+            </h3>
+            <div class="mt-2 mb-4 prose text-carbon-light line-clamp-3">
+                <p>
+                    {post.data.description}
+                </p>
+            </div>
+            <span class="text-sm text-carbon-lighter">Read more ↳</span>
+        </a>
     </div>
-    <a href={"/blog/" + post.slug}>
-        <img
-            class="invert h-32 w-32 lg:h-32 lg:w-32 max-w-[12rem] object-contain p-1"
-            src={post.data.image.src}
-        />
-    </a>
-</div>
+    <dl
+        class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]"
+    >
+        <dt class="sr-only">Date</dt>
+        <dd class="whitespace-nowrap text-xs leading-6 text-carbon-lighter">
+            <time datetime={post.data.publishedAt}>
+                {formatter.format(new Date(post.data.publishedAt))}
+            </time>
+        </dd>
+    </dl>
+</article>

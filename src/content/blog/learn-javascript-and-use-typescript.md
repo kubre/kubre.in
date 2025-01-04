@@ -6,15 +6,15 @@ publishedAt: 2022-07-03
 tags: ["javascript", "typescript", "learn typescript"]
 ---
 
-## Experience
+# Experience
 
 You're comfortable with javascript now. You've finally been able to learn the fancy functional methods. Write out the `reduce()` instead of a loop. It runs the same as a loop but makes your code look smarter. But people are shifting to something else now. It's typescript! It's just like JavaScript but better. How? Well, you see, it has a type, “Pun intended.” So you jumped on the hype train and started a typescript project. But it felt off. You're writing code that does the same thing as JavaScript but amounts to far more code. You wonder if it was even worth the trouble. I'm going back to the good old javascript and living in a typeless environment. VS Code no longer provides intelligent suggestions, but it did, and the simpler mistakes you pass around are null and undefined and no longer being caught. But does it have to turn out this way?
 
-**No**
+_No_
 
-## So, how do I get started with Typescript?
+# So, how do I get started with Typescript?
 
-**Learn javascript and use typescript**, Yes the title of this blog post. What does it even mean? Just write JavaScript inside the typescript file.
+Learn javascript and use typescript, Yes the title of this blog post. What does it even mean? Just write JavaScript inside the typescript file.
 
 _That's it!_
 
@@ -39,13 +39,13 @@ console.log(getPosts("one"));
 
 I'm using vscode which has a linter built-in. It lets you know the issues with Javascript or TypeScript directly in the editor itself. With the default configuration for typescript (i.e., if you used one from `npx tsc --init` will show you an error at the `getPosts()` function call with a warning `An argument for 'category' was not provided`.
 
-But we know our function does handle cases when the category is not present. But typescript doesn't. By default, it will treat the argument as a required parameter. We can just add **?** at the end of the category and let the typescript know an undefined state is considered.
+But we know our function does handle cases when the category is not present. But typescript doesn't. By default, it will treat the argument as a required parameter. We can just add ? at the end of the category and let the typescript know an undefined state is considered.
 
 ```tsx
 function getPosts(category?) {
 ```
 
-Linter will also complain about the category being type **any**. If you don't know it means in simple terms your variable can hold value with any of the types javascript supports. Let's change this behavior. We know that category is a string, so we can explicitly type the argument with a string datatype.
+Linter will also complain about the category being type any. If you don't know it means in simple terms your variable can hold value with any of the types javascript supports. Let's change this behavior. We know that category is a string, so we can explicitly type the argument with a string datatype.
 
 ```tsx
 function getPosts(category?: string) {

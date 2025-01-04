@@ -12,7 +12,7 @@ A team call, everybody joins and the manager talks about how our application is 
 
 Now there are two approaches here. let me take you to the wrong one first (In my objective opinion).
 
-## X does not work and I must use Y
+# X does not work and I must use Y
 
 So, you think maybe your Nginx server is having issues serving requests, and you scour the internet for a solution you implement multiple solutions suggested to you with no luck, and now the server is handling even handling fewer requests than it did before.
 
@@ -20,7 +20,7 @@ You and the team find yourself stuck and then someone in the team says maybe X i
 
 > Also why all the alternatives to Y are like Y but smaller, Y but written in rust, and best one Y with functional syntax.
 
-## The “better approach”
+# The “better approach”
 
 You were not wrong in the beginning you tried to think about where the problem might lie in the system. But you did not do one thing you should have started profiling your application while doing the performance testing. The problem in X does not work and I must use Y you failed to get to the core of the problem. You’d probably find sever failing to handle so many requests even despite hardware being more than capable enough was your application was having some tuning issues. Maybe there was a line of code that was performing blocking IOs or regex that was too clever (a personal story for some other day), or too much memory was being created too fast so GC keeps kicking in, etc. Using the results you finally fixed the issues and now the server is having no issues scaling to more requests.
 

@@ -3,20 +3,19 @@ import Navitem from "./Navitem.astro";
 ---
 
 <nav class="flex flex-col justify-between pb-2 pt-2 lg:pt-8">
-    <div
-        class="uppercase flex items-center justify-between py-2"
-    >
-        <span class="font-black">Vaibhav Kubre</span>
+    <div class="uppercase flex items-center justify-between py-2">
+        <span id="title" class="font-black text-2xl md:text-6xl"
+            >█▓▒░ Vaibhav Kubre</span
+        >
         <a
             href="/about"
-            class="bg-green-700 text-green-100 hover:bg-green-100 hover:text-green-700 transition-colors px-2 pt-[2px] pb-0 rounded text-xs border border-green-900"
-            >&#9095; MAIN</a
+            class="text-carbon ml-auto px-2 absolute -right-5 top-6 md:relative md:top-auto md:right-none pt-[2px] pb-0 text-xs md:text-sm -rotate-90 bg-enamel text-carbon hover:text-enamel hover:bg-carbon transition-colors"
+            >⌥ PROD</a
         >
     </div>
-    <div class="grid grid-cols-4 gap-x-2 pt-2">
-        <Navitem title="Home" href="/" />
-        <Navitem title="Blog" href="/blog" />
-        <Navitem title="Work" href="/work" hasNew={true} />
-        <Navitem title="Resume" href="/resume" />
+    <div class="flex gap-x-2 pt-8">
+        <Navitem title="✦ PROFILE" href="/" />
+        <Navitem title="¶ BLOG" href="/blog" />
+        <Navitem title="≥ WORK" href="/work" />
     </div>
 </nav>
