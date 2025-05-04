@@ -1,20 +1,13 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-
-// https://astro.build/config
-import vercel from "@astrojs/vercel/serverless";
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
     integrations: [tailwind()],
-    output: "hybrid",
+    output: "static",
+    adapter: cloudflare(),
     site: "https://www.kubre.in",
-    adapter: vercel({
-        webAnalytics: {
-            enabled: true,
-        },
-        imageService: true,
-    }),
     markdown: {
         shikiConfig: {
             // Choose from Shiki's built-in themes (or add your own)

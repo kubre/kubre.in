@@ -1,7 +1,6 @@
 ---
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 export interface Props {
     frontmatter: {
         title: string;
@@ -179,7 +178,7 @@ const backUrl = "/" + url.pathname.split("/")[1];
                         <dd
                             class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
                         >
-                            <time datetime={frontmatter.publishedAt}>
+                            <time datetime={String(frontmatter.publishedAt)}>
                                 {
                                     formatter.format(
                                         new Date(frontmatter.publishedAt),
@@ -229,6 +228,5 @@ const backUrl = "/" + url.pathname.split("/")[1];
                 <Footer />
             </article>
         </main>
-        <SpeedInsights />
     </body>
 </html>
