@@ -6,7 +6,9 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
     integrations: [tailwind()],
     output: "static",
-    adapter: cloudflare(),
+    adapter: cloudflare({
+        imageService: 'cloudflare'
+    }),
     site: "https://www.kubre.in",
     markdown: {
         shikiConfig: {
