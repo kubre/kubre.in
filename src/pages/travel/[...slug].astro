@@ -16,6 +16,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<TravelLayout frontmatter={entry.data}>
+<TravelLayout frontmatter={entry.data} slug={entry.slug}>
     <Content />
 </TravelLayout>

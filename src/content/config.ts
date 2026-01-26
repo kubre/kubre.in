@@ -35,8 +35,8 @@ const travelCollection = defineCollection({
             title: z.string(),
             description: z.string(),
             coverImage: image(),
-            gallery: z.array(image()).optional(),
             visitedAt: z.date(),
+            visitedTill: z.date().optional(),
             coordinates: z
                 .object({
                     lat: z.number(),

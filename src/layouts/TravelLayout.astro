@@ -4,14 +4,15 @@ import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import Chip from "../components/Chip.astro";
 import { Image, Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 export interface Props {
     frontmatter: {
         title: string;
         description: string;
         coverImage: ImageMetadata;
-        gallery?: ImageMetadata[];
         visitedAt: Date;
+        visitedTill?: Date;
         coordinates?: {
             lat: number;
             lng: number;
@@ -19,6 +20,7 @@ export interface Props {
         tags: string[];
         rating?: number;
     };
+    slug: string;
 }
 
 const formatter = new Intl.DateTimeFormat("en-IN", {
@@ -26,12 +28,56 @@ const formatter = new Intl.DateTimeFormat("en-IN", {
     month: "long",
     day: "numeric",
 });
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
 const url = Astro.url;
+
+// Format date or date range
+function formatDateRange(start: Date, end?: Date): string {
+    const startDate = new Date(start);
+    if (!end) return formatter.format(startDate);
+
+    const endDate = new Date(end);
+    return `${formatter.format(startDate)} - ${formatter.format(endDate)}`;
+}
+
+const displayDate = formatDateRange(frontmatter.visitedAt, frontmatter.visitedTill);
 
 const mapsUrl = frontmatter.coordinates
     ? `https://www.google.com/maps?q=${frontmatter.coordinates.lat},${frontmatter.coordinates.lng}`
     : null;
+
+// Auto-load all images from the trip folder
+const allTravelImages = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/travel/**/*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,webp}"
+);
+
+// Helper: kebab-case filename to Sentence case caption
+function toSentenceCase(filename: string): string {
+    const name = filename.replace(/\.[^.]+$/, ""); // remove extension
+    return name
+        .split("-")
+        .map((word, i) => (i === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+        .join(" ");
+}
+
+// Get gallery images from folder (include all images)
+const folderPrefix = `/src/assets/travel/${slug}/`;
+
+const galleryEntries = Object.entries(allTravelImages)
+    .filter(([path]) => path.startsWith(folderPrefix))
+    .map(([path, importFn]) => ({
+        path,
+        importFn,
+        caption: toSentenceCase(path.split("/").pop()!),
+    }));
+
+// Resolve all gallery images
+const galleryImages = await Promise.all(
+    galleryEntries.map(async ({ importFn, caption }) => {
+        const img = await importFn();
+        return { src: img.default, caption };
+    })
+);
 ---
 
 <!doctype html>
@@ -90,7 +136,7 @@ const mapsUrl = frontmatter.coordinates
                             class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
                         >
                             <time datetime={String(frontmatter.visitedAt)}>
-                                {formatter.format(new Date(frontmatter.visitedAt))}
+                                {displayDate}
                             </time>
                         </dd>
                     </dl>
@@ -143,21 +189,24 @@ const mapsUrl = frontmatter.coordinates
                 </section>
 
                 {
-                    frontmatter.gallery && frontmatter.gallery.length > 0 && (
+                    galleryImages.length > 0 && (
                         <section class="mt-8 not-prose">
                             <h2 class="font-mono uppercase text-lg text-carbon-lighter mb-4">Gallery</h2>
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                {frontmatter.gallery.map((image, index) => (
-                                    <a href={image.src} target="_blank" rel="noopener noreferrer">
+                                {galleryImages.map(({ src, caption }) => (
+                                    <figure>
                                         <Image
-                                            src={image}
+                                            src={src}
                                             width={400}
                                             format="webp"
                                             quality={75}
-                                            alt={`${frontmatter.title} - Photo ${index + 1}`}
-                                            class="w-full h-40 object-cover hover:opacity-80 transition-opacity"
+                                            alt={caption}
+                                            data-lightbox
+                                            data-full={src.src}
+                                            class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
                                         />
-                                    </a>
+                                        <figcaption class="text-xs text-carbon-lighter mt-1">{caption}</figcaption>
+                                    </figure>
                                 ))}
                             </div>
                         </section>
@@ -179,5 +228,52 @@ const mapsUrl = frontmatter.coordinates
                 <Footer />
             </article>
         </main>
+        <!-- Lightbox -->
+        <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center">
+            <button id="lb-close" class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&times;</button>
+            <button id="lb-prev" class="absolute left-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&larr;</button>
+            <button id="lb-next" class="absolute right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&rarr;</button>
+            <img id="lb-img" class="max-h-[90vh] max-w-[90vw] object-contain" />
+            <p id="lb-caption" class="absolute bottom-4 text-white text-center w-full font-mono"></p>
+        </div>
+
+        <script>
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+            const lbCaption = document.getElementById('lb-caption');
+            const images = Array.from(document.querySelectorAll('[data-lightbox]')) as HTMLImageElement[];
+            let currentIndex = 0;
+
+            function openLightbox(index: number) {
+                currentIndex = index;
+                const img = images[index];
+                lbImg.src = img.dataset.full || '';
+                if (lbCaption) lbCaption.textContent = img.alt;
+                lightbox?.classList.remove('hidden');
+                lightbox?.classList.add('flex');
+            }
+
+            function closeLightbox() {
+                lightbox?.classList.add('hidden');
+                lightbox?.classList.remove('flex');
+            }
+
+            function navigate(delta: number) {
+                currentIndex = (currentIndex + delta + images.length) % images.length;
+                openLightbox(currentIndex);
+            }
+
+            images.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
+            document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
+            document.getElementById('lb-prev')?.addEventListener('click', () => navigate(-1));
+            document.getElementById('lb-next')?.addEventListener('click', () => navigate(1));
+            lightbox?.addEventListener('click', (e) => e.target === lightbox && closeLightbox());
+            document.addEventListener('keydown', (e) => {
+                if (lightbox?.classList.contains('hidden')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigate(-1);
+                if (e.key === 'ArrowRight') navigate(1);
+            });
+        </script>
     </body>
 </html>
