@@ -28,7 +28,28 @@ const workCollection = defineCollection({
         }),
 });
 
+const travelCollection = defineCollection({
+    type: "content",
+    schema: ({ image }) =>
+        z.object({
+            title: z.string(),
+            description: z.string(),
+            coverImage: image(),
+            gallery: z.array(image()).optional(),
+            visitedAt: z.date(),
+            coordinates: z
+                .object({
+                    lat: z.number(),
+                    lng: z.number(),
+                })
+                .optional(),
+            tags: z.array(z.string()),
+            rating: z.number().min(1).max(5).optional(),
+        }),
+});
+
 export const collections = {
     blog: blogCollection,
     work: blogCollection,
+    travel: travelCollection,
 };

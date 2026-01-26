@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TravelCard from "../../components/TravelCard.astro";
+import { getCollection } from "astro:content";
+
+const entries = await getCollection("travel").then((entries) => {
+    return entries.sort((a, b) => {
+        return (
+            new Date(b.data.visitedAt).valueOf() -
+            new Date(a.data.visitedAt).valueOf()
+        );
+    });
+});
+---
+
+<Layout
+    title="Travel"
+    description="Vaibhav's travel journal - places visited with photos and notes"
+>
+    <main class="py-12 grid">
+        <div class="relative mt-12 ml-0 lg:ml-[200px]">
+            <div
+                class="hidden absolute top-3 bottom-0 right-full mr-7 md:mr-[3.25rem] w-px bg-carbon-lighter sm:block"
+            >
+            </div>
+            <div class="space-y-16">
+                {entries.map((entry) => <TravelCard entry={entry} />)}
+            </div>
+        </div>
+    </main>
+</Layout>

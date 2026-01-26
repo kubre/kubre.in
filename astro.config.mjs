@@ -9,7 +9,7 @@ export default defineConfig({
     },
     output: "static",
     adapter: cloudflare({
-        imageService: 'cloudflare'
+        imageService: 'compile'
     }),
     site: "https://www.kubre.in",
     markdown: {

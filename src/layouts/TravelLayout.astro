@@ -1,0 +1,183 @@
+---
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
+import Chip from "../components/Chip.astro";
+import { Image, Picture } from "astro:assets";
+
+export interface Props {
+    frontmatter: {
+        title: string;
+        description: string;
+        coverImage: ImageMetadata;
+        gallery?: ImageMetadata[];
+        visitedAt: Date;
+        coordinates?: {
+            lat: number;
+            lng: number;
+        };
+        tags: string[];
+        rating?: number;
+    };
+}
+
+const formatter = new Intl.DateTimeFormat("en-IN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+const { frontmatter } = Astro.props;
+const url = Astro.url;
+
+const mapsUrl = frontmatter.coordinates
+    ? `https://www.google.com/maps?q=${frontmatter.coordinates.lat},${frontmatter.coordinates.lng}`
+    : null;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{frontmatter.title} - Travel - kubre.in</title>
+        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+
+        <meta name="title" content={frontmatter.title + " - Travel - kubre.in"} />
+        <meta name="description" content={frontmatter.description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={url} />
+        <meta property="og:title" content={frontmatter.title + " - Travel - kubre.in"} />
+        <meta property="og:description" content={frontmatter.description} />
+        <meta
+            property="og:image"
+            content={"https://kubre.in/assets/" + frontmatter.coverImage}
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={url} />
+        <meta property="twitter:title" content={frontmatter.title} />
+        <meta
+            property="twitter:description"
+            content={frontmatter.description}
+        />
+        <meta
+            property="twitter:image"
+            content={"https://kubre.in/assets/" + frontmatter.coverImage}
+        />
+
+        <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    </head>
+    <body class="max-w-screen-md mx-auto px-4 lg:px-0">
+        <Nav />
+        <main>
+            <article class="pt-10 typography font-sans">
+                <div class="flex justify-between items-center">
+                    <a
+                        href="/travel"
+                        class="text-carbon-lighter font-mono hover:bg-yellow-400 hover:text-black transition-colors"
+                    >
+                        ← Back
+                    </a>
+                    <dl>
+                        <dt class="sr-only">Date</dt>
+                        <dd
+                            class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
+                        >
+                            <time datetime={String(frontmatter.visitedAt)}>
+                                {formatter.format(new Date(frontmatter.visitedAt))}
+                            </time>
+                        </dd>
+                    </dl>
+                </div>
+
+                <h1 class="font-mono uppercase text-2xl text-carbon-lighter">
+                    {frontmatter.title}
+                </h1>
+
+                <div class="flex flex-wrap items-center gap-4 mt-2 not-prose text-sm text-carbon-lighter">
+                    {
+                        mapsUrl && (
+                            <a
+                                href={mapsUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex items-center gap-1 hover:bg-yellow-400 hover:text-black transition-colors px-1"
+                            >
+                                <span>&#x2316;</span>
+                                <span>View on Maps</span>
+                                <span>↗</span>
+                            </a>
+                        )
+                    }
+                    {
+                        frontmatter.rating && (
+                            <span class="flex items-center gap-0.5">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <span class={i < frontmatter.rating! ? "text-carbon" : "text-carbon-lighter"}>
+                                        {i < frontmatter.rating! ? "★" : "☆"}
+                                    </span>
+                                ))}
+                            </span>
+                        )
+                    }
+                </div>
+
+                <figure class="mt-6">
+                    <Picture
+                        src={frontmatter.coverImage}
+                        formats={["avif", "webp"]}
+                        quality={80}
+                        alt={frontmatter.title}
+                        class="w-full h-auto"
+                    />
+                </figure>
+
+                <section class="mt-8">
+                    <slot />
+                </section>
+
+                {
+                    frontmatter.gallery && frontmatter.gallery.length > 0 && (
+                        <section class="mt-8 not-prose">
+                            <h2 class="font-mono uppercase text-lg text-carbon-lighter mb-4">Gallery</h2>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                {frontmatter.gallery.map((image, index) => (
+                                    <a href={image.src} target="_blank" rel="noopener noreferrer">
+                                        <Image
+                                            src={image}
+                                            width={400}
+                                            format="webp"
+                                            quality={75}
+                                            alt={`${frontmatter.title} - Photo ${index + 1}`}
+                                            class="w-full h-40 object-cover hover:opacity-80 transition-opacity"
+                                        />
+                                    </a>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
+
+                {
+                    frontmatter.tags && frontmatter.tags.length > 0 && (
+                        <section class="mt-8 not-prose">
+                            <div class="flex flex-wrap gap-2">
+                                {frontmatter.tags.map((tag) => (
+                                    <Chip>{tag}</Chip>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
+
+                <Footer />
+            </article>
+        </main>
+    </body>
+</html>

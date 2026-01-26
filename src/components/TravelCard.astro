@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+export interface Props {
+    entry: CollectionEntry<"travel">;
+}
+
+const formatter = new Intl.DateTimeFormat("en-IN", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+});
+
+const { entry } = Astro.props;
+const { data } = entry;
+---
+
+<article class="relative group">
+    <span
+        class="hidden absolute right-full mr-6 top-0 md:mr-12 w-2.25 h-[calc(0.5rem)] overflow-visible sm:block text-carbon-lighter"
+        >◆</span
+    >
+    <a
+        class="flex flex-col md:flex-row items-center gap-4 w-full px-0 md:px-2 h-full mb-2 hover:bg-yellow-400 transition-colors"
+        href={`/travel/${entry.slug}`}
+    >
+        <Image
+            src={data.coverImage}
+            width={128}
+            height={128}
+            format="webp"
+            quality={75}
+            alt={data.title}
+            class="w-full md:w-32 md:h-32 object-cover"
+        />
+        <div class="flex-1">
+            <h3
+                class="text-base text-lg tracking-tight text-carbon pt-2 lg:pt-0"
+            >
+                {data.title}
+            </h3>
+            <p class="mt-1 text-carbon-light line-clamp-2 text-sm">
+                {data.description}
+            </p>
+            <div
+                class="mt-2 flex items-center gap-4 text-xs text-carbon-lighter"
+            >
+                {
+                    data.coordinates && (
+                        <span class="flex items-center gap-1">
+                            <span>&#x2316;</span>
+                            <span>
+                                {data.coordinates.lat.toFixed(2)},{" "}
+                                {data.coordinates.lng.toFixed(2)}
+                            </span>
+                        </span>
+                    )
+                }
+                {
+                    data.rating && (
+                        <span class="flex items-center gap-0.5">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                                <span
+                                    class={
+                                        i < data.rating!
+                                            ? "text-carbon"
+                                            : "text-carbon-lighter"
+                                    }
+                                >
+                                    {i < data.rating! ? "★" : "☆"}
+                                </span>
+                            ))}
+                        </span>
+                    )
+                }
+            </div>
+            <span class="text-sm text-carbon-lighter mt-2 inline-block"
+                >View ↳</span
+            >
+        </div>
+    </a>
+    <dl
+        class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]"
+    >
+        <dt class="sr-only">Date</dt>
+        <dd class="whitespace-nowrap text-xs leading-6 text-carbon-lighter">
+            <time datetime={String(data.visitedAt)}>
+                {formatter.format(new Date(data.visitedAt))}
+            </time>
+        </dd>
+    </dl>
+</article>
