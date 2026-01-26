@@ -47,11 +47,6 @@
   @apply bg-yellow-400 text-black;
 }
 
-/* Link hover effect */
-a:hover {
-  @apply bg-yellow-400 transition-colors;
-}
-
 /* Table styles */
 table {
   @apply w-full mt-4;
