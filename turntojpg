@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Check argument
+if [ -z "$1" ]; then
+    echo "Usage: ./turntojpg <directory-name>"
+    echo "Example: ./turntojpg ajanta"
+    exit 1
+fi
+
+DIR="src/assets/travel/$1"
+
+# Check directory exists
+if [ ! -d "$DIR" ]; then
+    echo "Error: Directory $DIR does not exist"
+    exit 1
+fi
+
+cd "$DIR"
+
+# Convert HEIC, HEIF, PNG to JPG using sips
+for file in *.heic *.HEIC *.heif *.HEIF *.png *.PNG; do
+    [ -e "$file" ] || continue
+    base="${file%.*}"
+    echo "Converting $file → ${base}.jpg"
+    sips -s format jpeg "$file" --out "${base}.jpg"
+    rm "$file"
+done
+
+# Rename .jpeg to .jpg
+for file in *.jpeg *.JPEG; do
+    [ -e "$file" ] || continue
+    base="${file%.*}"
+    echo "Renaming $file → ${base}.jpg"
+    mv "$file" "${base}.jpg"
+done
+
+# Normalize uppercase .JPG to lowercase .jpg
+for file in *.JPG; do
+    [ -e "$file" ] || continue
+    base="${file%.JPG}"
+    echo "Normalizing $file → ${base}.jpg"
+    mv "$file" "${base}.jpg"
+done
+
+echo "Done!"
