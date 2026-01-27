@@ -19,13 +19,15 @@ function toSentenceCase(filename: string): string {
     const name = filename.replace(/\.[^.]+$/, ""); // remove extension
     return name
         .split("-")
-        .map((word, i) => (i === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+        .map((word, i) =>
+            i === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word,
+        )
         .join(" ");
 }
 
 // Load all images from all travel folders
 const allTravelImages = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/travel/**/*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,webp}"
+    "/src/assets/travel/**/*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,webp}",
 );
 
 // Map images to their parent trip for date association
@@ -34,7 +36,7 @@ const galleryImages = await Promise.all(
         const img = await importFn();
         const pathParts = path.split("/");
         const slug = pathParts[4]; // Extract slug from path: /src/assets/travel/{slug}/...
-        const trip = entries.find(e => e.slug === slug);
+        const trip = entries.find((e) => e.slug === slug);
         const filename = pathParts.pop()!;
         return {
             src: img.default,
@@ -43,32 +45,43 @@ const galleryImages = await Promise.all(
             tripTitle: trip?.data.title || slug,
             visitedAt: trip?.data.visitedAt || new Date(),
         };
-    })
+    }),
 );
 
 // Sort by trip date (newest first)
-galleryImages.sort((a, b) =>
-    new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf()
+galleryImages.sort(
+    (a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf(),
 );
 
 // Group images by trip for Google Photos-style display
-type GalleryImage = typeof galleryImages[number];
-const imagesByTrip = galleryImages.reduce((acc, img) => {
-    if (!acc[img.tripSlug]) {
-        acc[img.tripSlug] = {
-            tripTitle: img.tripTitle,
-            tripSlug: img.tripSlug,
-            visitedAt: img.visitedAt,
-            images: [],
-        };
-    }
-    acc[img.tripSlug].images.push(img);
-    return acc;
-}, {} as Record<string, { tripTitle: string; tripSlug: string; visitedAt: Date; images: GalleryImage[] }>);
+type GalleryImage = (typeof galleryImages)[number];
+const imagesByTrip = galleryImages.reduce(
+    (acc, img) => {
+        if (!acc[img.tripSlug]) {
+            acc[img.tripSlug] = {
+                tripTitle: img.tripTitle,
+                tripSlug: img.tripSlug,
+                visitedAt: img.visitedAt,
+                images: [],
+            };
+        }
+        acc[img.tripSlug].images.push(img);
+        return acc;
+    },
+    {} as Record<
+        string,
+        {
+            tripTitle: string;
+            tripSlug: string;
+            visitedAt: Date;
+            images: GalleryImage[];
+        }
+    >,
+);
 
 // Convert to array and sort by date (newest first)
-const groupedTrips = Object.values(imagesByTrip).sort((a, b) =>
-    new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf()
+const groupedTrips = Object.values(imagesByTrip).sort(
+    (a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf(),
 );
 
 // Date formatter for group headers
@@ -113,106 +126,143 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
 
         <!-- Gallery View -->
         <div id="gallery-view" class="hidden space-y-8">
-            {groupedTrips.map(({ tripTitle, tripSlug, visitedAt, images }) => (
-                <section>
-                    <header class="mb-3 flex items-baseline gap-3">
-                        <a href={`/travel/${tripSlug}`} class="font-mono text-lg text-carbon hover:text-yellow-600 transition-colors">
-                            {tripTitle}
-                        </a>
-                        <time datetime={String(visitedAt)} class="font-mono text-sm text-carbon-lighter">
-                            {dateFormatter.format(new Date(visitedAt))}
-                        </time>
-                    </header>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                        {images.map(({ src, caption }) => (
-                            <figure class="relative group overflow-hidden">
-                                <Image
-                                    src={src}
-                                    width={300}
-                                    format="webp"
-                                    quality={75}
-                                    alt={caption}
-                                    loading="lazy"
-                                    data-lightbox
-                                    data-full={src.src}
-                                    data-trip-slug={tripSlug}
-                                    data-trip-title={tripTitle}
-                                    data-image-id={`${tripSlug}-${caption.toLowerCase().replace(/\s+/g, '-')}`}
-                                    class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
-                                />
-                            </figure>
-                        ))}
-                    </div>
-                </section>
-            ))}
+            {
+                groupedTrips.map(
+                    ({ tripTitle, tripSlug, visitedAt, images }) => (
+                        <section>
+                            <header class="mb-3 flex items-baseline gap-3">
+                                <a
+                                    href={`/travel/${tripSlug}`}
+                                    class="font-mono text-lg text-carbon hover:text-yellow-600 transition-colors"
+                                >
+                                    {tripTitle}
+                                </a>
+                                <time
+                                    datetime={String(visitedAt)}
+                                    class="font-mono text-sm text-carbon-lighter"
+                                >
+                                    {dateFormatter.format(new Date(visitedAt))}
+                                </time>
+                            </header>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                {images.map(({ src, caption }) => (
+                                    <figure class="relative group overflow-hidden">
+                                        <Image
+                                            src={src}
+                                            width={300}
+                                            format="webp"
+                                            quality={75}
+                                            alt={caption}
+                                            loading="lazy"
+                                            data-lightbox
+                                            data-full={src.src}
+                                            data-trip-slug={tripSlug}
+                                            data-trip-title={tripTitle}
+                                            data-image-id={`${tripSlug}-${caption.toLowerCase().replace(/\s+/g, "-")}`}
+                                            class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
+                                        />
+                                    </figure>
+                                ))}
+                            </div>
+                        </section>
+                    ),
+                )
+            }
+        </div>
+        <div class="pt-16 text-gray-700 text-center">
+            I will soon add more awesome trips from the past :D
         </div>
     </main>
 
     <!-- Lightbox -->
-    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-4">
-        <button id="lb-close" class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&times;</button>
-        <button id="lb-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&larr;</button>
-        <button id="lb-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&rarr;</button>
+    <div
+        id="lightbox"
+        class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-4"
+    >
+        <button
+            id="lb-close"
+            class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
+            >&times;</button
+        >
+        <button
+            id="lb-prev"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
+            >&larr;</button
+        >
+        <button
+            id="lb-next"
+            class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
+            >&rarr;</button
+        >
         <img id="lb-img" class="max-h-[80vh] max-w-[90vw] object-contain" />
         <div class="mt-4 text-white text-center font-mono">
             <p id="lb-caption"></p>
-            <a id="lb-trip-link" href="#" class="inline-block mt-2 text-sm text-yellow-400 hover:underline">View trip &rarr;</a>
+            <a
+                id="lb-trip-link"
+                href="#"
+                class="inline-block mt-2 text-sm text-yellow-400 hover:underline"
+                >View trip &rarr;</a
+            >
         </div>
     </div>
 </Layout>
 
 <script>
     // View toggle
-    const timelineBtn = document.getElementById('view-timeline');
-    const galleryBtn = document.getElementById('view-gallery');
-    const timelineView = document.getElementById('timeline-view');
-    const galleryView = document.getElementById('gallery-view');
+    const timelineBtn = document.getElementById("view-timeline");
+    const galleryBtn = document.getElementById("view-gallery");
+    const timelineView = document.getElementById("timeline-view");
+    const galleryView = document.getElementById("gallery-view");
 
-    function setView(view: 'timeline' | 'gallery', updateUrl = true) {
-        if (view === 'timeline') {
-            timelineView?.classList.remove('hidden');
-            galleryView?.classList.add('hidden');
-            timelineBtn?.classList.add('bg-carbon', 'text-enamel');
-            timelineBtn?.classList.remove('text-carbon-lighter');
-            galleryBtn?.classList.remove('bg-carbon', 'text-enamel');
-            galleryBtn?.classList.add('text-carbon-lighter');
+    function setView(view: "timeline" | "gallery", updateUrl = true) {
+        if (view === "timeline") {
+            timelineView?.classList.remove("hidden");
+            galleryView?.classList.add("hidden");
+            timelineBtn?.classList.add("bg-carbon", "text-enamel");
+            timelineBtn?.classList.remove("text-carbon-lighter");
+            galleryBtn?.classList.remove("bg-carbon", "text-enamel");
+            galleryBtn?.classList.add("text-carbon-lighter");
         } else {
-            timelineView?.classList.add('hidden');
-            galleryView?.classList.remove('hidden');
-            galleryBtn?.classList.add('bg-carbon', 'text-enamel');
-            galleryBtn?.classList.remove('text-carbon-lighter');
-            timelineBtn?.classList.remove('bg-carbon', 'text-enamel');
-            timelineBtn?.classList.add('text-carbon-lighter');
+            timelineView?.classList.add("hidden");
+            galleryView?.classList.remove("hidden");
+            galleryBtn?.classList.add("bg-carbon", "text-enamel");
+            galleryBtn?.classList.remove("text-carbon-lighter");
+            timelineBtn?.classList.remove("bg-carbon", "text-enamel");
+            timelineBtn?.classList.add("text-carbon-lighter");
         }
 
         if (updateUrl) {
             const url = new URL(window.location.href);
-            if (view === 'gallery') {
-                url.searchParams.set('view', 'gallery');
+            if (view === "gallery") {
+                url.searchParams.set("view", "gallery");
             } else {
-                url.searchParams.delete('view');
+                url.searchParams.delete("view");
             }
-            url.searchParams.delete('photo'); // close lightbox when switching views
-            history.pushState({}, '', url);
+            url.searchParams.delete("photo"); // close lightbox when switching views
+            history.pushState({}, "", url);
         }
     }
 
-    timelineBtn?.addEventListener('click', () => setView('timeline'));
-    galleryBtn?.addEventListener('click', () => setView('gallery'));
+    timelineBtn?.addEventListener("click", () => setView("timeline"));
+    galleryBtn?.addEventListener("click", () => setView("gallery"));
 
     // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lb-img') as HTMLImageElement;
-    const lbCaption = document.getElementById('lb-caption');
-    const lbTripLink = document.getElementById('lb-trip-link') as HTMLAnchorElement;
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+    const lbCaption = document.getElementById("lb-caption");
+    const lbTripLink = document.getElementById(
+        "lb-trip-link",
+    ) as HTMLAnchorElement;
     let images: HTMLImageElement[] = [];
     let currentIndex = 0;
 
     function updateLightboxImages() {
         // Only include visible images (from the active view)
-        const galleryVisible = !galleryView?.classList.contains('hidden');
+        const galleryVisible = !galleryView?.classList.contains("hidden");
         if (galleryVisible) {
-            images = Array.from(galleryView?.querySelectorAll('[data-lightbox]') || []) as HTMLImageElement[];
+            images = Array.from(
+                galleryView?.querySelectorAll("[data-lightbox]") || [],
+            ) as HTMLImageElement[];
         } else {
             images = [];
         }
@@ -223,35 +273,35 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
         currentIndex = index;
         const img = images[index];
         if (!img) return;
-        lbImg.src = img.dataset.full || '';
+        lbImg.src = img.dataset.full || "";
         if (lbCaption) lbCaption.textContent = img.alt;
         if (lbTripLink) {
-            const slug = img.dataset.tripSlug || '';
-            const title = img.dataset.tripTitle || 'View trip';
+            const slug = img.dataset.tripSlug || "";
+            const title = img.dataset.tripTitle || "View trip";
             lbTripLink.href = `/travel/${slug}`;
             lbTripLink.textContent = `${title} →`;
         }
-        lightbox?.classList.remove('hidden');
-        lightbox?.classList.add('flex');
+        lightbox?.classList.remove("hidden");
+        lightbox?.classList.add("flex");
 
         if (updateUrl) {
             const imageId = img.dataset.imageId;
             if (imageId) {
                 const url = new URL(window.location.href);
-                url.searchParams.set('photo', imageId);
-                history.pushState({}, '', url);
+                url.searchParams.set("photo", imageId);
+                history.pushState({}, "", url);
             }
         }
     }
 
     function closeLightbox(updateUrl = true) {
-        lightbox?.classList.add('hidden');
-        lightbox?.classList.remove('flex');
+        lightbox?.classList.add("hidden");
+        lightbox?.classList.remove("flex");
 
         if (updateUrl) {
             const url = new URL(window.location.href);
-            url.searchParams.delete('photo');
-            history.pushState({}, '', url);
+            url.searchParams.delete("photo");
+            history.pushState({}, "", url);
         }
     }
 
@@ -262,42 +312,55 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
     }
 
     // Attach click handlers to gallery images
-    galleryView?.querySelectorAll('[data-lightbox]').forEach((img, i) => {
-        img.addEventListener('click', () => openLightbox(i));
+    galleryView?.querySelectorAll("[data-lightbox]").forEach((img, i) => {
+        img.addEventListener("click", () => openLightbox(i));
     });
 
-    document.getElementById('lb-close')?.addEventListener('click', () => closeLightbox());
-    document.getElementById('lb-prev')?.addEventListener('click', () => navigate(-1));
-    document.getElementById('lb-next')?.addEventListener('click', () => navigate(1));
-    lightbox?.addEventListener('click', (e) => e.target === lightbox && closeLightbox());
-    document.addEventListener('keydown', (e) => {
-        if (lightbox?.classList.contains('hidden')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') navigate(-1);
-        if (e.key === 'ArrowRight') navigate(1);
+    document
+        .getElementById("lb-close")
+        ?.addEventListener("click", () => closeLightbox());
+    document
+        .getElementById("lb-prev")
+        ?.addEventListener("click", () => navigate(-1));
+    document
+        .getElementById("lb-next")
+        ?.addEventListener("click", () => navigate(1));
+    lightbox?.addEventListener(
+        "click",
+        (e) => e.target === lightbox && closeLightbox(),
+    );
+    document.addEventListener("keydown", (e) => {
+        if (lightbox?.classList.contains("hidden")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") navigate(-1);
+        if (e.key === "ArrowRight") navigate(1);
     });
 
     // Initialize state from URL
     function initFromUrl() {
         const url = new URL(window.location.href);
-        const view = url.searchParams.get('view');
-        const photoId = url.searchParams.get('photo');
+        const view = url.searchParams.get("view");
+        const photoId = url.searchParams.get("photo");
 
         // Set view without updating URL
-        if (view === 'gallery') {
-            setView('gallery', false);
+        if (view === "gallery") {
+            setView("gallery", false);
         } else {
-            setView('timeline', false);
+            setView("timeline", false);
         }
 
         // Close lightbox first (in case we're navigating back)
         closeLightbox(false);
 
         // Open lightbox if photo specified and in gallery view
-        if (photoId && view === 'gallery') {
-            const img = galleryView?.querySelector(`[data-image-id="${photoId}"]`) as HTMLImageElement | null;
+        if (photoId && view === "gallery") {
+            const img = galleryView?.querySelector(
+                `[data-image-id="${photoId}"]`,
+            ) as HTMLImageElement | null;
             if (img) {
-                const allImages = Array.from(galleryView?.querySelectorAll('[data-lightbox]') || []);
+                const allImages = Array.from(
+                    galleryView?.querySelectorAll("[data-lightbox]") || [],
+                );
                 const index = allImages.indexOf(img);
                 if (index >= 0) {
                     openLightbox(index, false);
@@ -310,7 +373,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
     initFromUrl();
 
     // Handle browser back/forward
-    window.addEventListener('popstate', () => {
+    window.addEventListener("popstate", () => {
         initFromUrl();
     });
 </script>
