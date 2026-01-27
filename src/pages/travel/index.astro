@@ -194,7 +194,14 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
             class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
             >&rarr;</button
         >
-        <img id="lb-img" class="max-h-[80vh] max-w-[90vw] object-contain" />
+        <!-- Blurred placeholder (shows thumbnail) -->
+        <img id="lb-placeholder" class="absolute max-h-[80vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden" />
+        <!-- Full resolution image -->
+        <img id="lb-img" class="max-h-[80vh] max-w-[90vw] object-contain transition-opacity duration-300" />
+        <!-- Loading indicator -->
+        <div id="lb-loader" class="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden">
+            Loading...
+        </div>
         <div class="mt-4 text-white text-center font-mono">
             <p id="lb-caption"></p>
             <a
@@ -249,6 +256,8 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
     // Lightbox
     const lightbox = document.getElementById("lightbox");
     const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+    const lbPlaceholder = document.getElementById("lb-placeholder") as HTMLImageElement;
+    const lbLoader = document.getElementById("lb-loader");
     const lbCaption = document.getElementById("lb-caption");
     const lbTripLink = document.getElementById(
         "lb-trip-link",
@@ -268,12 +277,37 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
         }
     }
 
+    function preloadAdjacentImages() {
+        if (images.length === 0) return;
+        const prevIndex = (currentIndex - 1 + images.length) % images.length;
+        const nextIndex = (currentIndex + 1) % images.length;
+        [prevIndex, nextIndex].forEach(idx => {
+            const img = images[idx];
+            if (img?.dataset.full) {
+                const preload = new Image();
+                preload.src = img.dataset.full;
+            }
+        });
+    }
+
     function openLightbox(index: number, updateUrl = true) {
         updateLightboxImages();
         currentIndex = index;
         const img = images[index];
         if (!img) return;
-        lbImg.src = img.dataset.full || "";
+
+        const fullSrc = img.dataset.full || "";
+        const thumbSrc = img.src;
+
+        // Show placeholder immediately (already loaded thumbnail, blurred)
+        lbPlaceholder.src = thumbSrc;
+        lbPlaceholder.classList.remove("hidden");
+
+        // Hide main image and show loader
+        lbImg.classList.add("opacity-0");
+        lbLoader?.classList.remove("hidden");
+
+        // Update caption
         if (lbCaption) lbCaption.textContent = img.alt;
         if (lbTripLink) {
             const slug = img.dataset.tripSlug || "";
@@ -281,8 +315,21 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
             lbTripLink.href = `/travel/${slug}`;
             lbTripLink.textContent = `${title} →`;
         }
+
+        // Show lightbox
         lightbox?.classList.remove("hidden");
         lightbox?.classList.add("flex");
+
+        // Load full image
+        const fullImage = new Image();
+        fullImage.onload = () => {
+            lbImg.src = fullSrc;
+            lbImg.classList.remove("opacity-0");
+            lbPlaceholder.classList.add("hidden");
+            lbLoader?.classList.add("hidden");
+            preloadAdjacentImages();
+        };
+        fullImage.src = fullSrc;
 
         if (updateUrl) {
             const imageId = img.dataset.imageId;

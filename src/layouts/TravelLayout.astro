@@ -233,24 +233,71 @@ const galleryImages = await Promise.all(
             <button id="lb-close" class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&times;</button>
             <button id="lb-prev" class="absolute left-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&larr;</button>
             <button id="lb-next" class="absolute right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&rarr;</button>
-            <img id="lb-img" class="max-h-[90vh] max-w-[90vw] object-contain" />
+            <!-- Blurred placeholder (shows thumbnail) -->
+            <img id="lb-placeholder" class="absolute max-h-[90vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden" />
+            <!-- Full resolution image -->
+            <img id="lb-img" class="max-h-[90vh] max-w-[90vw] object-contain transition-opacity duration-300" />
+            <!-- Loading indicator -->
+            <div id="lb-loader" class="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden">
+                Loading...
+            </div>
             <p id="lb-caption" class="absolute bottom-4 text-white text-center w-full font-mono"></p>
         </div>
 
         <script>
             const lightbox = document.getElementById('lightbox');
             const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+            const lbPlaceholder = document.getElementById('lb-placeholder') as HTMLImageElement;
+            const lbLoader = document.getElementById('lb-loader');
             const lbCaption = document.getElementById('lb-caption');
             const images = Array.from(document.querySelectorAll('[data-lightbox]')) as HTMLImageElement[];
             let currentIndex = 0;
 
+            function preloadAdjacentImages() {
+                const prevIndex = (currentIndex - 1 + images.length) % images.length;
+                const nextIndex = (currentIndex + 1) % images.length;
+                [prevIndex, nextIndex].forEach(idx => {
+                    const img = images[idx];
+                    if (img?.dataset.full) {
+                        const preload = new Image();
+                        preload.src = img.dataset.full;
+                    }
+                });
+            }
+
             function openLightbox(index: number) {
                 currentIndex = index;
                 const img = images[index];
-                lbImg.src = img.dataset.full || '';
+                if (!img) return;
+
+                const fullSrc = img.dataset.full || '';
+                const thumbSrc = img.src;
+
+                // Show placeholder immediately (already loaded thumbnail, blurred)
+                lbPlaceholder.src = thumbSrc;
+                lbPlaceholder.classList.remove('hidden');
+
+                // Hide main image and show loader
+                lbImg.classList.add('opacity-0');
+                lbLoader?.classList.remove('hidden');
+
+                // Update caption
                 if (lbCaption) lbCaption.textContent = img.alt;
+
+                // Show lightbox
                 lightbox?.classList.remove('hidden');
                 lightbox?.classList.add('flex');
+
+                // Load full image
+                const fullImage = new Image();
+                fullImage.onload = () => {
+                    lbImg.src = fullSrc;
+                    lbImg.classList.remove('opacity-0');
+                    lbPlaceholder.classList.add('hidden');
+                    lbLoader?.classList.add('hidden');
+                    preloadAdjacentImages();
+                };
+                fullImage.src = fullSrc;
             }
 
             function closeLightbox() {
