@@ -1,7 +1,7 @@
 ---
 title: "A day in Mumbai"
 description: "I had to catch flight mid night so before that I had a day to me in mumbai."
-coverImage: ../../assets/travel/mumbai/sunset-at-marine-drive.jpg
+coverImage: ../../assets/travel/mumbai/sunset-at-marine-drive.JPG
 visitedAt: 2026-01-20
 visitedTill: 2026-01-20
 coordinates:
