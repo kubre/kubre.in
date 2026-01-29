@@ -31,7 +31,7 @@ const allTravelImages = import.meta.glob<{ default: ImageMetadata }>(
 );
 
 // Map images to their parent trip for date association
-const galleryImages = await Promise.all(
+const photos = await Promise.all(
     Object.entries(allTravelImages).map(async ([path, importFn]) => {
         const img = await importFn();
         const pathParts = path.split("/");
@@ -49,13 +49,13 @@ const galleryImages = await Promise.all(
 );
 
 // Sort by trip date (newest first)
-galleryImages.sort(
+photos.sort(
     (a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf(),
 );
 
 // Group images by trip for Google Photos-style display
-type GalleryImage = (typeof galleryImages)[number];
-const imagesByTrip = galleryImages.reduce(
+type Photo = (typeof photos)[number];
+const imagesByTrip = photos.reduce(
     (acc, img) => {
         if (!acc[img.tripSlug]) {
             acc[img.tripSlug] = {
@@ -74,7 +74,7 @@ const imagesByTrip = galleryImages.reduce(
             tripTitle: string;
             tripSlug: string;
             visitedAt: Date;
-            images: GalleryImage[];
+            images: Photo[];
         }
     >,
 );
@@ -106,10 +106,10 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
                 Timeline
             </button>
             <button
-                id="view-gallery"
+                id="view-photos"
                 class="px-3 py-1 text-carbon-lighter hover:bg-carbon hover:text-enamel transition-colors"
             >
-                Gallery
+                Photos
             </button>
         </div>
 
@@ -124,8 +124,8 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
             </div>
         </div>
 
-        <!-- Gallery View -->
-        <div id="gallery-view" class="hidden space-y-8">
+        <!-- Photos View -->
+        <div id="photos-view" class="hidden space-y-8">
             {
                 groupedTrips.map(
                     ({ tripTitle, tripSlug, visitedAt, images }) => (
@@ -217,31 +217,31 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
 <script>
     // View toggle
     const timelineBtn = document.getElementById("view-timeline");
-    const galleryBtn = document.getElementById("view-gallery");
+    const photosBtn = document.getElementById("view-photos");
     const timelineView = document.getElementById("timeline-view");
-    const galleryView = document.getElementById("gallery-view");
+    const photosView = document.getElementById("photos-view");
 
-    function setView(view: "timeline" | "gallery", updateUrl = true) {
+    function setView(view: "timeline" | "photos", updateUrl = true) {
         if (view === "timeline") {
             timelineView?.classList.remove("hidden");
-            galleryView?.classList.add("hidden");
+            photosView?.classList.add("hidden");
             timelineBtn?.classList.add("bg-carbon", "text-enamel");
             timelineBtn?.classList.remove("text-carbon-lighter");
-            galleryBtn?.classList.remove("bg-carbon", "text-enamel");
-            galleryBtn?.classList.add("text-carbon-lighter");
+            photosBtn?.classList.remove("bg-carbon", "text-enamel");
+            photosBtn?.classList.add("text-carbon-lighter");
         } else {
             timelineView?.classList.add("hidden");
-            galleryView?.classList.remove("hidden");
-            galleryBtn?.classList.add("bg-carbon", "text-enamel");
-            galleryBtn?.classList.remove("text-carbon-lighter");
+            photosView?.classList.remove("hidden");
+            photosBtn?.classList.add("bg-carbon", "text-enamel");
+            photosBtn?.classList.remove("text-carbon-lighter");
             timelineBtn?.classList.remove("bg-carbon", "text-enamel");
             timelineBtn?.classList.add("text-carbon-lighter");
         }
 
         if (updateUrl) {
             const url = new URL(window.location.href);
-            if (view === "gallery") {
-                url.searchParams.set("view", "gallery");
+            if (view === "photos") {
+                url.searchParams.set("view", "photos");
             } else {
                 url.searchParams.delete("view");
             }
@@ -251,7 +251,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
     }
 
     timelineBtn?.addEventListener("click", () => setView("timeline"));
-    galleryBtn?.addEventListener("click", () => setView("gallery"));
+    photosBtn?.addEventListener("click", () => setView("photos"));
 
     // Lightbox
     const lightbox = document.getElementById("lightbox");
@@ -267,10 +267,10 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
 
     function updateLightboxImages() {
         // Only include visible images (from the active view)
-        const galleryVisible = !galleryView?.classList.contains("hidden");
-        if (galleryVisible) {
+        const photosVisible = !photosView?.classList.contains("hidden");
+        if (photosVisible) {
             images = Array.from(
-                galleryView?.querySelectorAll("[data-lightbox]") || [],
+                photosView?.querySelectorAll("[data-lightbox]") || [],
             ) as HTMLImageElement[];
         } else {
             images = [];
@@ -358,8 +358,8 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
         openLightbox(currentIndex); // already updates URL
     }
 
-    // Attach click handlers to gallery images
-    galleryView?.querySelectorAll("[data-lightbox]").forEach((img, i) => {
+    // Attach click handlers to photos
+    photosView?.querySelectorAll("[data-lightbox]").forEach((img, i) => {
         img.addEventListener("click", () => openLightbox(i));
     });
 
@@ -390,8 +390,8 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
         const photoId = url.searchParams.get("photo");
 
         // Set view without updating URL
-        if (view === "gallery") {
-            setView("gallery", false);
+        if (view === "photos") {
+            setView("photos", false);
         } else {
             setView("timeline", false);
         }
@@ -399,14 +399,14 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
         // Close lightbox first (in case we're navigating back)
         closeLightbox(false);
 
-        // Open lightbox if photo specified and in gallery view
-        if (photoId && view === "gallery") {
-            const img = galleryView?.querySelector(
+        // Open lightbox if photo specified and in photos view
+        if (photoId && view === "photos") {
+            const img = photosView?.querySelector(
                 `[data-image-id="${photoId}"]`,
             ) as HTMLImageElement | null;
             if (img) {
                 const allImages = Array.from(
-                    galleryView?.querySelectorAll("[data-lightbox]") || [],
+                    photosView?.querySelectorAll("[data-lightbox]") || [],
                 );
                 const index = allImages.indexOf(img);
                 if (index >= 0) {

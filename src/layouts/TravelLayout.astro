@@ -37,6 +37,10 @@ function formatDateRange(start: Date, end?: Date): string {
     if (!end) return formatter.format(startDate);
 
     const endDate = new Date(end);
+    // Show single date if start and end are the same day
+    if (startDate.toDateString() === endDate.toDateString()) {
+        return formatter.format(startDate);
+    }
     return `${formatter.format(startDate)} - ${formatter.format(endDate)}`;
 }
 
@@ -60,10 +64,10 @@ function toSentenceCase(filename: string): string {
         .join(" ");
 }
 
-// Get gallery images from folder (include all images)
+// Get photos from folder (include all images)
 const folderPrefix = `/src/assets/travel/${slug}/`;
 
-const galleryEntries = Object.entries(allTravelImages)
+const photoEntries = Object.entries(allTravelImages)
     .filter(([path]) => path.startsWith(folderPrefix))
     .map(([path, importFn]) => ({
         path,
@@ -71,9 +75,9 @@ const galleryEntries = Object.entries(allTravelImages)
         caption: toSentenceCase(path.split("/").pop()!),
     }));
 
-// Resolve all gallery images
-const galleryImages = await Promise.all(
-    galleryEntries.map(async ({ importFn, caption }) => {
+// Resolve all photos
+const photos = await Promise.all(
+    photoEntries.map(async ({ importFn, caption }) => {
         const img = await importFn();
         return { src: img.default, caption };
     })
@@ -189,11 +193,11 @@ const galleryImages = await Promise.all(
                 </section>
 
                 {
-                    galleryImages.length > 0 && (
+                    photos.length > 0 && (
                         <section class="mt-8 not-prose">
-                            <h2 class="font-mono uppercase text-lg text-carbon-lighter mb-4">Gallery</h2>
+                            <h2 class="font-mono uppercase text-lg text-carbon-lighter mb-4">Photos</h2>
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                {galleryImages.map(({ src, caption }) => (
+                                {photos.map(({ src, caption }) => (
                                     <figure>
                                         <Image
                                             src={src}
