@@ -174,6 +174,7 @@ const photos = await Promise.all(
                                             alt={caption}
                                             data-lightbox
                                             data-full={src.src}
+                                            data-image-id={caption.toLowerCase().replace(/\s+/g, "-")}
                                             class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
                                         />
                                         <figcaption class="text-xs text-carbon-lighter mt-1">{caption}</figcaption>
@@ -236,7 +237,7 @@ const photos = await Promise.all(
                 });
             }
 
-            function openLightbox(index: number) {
+            function openLightbox(index: number, updateUrl = true) {
                 currentIndex = index;
                 const img = images[index];
                 if (!img) return;
@@ -269,11 +270,29 @@ const photos = await Promise.all(
                     preloadAdjacentImages();
                 };
                 fullImage.src = fullSrc;
+
+                // Update URL with photo hash
+                if (updateUrl) {
+                    const imageId = img.dataset.imageId;
+                    if (imageId) {
+                        const url = new URL(window.location.href);
+                        url.hash = `photo=${imageId}`;
+                        history.pushState({}, '', url);
+                    }
+                }
             }
 
-            function closeLightbox() {
+            function closeLightbox(updateUrl = true) {
                 lightbox?.classList.add('hidden');
                 lightbox?.classList.remove('flex');
+
+                // Remove photo hash from URL
+                if (updateUrl) {
+                    const url = new URL(window.location.href);
+                    if (url.hash.startsWith('#photo=')) {
+                        history.pushState({}, '', url.pathname + url.search);
+                    }
+                }
             }
 
             function navigate(delta: number) {
@@ -281,8 +300,23 @@ const photos = await Promise.all(
                 openLightbox(currentIndex);
             }
 
+            // Initialize lightbox state from URL hash
+            function initFromHash() {
+                const hash = window.location.hash;
+                if (hash.startsWith('#photo=')) {
+                    const imageId = hash.slice(7); // Remove '#photo='
+                    const img = images.find(i => i.dataset.imageId === imageId);
+                    if (img) {
+                        const index = images.indexOf(img);
+                        if (index >= 0) {
+                            openLightbox(index, false);
+                        }
+                    }
+                }
+            }
+
             images.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
-            document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
+            document.getElementById('lb-close')?.addEventListener('click', () => closeLightbox());
             document.getElementById('lb-prev')?.addEventListener('click', () => navigate(-1));
             document.getElementById('lb-next')?.addEventListener('click', () => navigate(1));
             lightbox?.addEventListener('click', (e) => e.target === lightbox && closeLightbox());
@@ -292,6 +326,26 @@ const photos = await Promise.all(
                 if (e.key === 'ArrowLeft') navigate(-1);
                 if (e.key === 'ArrowRight') navigate(1);
             });
+
+            // Handle browser back/forward
+            window.addEventListener('popstate', () => {
+                const hash = window.location.hash;
+                if (hash.startsWith('#photo=')) {
+                    const imageId = hash.slice(7);
+                    const img = images.find(i => i.dataset.imageId === imageId);
+                    if (img) {
+                        const index = images.indexOf(img);
+                        if (index >= 0) {
+                            openLightbox(index, false);
+                        }
+                    }
+                } else {
+                    closeLightbox(false);
+                }
+            });
+
+            // Initialize on page load
+            initFromHash();
         </script>
     </body>
 </html>

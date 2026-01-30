@@ -80,6 +80,13 @@ const groupedTrips = Object.values(imagesByTrip).sort(
     title="Travel"
     description="Vaibhav's travel journal - places visited with photos and notes"
 >
+    <link
+        slot="head"
+        rel="alternate"
+        type="application/rss+xml"
+        title="Vaibhav Kubre's Travel"
+        href="/travel/rss.xml"
+    />
     <main class="py-12 grid">
         <!-- View Toggle -->
         <div class="flex gap-2 mb-8 font-mono text-sm">

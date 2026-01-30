@@ -11,7 +11,7 @@ tags: ["bhandardara", "motorcycle"]
 rating: 4
 ---
 
-On the new year I wanted to do some star gazing and camping, plus I wanted to reach the on my bike. Before I planned the trip, I saw an instagram story for Bhandardara camping trip for motorcycle riding group the fees they was same what I would pay If I had to go on my own. I decided to contact the person in the post and book me and my friend joining from pune.
+On the new year I wanted to do some star gazing and camping, plus I wanted to reach the campsite on my bike. Before I planned the trip, I saw an instagram story for Bhandardara camping trip for motorcycle riding group the fees they was same what I would pay If I had to go on my own. I decided to contact the person in the post and book me and my friend joining from pune.
 
 Before this trip started I got myself a riding jacket as I already had a helmet and gloves. I also prepared bike by cleaning and lubricating the chain using WD40 and some SAE 90W oil.
 
@@ -21,4 +21,4 @@ About 30-40KM after this we stopped at petrol pump when one of the other riders 
 
 My friend from pune joined with me at Sangamner. At night with multiple stops and after doing some sightseeing we reached camp. All the people in riding group were really friends and I had great time with them at night camp the food from the camp wasn't that great but just having fun with everyone alongside having such a great time riding my motorcycle.
 
-Next day we packed our stuff and decided to leave, we decided to leave from another route which takes us to [Lavalwadi](https://www.google.com/maps?q=loc:19.5406556,73.6815806). After the monsoon the the ponds around the road are filled up and you get this gorgeous view of the road surrounded by mountains and hills in middle of the lake(definitely look for its ariel view videos as I dont have any). Through out the mountains without any cell network we went to Ratangad and went to small Amruteshwar temple. After that we left and through twisty roads and beautiful view we finally connected back to main road and pretty much after that it was ride to home.
+Next day we packed our stuff and decided to leave, we decided to leave from another route which takes us to [Lavalwadi](https://www.google.com/maps?q=loc:19.5406556,73.6815806). After the monsoon the the ponds around the road are filled up and you get this gorgeous view of the road surrounded by mountains and hills in middle of the lake(definitely look for its aerial view videos as I dont have any). Through out the mountains without any cell network we went to Ratangad and went to small Amruteshwar temple. After that we left and through twisty roads and beautiful view we finally connected back to main road and pretty much after that it was ride to home.
