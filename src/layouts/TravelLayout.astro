@@ -4,6 +4,9 @@ import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import Chip from "../components/Chip.astro";
 import { Image, Picture } from "astro:assets";
+import { formatDateRange } from "../utils/date";
+import { toSentenceCase } from "../utils/text";
+import { getOgImageUrl } from "../utils/seo";
 import type { ImageMetadata } from "astro";
 
 export interface Props {
@@ -23,46 +26,20 @@ export interface Props {
     slug: string;
 }
 
-const formatter = new Intl.DateTimeFormat("en-IN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-});
 const { frontmatter, slug } = Astro.props;
 const url = Astro.url;
-
-// Format date or date range
-function formatDateRange(start: Date, end?: Date): string {
-    const startDate = new Date(start);
-    if (!end) return formatter.format(startDate);
-
-    const endDate = new Date(end);
-    // Show single date if start and end are the same day
-    if (startDate.toDateString() === endDate.toDateString()) {
-        return formatter.format(startDate);
-    }
-    return `${formatter.format(startDate)} - ${formatter.format(endDate)}`;
-}
-
-const displayDate = formatDateRange(frontmatter.visitedAt, frontmatter.visitedTill);
+const ogImage = getOgImageUrl(frontmatter.coverImage);
 
 const mapsUrl = frontmatter.coordinates
     ? `https://www.google.com/maps?q=${frontmatter.coordinates.lat},${frontmatter.coordinates.lng}`
     : null;
 
+const displayDate = formatDateRange(frontmatter.visitedAt, frontmatter.visitedTill);
+
 // Auto-load all images from the trip folder
 const allTravelImages = import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/travel/**/*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,webp}"
 );
-
-// Helper: kebab-case filename to Sentence case caption
-function toSentenceCase(filename: string): string {
-    const name = filename.replace(/\.[^.]+$/, ""); // remove extension
-    return name
-        .split("-")
-        .map((word, i) => (i === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
-        .join(" ");
-}
 
 // Get photos from folder (include all images)
 const folderPrefix = `/src/assets/travel/${slug}/`;
@@ -96,29 +73,19 @@ const photos = await Promise.all(
         <meta name="description" content={frontmatter.description} />
 
         <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={url} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={url.href} />
         <meta property="og:title" content={frontmatter.title + " - Travel - kubre.in"} />
         <meta property="og:description" content={frontmatter.description} />
-        <meta
-            property="og:image"
-            content={"https://kubre.in/assets/" + frontmatter.coverImage}
-        />
+        <meta property="og:image" content={ogImage} />
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={url} />
+        <meta property="twitter:url" content={url.href} />
         <meta property="twitter:title" content={frontmatter.title} />
-        <meta
-            property="twitter:description"
-            content={frontmatter.description}
-        />
-        <meta
-            property="twitter:image"
-            content={"https://kubre.in/assets/" + frontmatter.coverImage}
-        />
+        <meta property="twitter:description" content={frontmatter.description} />
+        <meta property="twitter:image" content={ogImage} />
 
-        <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
@@ -139,7 +106,7 @@ const photos = await Promise.all(
                         <dd
                             class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
                         >
-                            <time datetime={String(frontmatter.visitedAt)}>
+                            <time datetime={frontmatter.visitedAt.toISOString()}>
                                 {displayDate}
                             </time>
                         </dd>
@@ -238,9 +205,9 @@ const photos = await Promise.all(
             <button id="lb-prev" class="absolute left-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&larr;</button>
             <button id="lb-next" class="absolute right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors">&rarr;</button>
             <!-- Blurred placeholder (shows thumbnail) -->
-            <img id="lb-placeholder" class="absolute max-h-[90vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden" />
+            <img id="lb-placeholder" class="absolute max-h-[90vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden" alt="" />
             <!-- Full resolution image -->
-            <img id="lb-img" class="max-h-[90vh] max-w-[90vw] object-contain transition-opacity duration-300" />
+            <img id="lb-img" class="max-h-[90vh] max-w-[90vw] object-contain transition-opacity duration-300" alt="" />
             <!-- Loading indicator -->
             <div id="lb-loader" class="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden">
                 Loading...

@@ -11,6 +11,7 @@ const blogCollection = defineCollection({
             publishedAt: z.date(),
             tags: z.array(z.string()),
             readTime: z.number().optional().default(5),
+            draft: z.boolean().optional().default(false),
         }),
 });
 
@@ -25,6 +26,7 @@ const workCollection = defineCollection({
             publishedAt: z.date(),
             tags: z.array(z.string()),
             readTime: z.number().optional().default(5),
+            draft: z.boolean().optional().default(false),
         }),
 });
 
@@ -50,6 +52,6 @@ const travelCollection = defineCollection({
 
 export const collections = {
     blog: blogCollection,
-    work: blogCollection,
+    work: workCollection,
     travel: travelCollection,
 };

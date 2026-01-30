@@ -2,8 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import PostCard from "../../components/PostCard.astro";
+import { calculateReadTime } from "../../utils/text";
 
-const docs = await getCollection("work").then((docs) => {
+const docs = await getCollection("work", ({ data }) => {
+    // Filter out drafts in production
+    return import.meta.env.DEV || !data.draft;
+}).then((docs) => {
     return docs
         .sort((a, b) => {
             return (
@@ -16,7 +20,7 @@ const docs = await getCollection("work").then((docs) => {
                 ...doc,
                 data: {
                     ...doc.data,
-                    readTime: Math.ceil(doc.body.split(" ").length / 200),
+                    readTime: calculateReadTime(doc.body),
                 },
             };
         });

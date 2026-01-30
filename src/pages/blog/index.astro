@@ -2,8 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import PostCard from "../../components/PostCard.astro";
 import { getCollection } from "astro:content";
+import { calculateReadTime } from "../../utils/text";
 
-const posts = await getCollection("blog").then((posts) => {
+const posts = await getCollection("blog", ({ data }) => {
+    // Filter out drafts in production
+    return import.meta.env.DEV || !data.draft;
+}).then((posts) => {
     return posts
         .sort((a, b) => {
             return (
@@ -16,7 +20,7 @@ const posts = await getCollection("blog").then((posts) => {
                 ...post,
                 data: {
                     ...post.data,
-                    readTime: Math.ceil(post.body.split(" ").length / 200),
+                    readTime: calculateReadTime(post.body),
                 },
             };
         });
@@ -25,7 +29,7 @@ const posts = await getCollection("blog").then((posts) => {
 
 <Layout
     title="Blog"
-    description="Vaibhav's articles realted to tech and stuff he likes"
+    description="Vaibhav's articles related to tech and stuff he likes"
 >
     <main class="py-12 grid">
         <div class="relative mt-12 ml-0 lg:ml-[200px]">

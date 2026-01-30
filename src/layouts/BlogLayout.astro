@@ -2,6 +2,10 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
+import { DATE_FORMATTERS } from "../utils/date";
+import { getOgImageUrl } from "../utils/seo";
+import type { ImageMetadata } from "astro";
+
 export interface Props {
     frontmatter: {
         title: string;
@@ -14,14 +18,10 @@ export interface Props {
     };
 }
 
-const formatter = new Intl.DateTimeFormat("en-IN", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-});
 const { frontmatter } = Astro.props;
 const url = Astro.url;
 const backUrl = "/" + url.pathname.split("/")[1];
+const ogImage = getOgImageUrl(frontmatter.image);
 ---
 
 <!doctype html>
@@ -36,29 +36,19 @@ const backUrl = "/" + url.pathname.split("/")[1];
         <meta name="description" content={frontmatter.description} />
 
         <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={url} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={url.href} />
         <meta property="og:title" content={frontmatter.title + " - kubre.in"} />
         <meta property="og:description" content={frontmatter.description} />
-        <meta
-            property="og:image"
-            content={"https://kubre.in/assets/" + frontmatter.image}
-        />
+        <meta property="og:image" content={ogImage} />
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={url} />
+        <meta property="twitter:url" content={url.href} />
         <meta property="twitter:title" content={frontmatter.title} />
-        <meta
-            property="twitter:description"
-            content={frontmatter.description}
-        />
-        <meta
-            property="twitter:image"
-            content={"https://kubre.in/assets/" + frontmatter.image}
-        />
+        <meta property="twitter:description" content={frontmatter.description} />
+        <meta property="twitter:image" content={ogImage} />
 
-        <link rel="icon" type="image/jpeg" href="/assets/me.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
@@ -79,12 +69,8 @@ const backUrl = "/" + url.pathname.split("/")[1];
                         <dd
                             class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
                         >
-                            <time datetime={String(frontmatter.publishedAt)}>
-                                {
-                                    formatter.format(
-                                        new Date(frontmatter.publishedAt),
-                                    )
-                                }
+                            <time datetime={frontmatter.publishedAt.toISOString()}>
+                                {DATE_FORMATTERS.full.format(frontmatter.publishedAt)}
                             </time>
                         </dd>
                     </dl>

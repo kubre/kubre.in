@@ -1,16 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
+import { DATE_FORMATTERS } from "../utils/date";
 
 export interface Props {
     entry: CollectionEntry<"travel">;
 }
-
-const formatter = new Intl.DateTimeFormat("en-IN", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-});
 
 const { entry } = Astro.props;
 const { data } = entry;
@@ -85,8 +80,8 @@ const { data } = entry;
     >
         <dt class="sr-only">Date</dt>
         <dd class="whitespace-nowrap text-xs leading-6 text-carbon-lighter">
-            <time datetime={String(data.visitedAt)}>
-                {formatter.format(new Date(data.visitedAt))}
+            <time datetime={data.visitedAt.toISOString()}>
+                {DATE_FORMATTERS.short.format(data.visitedAt)}
             </time>
         </dd>
     </dl>

@@ -1,0 +1,77 @@
+---
+import "@fontsource/ibm-plex-mono";
+import "../styles/global.css";
+import { SITE, getCanonicalUrl, getDefaultOgImageUrl } from "../utils/seo";
+
+export interface Props {
+    title: string;
+    description: string;
+    ogImage?: string;
+    ogType?: "website" | "article";
+    noIndex?: boolean;
+}
+
+const {
+    title,
+    description,
+    ogImage = getDefaultOgImageUrl(),
+    ogType = "website",
+    noIndex = false,
+} = Astro.props;
+
+const canonicalUrl = getCanonicalUrl(Astro.url.pathname);
+const fullTitle = `${title} - ${SITE.name}`;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{fullTitle}</title>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+
+        <!-- Primary Meta Tags -->
+        <meta name="title" content={fullTitle} />
+        <meta name="description" content={description} />
+        {noIndex && <meta name="robots" content="noindex" />}
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href={canonicalUrl} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content={ogType} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content={SITE.name} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalUrl} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={ogImage} />
+        <meta property="twitter:site" content={SITE.twitterHandle} />
+
+        <!-- RSS Feed -->
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Vaibhav Kubre's Blog"
+            href={`${SITE.url}/rss.xml`}
+        />
+
+        <!-- Preconnect for external resources -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <slot name="head" />
+    </head>
+    <body class="px-4 lg:px-0 max-w-screen-md mx-auto">
+        <slot />
+    </body>
+</html>

@@ -1,61 +1,20 @@
 ---
-import "@fontsource/ibm-plex-mono";
-import "../styles/global.css";
+import BaseLayout from "./BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import { getDefaultOgImageUrl } from "../utils/seo";
 
 export interface Props {
     title: string;
     description: string;
+    ogImage?: string;
 }
 
-const props = Astro.props;
-const url = Astro.url;
+const { title, description, ogImage = getDefaultOgImageUrl() } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>{props.title} - kubre.in</title>
-        <!-- Favicon -->
-        <link
-            rel="icon"
-            type="image/png"
-            href="/favicon.png"
-            sizes="32x32"
-        />
-
-        <meta name="title" content={props.title + " - kubre.in"} />
-        <meta name="description" content={props.description} />
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={url} />
-        <meta property="og:title" content={props.title + " - kubre.in"} />
-        <meta property="og:description" content={props.description} />
-        <meta property="og:image" content={"https://kubre.in/assets/me.jpg"} />
-
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={url} />
-        <meta property="twitter:title" content={props.title} />
-        <meta property="twitter:description" content={props.description} />
-        <meta
-            property="twitter:image"
-            content={"https://kubre.in/assets/me.jpg"}
-        />
-        <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="Vaibhav Kubre's Blog"
-            href={`${Astro.site}rss.xml`}
-        />
-    </head>
-    <body class="px-4 lg:px-0 max-w-screen-md mx-auto">
-        <Nav />
-        <slot />
-        <Footer />
-    </body>
-</html>
+<BaseLayout title={title} description={description} ogImage={ogImage}>
+    <Nav />
+    <slot />
+    <Footer />
+</BaseLayout>

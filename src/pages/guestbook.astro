@@ -11,7 +11,7 @@ import Layout from "../layouts/Layout.astro";
     <script>
         /*
          * [ ] Simple paint
-         * [ ] Serlialize the drawing
+         * [ ] Serialize the drawing
          * [ ] Save it in memory, render a list
          * [ ] Store it in KV store
          * [ ] Incremental Generational of the sign page with list
@@ -19,7 +19,14 @@ import Layout from "../layouts/Layout.astro";
         const canvas = document.getElementById("canvas") as HTMLCanvasElement;
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         const pixelSize = 10;
-        const pixelArt = []; // To store each drawing as an array of {x, y, color}
+        
+        interface Pixel {
+            x: number;
+            y: number;
+            color: string | CanvasGradient | CanvasPattern;
+        }
+        
+        const pixelArt: Pixel[] = []; // To store each drawing as an array of {x, y, color}
 
         // Adjust canvas size and fill background
         canvas.width = document.body.clientWidth;
@@ -27,13 +34,13 @@ import Layout from "../layouts/Layout.astro";
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        function drawPixel(x, y, color = "#FFFFFF") {
+        function drawPixel(x: number, y: number, color = "#FFFFFF") {
             ctx.fillStyle = color;
             ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
         }
 
         // Save and serialize pixel
-        function savePixel(x, y) {
+        function savePixel(x: number, y: number) {
             pixelArt.push({ x, y, color: ctx.fillStyle });
         }
 
@@ -45,20 +52,13 @@ import Layout from "../layouts/Layout.astro";
             savePixel(x, y);
         });
 
-        // Serialize and save in a KV store
-        function serializeArt() {
-            const serializedData = JSON.stringify(pixelArt);
-            localStorage.setItem("pixelArt", serializedData); // Replace with KV store method if needed
-            console.log("Saved art:", serializedData);
-        }
-
         // Load and render saved pixel art from storage
         function loadArt() {
             const savedData = JSON.parse(
                 localStorage.getItem("pixelArt") || "[]"
-            );
+            ) as Pixel[];
             savedData.forEach(({ x, y, color }) => {
-                ctx.fillStyle = color;
+                ctx.fillStyle = color as string;
                 drawPixel(x, y);
             });
         }

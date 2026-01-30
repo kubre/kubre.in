@@ -1,18 +1,13 @@
 ---
-import { CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { DATE_FORMATTERS } from "../utils/date";
 
 export interface Props {
-    post: CollectionEntry<"blog">;
-    base: string,
+    post: CollectionEntry<"blog"> | CollectionEntry<"work">;
+    base: string;
 }
 
-const formatter = new Intl.DateTimeFormat("en-IN", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-});
-const post = Astro.props.post;
-const base = Astro.props.base;
+const { post, base } = Astro.props;
 ---
 
 <article class="relative group">
@@ -40,8 +35,8 @@ const base = Astro.props.base;
     >
         <dt class="sr-only">Date</dt>
         <dd class="whitespace-nowrap text-xs leading-6 text-carbon-lighter">
-            <time datetime={post.data.publishedAt}>
-                {formatter.format(new Date(post.data.publishedAt))}
+            <time datetime={post.data.publishedAt.toISOString()}>
+                {DATE_FORMATTERS.short.format(post.data.publishedAt)}
             </time>
         </dd>
     </dl>
