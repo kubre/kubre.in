@@ -24,26 +24,11 @@
     font-display: swap;
 }
 
-@view-transition {
-    navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-    animation-duration: 160ms;
-    animation-timing-function: ease-out;
-}
-
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
         scroll-behavior: auto !important;
-    }
-
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-        animation: none;
     }
 }
 
