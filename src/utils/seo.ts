@@ -3,8 +3,9 @@
  */
 
 import type { ImageMetadata } from "astro";
+import defaultOgImage from "../assets/me.jpg";
 
-const SITE_URL = "https://kubre.in";
+const SITE_URL = "https://www.kubre.in";
 
 /**
  * Generate OpenGraph/Twitter image URL from image metadata
@@ -24,7 +25,7 @@ export function getOgImageUrl(image: ImageMetadata | string): string {
  * Get default OG image URL
  */
 export function getDefaultOgImageUrl(): string {
-    return `${SITE_URL}/assets/me.jpg`;
+    return getOgImageUrl(defaultOgImage);
 }
 
 /**

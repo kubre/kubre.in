@@ -16,10 +16,11 @@ const { post, base } = Astro.props;
         >♦</span
     >
     <div class="flex justify-between">
-        <a class="w-full px-0 md:px-2 h-full mb-2 hover:bg-yellow-400 transition-colors" href={base + post.slug}>
-            <h3
-                class="text-base text-lg tracking-tight text-carbon pt-8 lg:pt-0"
-            >
+        <a
+            class="w-full px-0 md:px-2 h-full mb-2 hover:bg-yellow-400 transition-colors"
+            href={base + post.id}
+        >
+            <h3 class="text-base text-lg tracking-tight text-carbon pt-8 lg:pt-0">
                 {post.data.title}
             </h3>
             <div class="mt-2 mb-4 prose text-carbon-light line-clamp-3">
@@ -30,9 +31,7 @@ const { post, base } = Astro.props;
             <span class="text-sm text-carbon-lighter">Read more ↳</span>
         </a>
     </div>
-    <dl
-        class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]"
-    >
+    <dl class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
         <dt class="sr-only">Date</dt>
         <dd class="whitespace-nowrap text-xs leading-6 text-carbon-lighter">
             <time datetime={post.data.publishedAt.toISOString()}>

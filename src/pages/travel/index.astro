@@ -9,10 +9,7 @@ import { DATE_FORMATTERS } from "../../utils/date";
 
 const entries = await getCollection("travel").then((entries) => {
     return entries.sort((a, b) => {
-        return (
-            new Date(b.data.visitedAt).valueOf() -
-            new Date(a.data.visitedAt).valueOf()
-        );
+        return new Date(b.data.visitedAt).valueOf() - new Date(a.data.visitedAt).valueOf();
     });
 });
 
@@ -27,22 +24,24 @@ const photos = await Promise.all(
         const img = await importFn();
         const pathParts = path.split("/");
         const slug = pathParts[4]; // Extract slug from path: /src/assets/travel/{slug}/...
-        const trip = entries.find((e) => e.slug === slug);
+        const trip = entries.find((e) => e.id === slug);
         const filename = pathParts.pop()!;
+        const caption = toSentenceCase(filename);
+
         return {
             src: img.default,
-            caption: toSentenceCase(filename),
+            lightboxSrc: img.default.src,
+            caption,
             tripSlug: slug,
             tripTitle: trip?.data.title || slug,
             visitedAt: trip?.data.visitedAt || new Date(),
+            imageId: `${slug}-${caption.toLowerCase().replace(/\s+/g, "-")}`,
         };
     }),
 );
 
 // Sort by trip date (newest first)
-photos.sort(
-    (a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf(),
-);
+photos.sort((a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf());
 
 // Group images by trip for Google Photos-style display
 type Photo = (typeof photos)[number];
@@ -90,10 +89,7 @@ const groupedTrips = Object.values(imagesByTrip).sort(
     <main class="py-12 grid">
         <!-- View Toggle -->
         <div class="flex gap-2 mb-8 font-mono text-sm">
-            <button
-                id="view-timeline"
-                class="px-3 py-1 bg-carbon text-enamel transition-colors"
-            >
+            <button id="view-timeline" class="px-3 py-1 bg-carbon text-enamel transition-colors">
                 Timeline
             </button>
             <button
@@ -118,46 +114,45 @@ const groupedTrips = Object.values(imagesByTrip).sort(
         <!-- Photos View -->
         <div id="photos-view" class="hidden space-y-8">
             {
-                groupedTrips.map(
-                    ({ tripTitle, tripSlug, visitedAt, images }) => (
-                        <section>
-                            <header class="mb-3 flex items-baseline gap-3">
-                                <a
-                                    href={`/travel/${tripSlug}`}
-                                    class="font-mono text-lg text-carbon hover:text-yellow-600 transition-colors"
-                                >
-                                    {tripTitle}
-                                </a>
-                                <time
-                                    datetime={visitedAt.toISOString()}
-                                    class="font-mono text-sm text-carbon-lighter"
-                                >
-                                    {DATE_FORMATTERS.full.format(visitedAt)}
-                                </time>
-                            </header>
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                                {images.map(({ src, caption }) => (
-                                    <figure class="relative group overflow-hidden">
-                                        <Image
-                                            src={src}
-                                            width={300}
-                                            format="webp"
-                                            quality={75}
-                                            alt={caption}
-                                            loading="lazy"
-                                            data-lightbox
-                                            data-full={src.src}
-                                            data-trip-slug={tripSlug}
-                                            data-trip-title={tripTitle}
-                                            data-image-id={`${tripSlug}-${caption.toLowerCase().replace(/\s+/g, "-")}`}
-                                            class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
-                                        />
-                                    </figure>
-                                ))}
-                            </div>
-                        </section>
-                    ),
-                )
+                groupedTrips.map(({ tripTitle, tripSlug, visitedAt, images }) => (
+                    <section>
+                        <header class="mb-3 flex items-baseline gap-3">
+                            <a
+                                href={`/travel/${tripSlug}`}
+                                class="font-mono text-lg text-carbon hover:text-yellow-600 transition-colors"
+                            >
+                                {tripTitle}
+                            </a>
+                            <time
+                                datetime={visitedAt.toISOString()}
+                                class="font-mono text-sm text-carbon-lighter"
+                            >
+                                {DATE_FORMATTERS.full.format(visitedAt)}
+                            </time>
+                        </header>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                            {images.map(({ src, caption, lightboxSrc, imageId }) => (
+                                <figure class="relative group overflow-hidden">
+                                    <Image
+                                        src={src}
+                                        width={360}
+                                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                        format="webp"
+                                        quality={70}
+                                        alt={caption}
+                                        loading="lazy"
+                                        data-lightbox
+                                        data-full={lightboxSrc}
+                                        data-trip-slug={tripSlug}
+                                        data-trip-title={tripTitle}
+                                        data-image-id={imageId}
+                                        class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
+                                    />
+                                </figure>
+                            ))}
+                        </div>
+                    </section>
+                ))
             }
         </div>
         <div class="pt-16 text-gray-700 text-center">
@@ -186,11 +181,22 @@ const groupedTrips = Object.values(imagesByTrip).sort(
             >&rarr;</button
         >
         <!-- Blurred placeholder (shows thumbnail) -->
-        <img id="lb-placeholder" class="absolute max-h-[80vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden" alt="" />
+        <img
+            id="lb-placeholder"
+            class="absolute max-h-[80vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden"
+            alt=""
+        />
         <!-- Full resolution image -->
-        <img id="lb-img" class="max-h-[80vh] max-w-[90vw] object-contain transition-opacity duration-300" alt="" />
+        <img
+            id="lb-img"
+            class="max-h-[80vh] max-w-[90vw] object-contain transition-opacity duration-300"
+            alt=""
+        />
         <!-- Loading indicator -->
-        <div id="lb-loader" class="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden">
+        <div
+            id="lb-loader"
+            class="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden"
+        >
             Loading...
         </div>
         <div class="mt-4 text-white text-center font-mono">
@@ -203,215 +209,204 @@ const groupedTrips = Object.values(imagesByTrip).sort(
             >
         </div>
     </div>
-</Layout>
 
-<script>
-    // View toggle
-    const timelineBtn = document.getElementById("view-timeline");
-    const photosBtn = document.getElementById("view-photos");
-    const timelineView = document.getElementById("timeline-view");
-    const photosView = document.getElementById("photos-view");
+    <script>
+        // View toggle
+        const timelineBtn = document.getElementById("view-timeline");
+        const photosBtn = document.getElementById("view-photos");
+        const timelineView = document.getElementById("timeline-view");
+        const photosView = document.getElementById("photos-view");
 
-    function setView(view: "timeline" | "photos", updateUrl = true) {
-        if (view === "timeline") {
-            timelineView?.classList.remove("hidden");
-            photosView?.classList.add("hidden");
-            timelineBtn?.classList.add("bg-carbon", "text-enamel");
-            timelineBtn?.classList.remove("text-carbon-lighter");
-            photosBtn?.classList.remove("bg-carbon", "text-enamel");
-            photosBtn?.classList.add("text-carbon-lighter");
-        } else {
-            timelineView?.classList.add("hidden");
-            photosView?.classList.remove("hidden");
-            photosBtn?.classList.add("bg-carbon", "text-enamel");
-            photosBtn?.classList.remove("text-carbon-lighter");
-            timelineBtn?.classList.remove("bg-carbon", "text-enamel");
-            timelineBtn?.classList.add("text-carbon-lighter");
-        }
-
-        if (updateUrl) {
-            const url = new URL(window.location.href);
-            if (view === "photos") {
-                url.searchParams.set("view", "photos");
+        function setView(view: "timeline" | "photos", updateUrl = true) {
+            if (view === "timeline") {
+                timelineView?.classList.remove("hidden");
+                photosView?.classList.add("hidden");
+                timelineBtn?.classList.add("bg-carbon", "text-enamel");
+                timelineBtn?.classList.remove("text-carbon-lighter");
+                photosBtn?.classList.remove("bg-carbon", "text-enamel");
+                photosBtn?.classList.add("text-carbon-lighter");
             } else {
-                url.searchParams.delete("view");
+                timelineView?.classList.add("hidden");
+                photosView?.classList.remove("hidden");
+                photosBtn?.classList.add("bg-carbon", "text-enamel");
+                photosBtn?.classList.remove("text-carbon-lighter");
+                timelineBtn?.classList.remove("bg-carbon", "text-enamel");
+                timelineBtn?.classList.add("text-carbon-lighter");
             }
-            url.searchParams.delete("photo"); // close lightbox when switching views
-            history.pushState({}, "", url);
-        }
-    }
 
-    timelineBtn?.addEventListener("click", () => setView("timeline"));
-    photosBtn?.addEventListener("click", () => setView("photos"));
-
-    // Lightbox
-    const lightbox = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lb-img") as HTMLImageElement;
-    const lbPlaceholder = document.getElementById("lb-placeholder") as HTMLImageElement;
-    const lbLoader = document.getElementById("lb-loader");
-    const lbCaption = document.getElementById("lb-caption");
-    const lbTripLink = document.getElementById(
-        "lb-trip-link",
-    ) as HTMLAnchorElement;
-    let images: HTMLImageElement[] = [];
-    let currentIndex = 0;
-
-    function updateLightboxImages() {
-        // Only include visible images (from the active view)
-        const photosVisible = !photosView?.classList.contains("hidden");
-        if (photosVisible) {
-            images = Array.from(
-                photosView?.querySelectorAll("[data-lightbox]") || [],
-            ) as HTMLImageElement[];
-        } else {
-            images = [];
-        }
-    }
-
-    function preloadAdjacentImages() {
-        if (images.length === 0) return;
-        const prevIndex = (currentIndex - 1 + images.length) % images.length;
-        const nextIndex = (currentIndex + 1) % images.length;
-        [prevIndex, nextIndex].forEach(idx => {
-            const img = images[idx];
-            if (img?.dataset.full) {
-                const preload = new Image();
-                preload.src = img.dataset.full;
-            }
-        });
-    }
-
-    function openLightbox(index: number, updateUrl = true) {
-        updateLightboxImages();
-        currentIndex = index;
-        const img = images[index];
-        if (!img) return;
-
-        const fullSrc = img.dataset.full || "";
-        const thumbSrc = img.src;
-
-        // Show placeholder immediately (already loaded thumbnail, blurred)
-        lbPlaceholder.src = thumbSrc;
-        lbPlaceholder.classList.remove("hidden");
-
-        // Hide main image and show loader
-        lbImg.classList.add("opacity-0");
-        lbLoader?.classList.remove("hidden");
-
-        // Update caption
-        if (lbCaption) lbCaption.textContent = img.alt;
-        if (lbTripLink) {
-            const slug = img.dataset.tripSlug || "";
-            const title = img.dataset.tripTitle || "View trip";
-            lbTripLink.href = `/travel/${slug}`;
-            lbTripLink.textContent = `${title} →`;
-        }
-
-        // Show lightbox
-        lightbox?.classList.remove("hidden");
-        lightbox?.classList.add("flex");
-
-        // Load full image
-        const fullImage = new Image();
-        fullImage.onload = () => {
-            lbImg.src = fullSrc;
-            lbImg.classList.remove("opacity-0");
-            lbPlaceholder.classList.add("hidden");
-            lbLoader?.classList.add("hidden");
-            preloadAdjacentImages();
-        };
-        fullImage.src = fullSrc;
-
-        if (updateUrl) {
-            const imageId = img.dataset.imageId;
-            if (imageId) {
+            if (updateUrl) {
                 const url = new URL(window.location.href);
-                url.searchParams.set("photo", imageId);
+                if (view === "photos") {
+                    url.searchParams.set("view", "photos");
+                } else {
+                    url.searchParams.delete("view");
+                }
+                url.searchParams.delete("photo"); // close lightbox when switching views
                 history.pushState({}, "", url);
             }
         }
-    }
 
-    function closeLightbox(updateUrl = true) {
-        lightbox?.classList.add("hidden");
-        lightbox?.classList.remove("flex");
+        timelineBtn?.addEventListener("click", () => setView("timeline"));
+        photosBtn?.addEventListener("click", () => setView("photos"));
 
-        if (updateUrl) {
-            const url = new URL(window.location.href);
-            url.searchParams.delete("photo");
-            history.pushState({}, "", url);
-        }
-    }
+        // Lightbox
+        const lightbox = document.getElementById("lightbox");
+        const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+        const lbPlaceholder = document.getElementById("lb-placeholder") as HTMLImageElement;
+        const lbLoader = document.getElementById("lb-loader");
+        const lbCaption = document.getElementById("lb-caption");
+        const lbTripLink = document.getElementById("lb-trip-link") as HTMLAnchorElement;
+        let images: HTMLImageElement[] = [];
+        let currentIndex = 0;
 
-    function navigate(delta: number) {
-        if (images.length === 0) return;
-        currentIndex = (currentIndex + delta + images.length) % images.length;
-        openLightbox(currentIndex); // already updates URL
-    }
-
-    // Attach click handlers to photos
-    photosView?.querySelectorAll("[data-lightbox]").forEach((img, i) => {
-        img.addEventListener("click", () => openLightbox(i));
-    });
-
-    document
-        .getElementById("lb-close")
-        ?.addEventListener("click", () => closeLightbox());
-    document
-        .getElementById("lb-prev")
-        ?.addEventListener("click", () => navigate(-1));
-    document
-        .getElementById("lb-next")
-        ?.addEventListener("click", () => navigate(1));
-    lightbox?.addEventListener(
-        "click",
-        (e) => e.target === lightbox && closeLightbox(),
-    );
-    document.addEventListener("keydown", (e) => {
-        if (lightbox?.classList.contains("hidden")) return;
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowLeft") navigate(-1);
-        if (e.key === "ArrowRight") navigate(1);
-    });
-
-    // Initialize state from URL
-    function initFromUrl() {
-        const url = new URL(window.location.href);
-        const view = url.searchParams.get("view");
-        const photoId = url.searchParams.get("photo");
-
-        // Set view without updating URL
-        if (view === "photos") {
-            setView("photos", false);
-        } else {
-            setView("timeline", false);
-        }
-
-        // Close lightbox first (in case we're navigating back)
-        closeLightbox(false);
-
-        // Open lightbox if photo specified and in photos view
-        if (photoId && view === "photos") {
-            const img = photosView?.querySelector(
-                `[data-image-id="${photoId}"]`,
-            ) as HTMLImageElement | null;
-            if (img) {
-                const allImages = Array.from(
+        function updateLightboxImages() {
+            // Only include visible images (from the active view)
+            const photosVisible = !photosView?.classList.contains("hidden");
+            if (photosVisible) {
+                images = Array.from(
                     photosView?.querySelectorAll("[data-lightbox]") || [],
-                );
-                const index = allImages.indexOf(img);
-                if (index >= 0) {
-                    openLightbox(index, false);
+                ) as HTMLImageElement[];
+            } else {
+                images = [];
+            }
+        }
+
+        function preloadAdjacentImages() {
+            if (images.length === 0) return;
+            const prevIndex = (currentIndex - 1 + images.length) % images.length;
+            const nextIndex = (currentIndex + 1) % images.length;
+            [prevIndex, nextIndex].forEach((idx) => {
+                const img = images[idx];
+                if (img?.dataset.full) {
+                    const preload = new Image();
+                    preload.src = img.dataset.full;
+                }
+            });
+        }
+
+        function openLightbox(index: number, updateUrl = true) {
+            updateLightboxImages();
+            currentIndex = index;
+            const img = images[index];
+            if (!img) return;
+
+            const fullSrc = img.dataset.full || "";
+            const thumbSrc = img.src;
+
+            // Show placeholder immediately (already loaded thumbnail, blurred)
+            lbPlaceholder.src = thumbSrc;
+            lbPlaceholder.classList.remove("hidden");
+
+            // Hide main image and show loader
+            lbImg.classList.add("opacity-0");
+            lbLoader?.classList.remove("hidden");
+
+            // Update caption
+            if (lbCaption) lbCaption.textContent = img.alt;
+            if (lbTripLink) {
+                const slug = img.dataset.tripSlug || "";
+                const title = img.dataset.tripTitle || "View trip";
+                lbTripLink.href = `/travel/${slug}`;
+                lbTripLink.textContent = `${title} →`;
+            }
+
+            // Show lightbox
+            lightbox?.classList.remove("hidden");
+            lightbox?.classList.add("flex");
+
+            // Load full image
+            const fullImage = new Image();
+            fullImage.onload = () => {
+                lbImg.src = fullSrc;
+                lbImg.classList.remove("opacity-0");
+                lbPlaceholder.classList.add("hidden");
+                lbLoader?.classList.add("hidden");
+                preloadAdjacentImages();
+            };
+            fullImage.src = fullSrc;
+
+            if (updateUrl) {
+                const imageId = img.dataset.imageId;
+                if (imageId) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set("photo", imageId);
+                    history.pushState({}, "", url);
                 }
             }
         }
-    }
 
-    // Initialize on page load
-    initFromUrl();
+        function closeLightbox(updateUrl = true) {
+            lightbox?.classList.add("hidden");
+            lightbox?.classList.remove("flex");
 
-    // Handle browser back/forward
-    window.addEventListener("popstate", () => {
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                url.searchParams.delete("photo");
+                history.pushState({}, "", url);
+            }
+        }
+
+        function navigate(delta: number) {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex + delta + images.length) % images.length;
+            openLightbox(currentIndex); // already updates URL
+        }
+
+        // Attach click handlers to photos
+        photosView?.querySelectorAll("[data-lightbox]").forEach((img, i) => {
+            img.addEventListener("click", () => openLightbox(i));
+        });
+
+        document.getElementById("lb-close")?.addEventListener("click", () => closeLightbox());
+        document.getElementById("lb-prev")?.addEventListener("click", () => navigate(-1));
+        document.getElementById("lb-next")?.addEventListener("click", () => navigate(1));
+        lightbox?.addEventListener("click", (e) => e.target === lightbox && closeLightbox());
+        document.addEventListener("keydown", (e) => {
+            if (lightbox?.classList.contains("hidden")) return;
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowLeft") navigate(-1);
+            if (e.key === "ArrowRight") navigate(1);
+        });
+
+        // Initialize state from URL
+        function initFromUrl() {
+            const url = new URL(window.location.href);
+            const view = url.searchParams.get("view");
+            const photoId = url.searchParams.get("photo");
+
+            // Set view without updating URL
+            if (view === "photos") {
+                setView("photos", false);
+            } else {
+                setView("timeline", false);
+            }
+
+            // Close lightbox first (in case we're navigating back)
+            closeLightbox(false);
+
+            // Open lightbox if photo specified and in photos view
+            if (photoId && view === "photos") {
+                const img = photosView?.querySelector(
+                    `[data-image-id="${photoId}"]`,
+                ) as HTMLImageElement | null;
+                if (img) {
+                    const allImages = Array.from(
+                        photosView?.querySelectorAll("[data-lightbox]") || [],
+                    );
+                    const index = allImages.indexOf(img);
+                    if (index >= 0) {
+                        openLightbox(index, false);
+                    }
+                }
+            }
+        }
+
+        // Initialize on page load
         initFromUrl();
-    });
-</script>
+
+        // Handle browser back/forward
+        window.addEventListener("popstate", () => {
+            initFromUrl();
+        });
+    </script>
+</Layout>

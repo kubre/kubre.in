@@ -10,27 +10,21 @@ const posts = await getCollection("blog", ({ data }) => {
 }).then((posts) => {
     return posts
         .sort((a, b) => {
-            return (
-                new Date(b.data.publishedAt).valueOf() -
-                new Date(a.data.publishedAt).valueOf()
-            );
+            return new Date(b.data.publishedAt).valueOf() - new Date(a.data.publishedAt).valueOf();
         })
         .map((post) => {
             return {
                 ...post,
                 data: {
                     ...post.data,
-                    readTime: calculateReadTime(post.body),
+                    readTime: calculateReadTime(post.body ?? ""),
                 },
             };
         });
 });
 ---
 
-<Layout
-    title="Blog"
-    description="Vaibhav's articles related to tech and stuff he likes"
->
+<Layout title="Blog" description="Vaibhav's articles related to tech and stuff he likes">
     <main class="py-12 grid">
         <div class="relative mt-12 ml-0 lg:ml-[200px]">
             <div

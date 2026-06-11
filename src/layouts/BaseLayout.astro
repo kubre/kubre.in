@@ -1,5 +1,5 @@
 ---
-import "@fontsource/ibm-plex-mono";
+import "@fontsource/ibm-plex-mono/index.css";
 import "../styles/global.css";
 import { SITE, getCanonicalUrl, getDefaultOgImageUrl } from "../utils/seo";
 
@@ -64,10 +64,6 @@ const fullTitle = `${title} - ${SITE.name}`;
             title="Vaibhav Kubre's Blog"
             href={`${SITE.url}/rss.xml`}
         />
-
-        <!-- Preconnect for external resources -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
         <slot name="head" />
     </head>

@@ -18,7 +18,7 @@ const { data } = entry;
     >
     <a
         class="flex flex-col md:flex-row items-center gap-4 w-full px-0 md:px-2 h-full mb-2 hover:bg-yellow-400 transition-colors"
-        href={`/travel/${entry.slug}`}
+        href={`/travel/${entry.id}`}
     >
         <Image
             src={data.coverImage}
@@ -30,24 +30,19 @@ const { data } = entry;
             class="w-full md:w-32 md:h-32 object-cover"
         />
         <div class="flex-1">
-            <h3
-                class="text-base text-lg tracking-tight text-carbon pt-2 lg:pt-0"
-            >
+            <h3 class="text-base text-lg tracking-tight text-carbon pt-2 lg:pt-0">
                 {data.title}
             </h3>
             <p class="mt-1 text-carbon-light line-clamp-2 text-sm">
                 {data.description}
             </p>
-            <div
-                class="mt-2 flex items-center gap-4 text-xs text-carbon-lighter"
-            >
+            <div class="mt-2 flex items-center gap-4 text-xs text-carbon-lighter">
                 {
                     data.coordinates && (
                         <span class="flex items-center gap-1">
                             <span>&#x2316;</span>
                             <span>
-                                {data.coordinates.lat.toFixed(2)},{" "}
-                                {data.coordinates.lng.toFixed(2)}
+                                {data.coordinates.lat.toFixed(2)}, {data.coordinates.lng.toFixed(2)}
                             </span>
                         </span>
                     )
@@ -57,11 +52,7 @@ const { data } = entry;
                         <span class="flex items-center gap-0.5">
                             {Array.from({ length: 5 }).map((_, i) => (
                                 <span
-                                    class={
-                                        i < data.rating!
-                                            ? "text-carbon"
-                                            : "text-carbon-lighter"
-                                    }
+                                    class={i < data.rating! ? "text-carbon" : "text-carbon-lighter"}
                                 >
                                     {i < data.rating! ? "★" : "☆"}
                                 </span>
@@ -70,14 +61,10 @@ const { data } = entry;
                     )
                 }
             </div>
-            <span class="text-sm text-carbon-lighter mt-2 inline-block"
-                >View ↳</span
-            >
+            <span class="text-sm text-carbon-lighter mt-2 inline-block">View ↳</span>
         </div>
     </a>
-    <dl
-        class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]"
-    >
+    <dl class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
         <dt class="sr-only">Date</dt>
         <dd class="whitespace-nowrap text-xs leading-6 text-carbon-lighter">
             <time datetime={data.visitedAt.toISOString()}>

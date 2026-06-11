@@ -1,20 +1,20 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
 export async function getStaticPaths() {
     const blogEntries = await getCollection("work");
     return blogEntries.map((entry) => {
-        entry.data.readTime = Math.ceil(entry.body.split(" ").length / 200);
+        entry.data.readTime = Math.ceil((entry.body ?? "").split(" ").length / 200);
         return {
-            params: { slug: entry.slug },
+            params: { slug: entry.id },
             props: { entry },
         };
     });
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <BlogLayout frontmatter={entry.data}>

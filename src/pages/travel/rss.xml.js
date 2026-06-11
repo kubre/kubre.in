@@ -10,7 +10,7 @@ const parser = new MarkdownIt();
 export async function GET(context) {
     const travel = await getCollection("travel");
 
-    const site = context.site?.toString() ?? "https://kubre.in";
+    const site = context.site?.toString() ?? "https://www.kubre.in";
 
     return rss({
         title: "Vaibhav Kubre's Travel",
@@ -20,10 +20,10 @@ export async function GET(context) {
             title: entry.data.title,
             pubDate: entry.data.visitedAt,
             description: entry.data.description,
-            content: sanitizeHtml(parser.render(entry.body)),
-            canonical_url: `${site}/travel/${entry.slug}/`,
+            content: sanitizeHtml(parser.render(entry.body ?? "")),
+            canonical_url: `${site}/travel/${entry.id}/`,
             tags: entry.data.tags,
-            link: `/travel/${entry.slug}/`,
+            link: `/travel/${entry.id}/`,
         })),
     });
 }

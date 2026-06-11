@@ -13,7 +13,7 @@ export async function GET(context) {
         return !data.draft;
     });
 
-    const site = context.site?.toString() ?? "https://kubre.in";
+    const site = context.site?.toString() ?? "https://www.kubre.in";
 
     return rss({
         title: "Vaibhav Kubre's Blog",
@@ -23,10 +23,10 @@ export async function GET(context) {
             title: post.data.title,
             pubDate: post.data.publishedAt,
             description: post.data.description,
-            content: sanitizeHtml(parser.render(post.body)),
-            canonical_url: `${site}/blog/${post.slug}/`,
+            content: sanitizeHtml(parser.render(post.body ?? "")),
+            canonical_url: `${site}/blog/${post.id}/`,
             tags: post.data.tags,
-            link: `/blog/${post.slug}/`,
+            link: `/blog/${post.id}/`,
         })),
     });
 }

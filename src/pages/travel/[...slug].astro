@@ -1,21 +1,21 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import TravelLayout from "../../layouts/TravelLayout.astro";
 
 export async function getStaticPaths() {
     const travelEntries = await getCollection("travel");
     return travelEntries.map((entry) => {
         return {
-            params: { slug: entry.slug },
+            params: { slug: entry.id },
             props: { entry },
         };
     });
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
-<TravelLayout frontmatter={entry.data} slug={entry.slug}>
+<TravelLayout frontmatter={entry.data} slug={entry.id}>
     <Content />
 </TravelLayout>

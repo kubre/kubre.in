@@ -51,7 +51,10 @@ const ogImage = getOgImageUrl(frontmatter.image);
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body class="max-w-screen-md mx-auto px-4 lg:px-0">
         <Nav />
@@ -94,24 +97,63 @@ const ogImage = getOgImageUrl(frontmatter.image);
                 <section>
                     <slot />
                 </section>
-                <section class="giscus mx-auto my-10 max-w-screen-md">
-                    <script
-                        src="https://giscus.app/client.js"
-                        data-repo="kubre/kubre.in"
-                        data-repo-id="R_kgDOIK6Pcg"
-                        data-category="Comments"
-                        data-category-id="DIC_kwDOIK6Pcs4CUdUh"
-                        data-mapping="pathname"
-                        data-strict="0"
-                        data-reactions-enabled="1"
-                        data-emit-metadata="0"
-                        data-input-position="bottom"
-                        data-theme="light"
-                        data-lang="en"
-                        data-loading="lazy"
-                        crossorigin="anonymous"
-                        async></script>
+                <section id="comments-section" class="giscus mx-auto my-10 max-w-screen-md">
+                    <button
+                        id="load-comments"
+                        class="font-mono border border-carbon px-3 py-1 hover:bg-yellow-400 hover:text-black transition-colors"
+                    >
+                        Load comments
+                    </button>
+                    <div id="comments-root" class="mt-4"></div>
                 </section>
+                <script>
+                    const commentsSection = document.getElementById("comments-section");
+                    const commentsRoot = document.getElementById("comments-root");
+                    const loadCommentsButton = document.getElementById("load-comments");
+
+                    const loadComments = () => {
+                        if (!commentsRoot || commentsRoot.dataset.loaded === "true") {
+                            return;
+                        }
+
+                        const giscus = document.createElement("script");
+                        giscus.src = "https://giscus.app/client.js";
+                        giscus.async = true;
+                        giscus.crossOrigin = "anonymous";
+                        giscus.setAttribute("data-repo", "kubre/kubre.in");
+                        giscus.setAttribute("data-repo-id", "R_kgDOIK6Pcg");
+                        giscus.setAttribute("data-category", "Comments");
+                        giscus.setAttribute("data-category-id", "DIC_kwDOIK6Pcs4CUdUh");
+                        giscus.setAttribute("data-mapping", "pathname");
+                        giscus.setAttribute("data-strict", "0");
+                        giscus.setAttribute("data-reactions-enabled", "1");
+                        giscus.setAttribute("data-emit-metadata", "0");
+                        giscus.setAttribute("data-input-position", "bottom");
+                        giscus.setAttribute("data-theme", "light");
+                        giscus.setAttribute("data-lang", "en");
+                        giscus.setAttribute("data-loading", "lazy");
+
+                        commentsRoot.dataset.loaded = "true";
+                        commentsRoot.appendChild(giscus);
+                        loadCommentsButton?.remove();
+                    };
+
+                    loadCommentsButton?.addEventListener("click", loadComments);
+
+                    if (commentsSection && "IntersectionObserver" in window) {
+                        const observer = new IntersectionObserver(
+                            (entries) => {
+                                if (entries.some((entry) => entry.isIntersecting)) {
+                                    loadComments();
+                                    observer.disconnect();
+                                }
+                            },
+                            { rootMargin: "200px" },
+                        );
+
+                        observer.observe(commentsSection);
+                    }
+                </script>
                 <Footer />
             </article>
         </main>

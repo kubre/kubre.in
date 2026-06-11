@@ -1,36 +1,43 @@
 {
-  "name": "@example/basics",
-  "type": "module",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "check": "astro check && tsc --noEmit",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier . --write",
-    "format:check": "prettier . --check"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
-    "@astrojs/rss": "^4.0.15",
-    "@fontsource/ibm-plex-mono": "^5.0.12",
-    "astro": "^5.16.15",
-    "markdown-it": "^14.0.0",
-    "sanitize-html": "^2.12.1",
-    "sharp": "^0.34.5"
-  },
-  "devDependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.1.18",
-    "@types/markdown-it": "^14.1.2",
-    "@types/sanitize-html": "^2.16.0",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
-  }
+    "name": "@example/basics",
+    "type": "module",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "check": "astro check && tsc --noEmit",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check"
+    },
+    "dependencies": {
+        "@astrojs/cloudflare": "13.7.0",
+        "@astrojs/rss": "4.0.18",
+        "@fontsource/ibm-plex-mono": "5.2.7",
+        "astro": "6.4.6",
+        "markdown-it": "14.2.0",
+        "sanitize-html": "2.17.5",
+        "sharp": "0.35.0"
+    },
+    "devDependencies": {
+        "@astrojs/check": "0.9.9",
+        "@tailwindcss/typography": "0.5.20",
+        "@tailwindcss/vite": "4.3.0",
+        "@types/markdown-it": "14.1.2",
+        "@types/sanitize-html": "2.16.1",
+        "eslint": "10.4.1",
+        "eslint-plugin-astro": "1.7.0",
+        "prettier": "3.8.4",
+        "prettier-plugin-astro": "0.14.1",
+        "tailwindcss": "4.3.0",
+        "typescript": "6.0.3",
+        "typescript-eslint": "8.61.0",
+        "workerd": "1.20260611.1",
+        "wrangler": "4.99.0"
+    }
 }

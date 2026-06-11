@@ -21,12 +21,12 @@ const post = Astro.props.post;
             {post.data.readTime} mins</span
         >
         <a
-            href={"/work/" + post.slug}
+            href={"/work/" + post.id}
             class="border border-white bg-white/90 hover:bg-white text-black px-2 pt-[2px] text-sm w-30 rounded transition-colors"
             >Read More &rarr;</a
         >
     </div>
-    <a href={"/work/" + post.slug}>
+    <a href={"/work/" + post.id}>
         <img
             class="invert h-32 w-32 lg:h-32 lg:w-32 max-w-[12rem] object-contain p-1"
             src={post.data.image.src}
