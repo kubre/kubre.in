@@ -8,15 +8,20 @@ const parser = new MarkdownIt();
 
 /** @type {import('astro').APIRoute} */
 export async function GET(context) {
-    const travel = await getCollection("travel");
+    const travel = await getCollection("travel", ({ data }) => {
+        return !data.draft;
+    });
 
     const site = context.site?.toString() ?? "https://www.kubre.in";
+    const items = travel.sort((a, b) => {
+        return b.data.visitedAt.valueOf() - a.data.visitedAt.valueOf();
+    });
 
     return rss({
         title: "Vaibhav Kubre's Travel",
         description: "Places I've visited and my travel experiences",
         site: site,
-        items: travel.map((entry) => ({
+        items: items.map((entry) => ({
             title: entry.data.title,
             pubDate: entry.data.visitedAt,
             description: entry.data.description,

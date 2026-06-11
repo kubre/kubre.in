@@ -7,7 +7,9 @@ import type { ImageMetadata } from "astro";
 import { toSentenceCase } from "../../utils/text";
 import { DATE_FORMATTERS } from "../../utils/date";
 
-const entries = await getCollection("travel").then((entries) => {
+const entries = await getCollection("travel", ({ data }) => {
+    return import.meta.env.DEV || !data.draft;
+}).then((entries) => {
     return entries.sort((a, b) => {
         return new Date(b.data.visitedAt).valueOf() - new Date(a.data.visitedAt).valueOf();
     });
@@ -28,6 +30,10 @@ const photos = await Promise.all(
         const filename = pathParts.pop()!;
         const caption = toSentenceCase(filename);
 
+        if (!trip) {
+            return null;
+        }
+
         return {
             src: img.default,
             lightboxSrc: img.default.src,
@@ -41,11 +47,12 @@ const photos = await Promise.all(
 );
 
 // Sort by trip date (newest first)
-photos.sort((a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf());
+const visiblePhotos = photos.filter((photo) => photo !== null);
+visiblePhotos.sort((a, b) => new Date(b.visitedAt).valueOf() - new Date(a.visitedAt).valueOf());
 
 // Group images by trip for Google Photos-style display
-type Photo = (typeof photos)[number];
-const imagesByTrip = photos.reduce(
+type Photo = (typeof visiblePhotos)[number];
+const imagesByTrip = visiblePhotos.reduce(
     (acc, img) => {
         if (!acc[img.tripSlug]) {
             acc[img.tripSlug] = {
@@ -141,6 +148,7 @@ const groupedTrips = Object.values(imagesByTrip).sort(
                                         quality={70}
                                         alt={caption}
                                         loading="lazy"
+                                        decoding="async"
                                         data-lightbox
                                         data-full={lightboxSrc}
                                         data-trip-slug={tripSlug}

@@ -1,5 +1,5 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "./BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import Chip from "../components/Chip.astro";
@@ -27,7 +27,6 @@ export interface Props {
 }
 
 const { frontmatter, slug } = Astro.props;
-const url = Astro.url;
 const ogImage = getOgImageUrl(frontmatter.coverImage);
 
 const mapsUrl = frontmatter.coordinates
@@ -67,338 +66,309 @@ const photos = await Promise.all(
 );
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>{frontmatter.title} - Travel - kubre.in</title>
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
-
-        <meta name="title" content={frontmatter.title + " - Travel - kubre.in"} />
-        <meta name="description" content={frontmatter.description} />
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={url.href} />
-        <meta property="og:title" content={frontmatter.title + " - Travel - kubre.in"} />
-        <meta property="og:description" content={frontmatter.description} />
-        <meta property="og:image" content={ogImage} />
-
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={url.href} />
-        <meta property="twitter:title" content={frontmatter.title} />
-        <meta property="twitter:description" content={frontmatter.description} />
-        <meta property="twitter:image" content={ogImage} />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-            rel="stylesheet"
-        />
-    </head>
-    <body class="max-w-screen-md mx-auto px-4 lg:px-0">
-        <Nav />
-        <main>
-            <article class="pt-10 typography font-sans">
-                <div class="flex justify-between items-center">
-                    <a
-                        href="/travel"
-                        class="text-carbon-lighter font-mono hover:bg-yellow-400 hover:text-black transition-colors"
-                    >
-                        ← Back
-                    </a>
-                    <dl>
-                        <dt class="sr-only">Date</dt>
-                        <dd
-                            class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
-                        >
-                            <time datetime={frontmatter.visitedAt.toISOString()}>
-                                {displayDate}
-                            </time>
-                        </dd>
-                    </dl>
-                </div>
-
-                <h1 class="font-mono uppercase text-2xl text-carbon-lighter">
-                    {frontmatter.title}
-                </h1>
-
-                <div
-                    class="flex flex-wrap items-center gap-4 mt-2 not-prose text-sm text-carbon-lighter"
+<BaseLayout
+    title={`${frontmatter.title} - Travel`}
+    description={frontmatter.description}
+    ogImage={ogImage}
+    ogType="article"
+>
+    <Nav />
+    <main>
+        <article class="pt-10 typography font-sans">
+            <div class="flex justify-between items-center">
+                <a
+                    href="/travel"
+                    class="text-carbon-lighter font-mono hover:bg-yellow-400 hover:text-black transition-colors"
                 >
-                    {
-                        mapsUrl && (
-                            <a
-                                href={mapsUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="flex items-center gap-1 hover:bg-yellow-400 hover:text-black transition-colors px-1"
-                            >
-                                <span>&#x2316;</span>
-                                <span>View on Maps</span>
-                                <span>↗</span>
-                            </a>
-                        )
-                    }
-                    {
-                        frontmatter.rating && (
-                            <span class="flex items-center gap-0.5">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <span
-                                        class={
-                                            i < frontmatter.rating!
-                                                ? "text-carbon"
-                                                : "text-carbon-lighter"
-                                        }
-                                    >
-                                        {i < frontmatter.rating! ? "★" : "☆"}
-                                    </span>
-                                ))}
-                            </span>
-                        )
-                    }
-                </div>
-
-                <figure class="mt-6">
-                    <Image
-                        src={frontmatter.coverImage}
-                        width={1280}
-                        sizes="(max-width: 768px) 100vw, 768px"
-                        format="webp"
-                        quality={72}
-                        alt={frontmatter.title}
-                        class="w-full h-auto"
-                    />
-                </figure>
-
-                <section class="mt-8">
-                    <slot />
-                </section>
-
-                {
-                    photos.length > 0 && (
-                        <section class="mt-8 not-prose">
-                            <h2 class="font-mono uppercase text-lg text-carbon-lighter mb-4">
-                                Photos
-                            </h2>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                {photos.map(({ src, caption, lightboxSrc, imageId }) => (
-                                    <figure>
-                                        <Image
-                                            src={src}
-                                            width={400}
-                                            sizes="(max-width: 768px) 50vw, 33vw"
-                                            format="webp"
-                                            quality={70}
-                                            alt={caption}
-                                            data-lightbox
-                                            data-full={lightboxSrc}
-                                            data-image-id={imageId}
-                                            class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
-                                        />
-                                        <figcaption class="text-xs text-carbon-lighter mt-1">
-                                            {caption}
-                                        </figcaption>
-                                    </figure>
-                                ))}
-                            </div>
-                        </section>
-                    )
-                }
-
-                {
-                    frontmatter.tags && frontmatter.tags.length > 0 && (
-                        <section class="mt-8 not-prose">
-                            <div class="flex flex-wrap gap-2">
-                                {frontmatter.tags.map((tag) => (
-                                    <Chip>{tag}</Chip>
-                                ))}
-                            </div>
-                        </section>
-                    )
-                }
-
-                <Footer />
-            </article>
-        </main>
-        <!-- Lightbox -->
-        <div
-            id="lightbox"
-            class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center"
-        >
-            <button
-                id="lb-close"
-                class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
-                >&times;</button
-            >
-            <button
-                id="lb-prev"
-                class="absolute left-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
-                >&larr;</button
-            >
-            <button
-                id="lb-next"
-                class="absolute right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
-                >&rarr;</button
-            >
-            <!-- Blurred placeholder (shows thumbnail) -->
-            <img
-                id="lb-placeholder"
-                class="absolute max-h-[90vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden"
-                alt=""
-            />
-            <!-- Full resolution image -->
-            <img
-                id="lb-img"
-                class="max-h-[90vh] max-w-[90vw] object-contain transition-opacity duration-300"
-                alt=""
-            />
-            <!-- Loading indicator -->
-            <div
-                id="lb-loader"
-                class="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden"
-            >
-                Loading...
+                    ← Back
+                </a>
+                <dl>
+                    <dt class="sr-only">Date</dt>
+                    <dd
+                        class="whitespace-nowrap not-prose pl-0 leading-6 font-mono text-sm text-carbon-lighter uppercase"
+                    >
+                        <time datetime={frontmatter.visitedAt.toISOString()}>
+                            {displayDate}
+                        </time>
+                    </dd>
+                </dl>
             </div>
-            <p id="lb-caption" class="absolute bottom-4 text-white text-center w-full font-mono">
-            </p>
+
+            <h1 class="font-mono uppercase text-2xl text-carbon-lighter">
+                {frontmatter.title}
+            </h1>
+
+            <div
+                class="flex flex-wrap items-center gap-4 mt-2 not-prose text-sm text-carbon-lighter"
+            >
+                {
+                    mapsUrl && (
+                        <a
+                            href={mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-center gap-1 hover:bg-yellow-400 hover:text-black transition-colors px-1"
+                        >
+                            <span>&#x2316;</span>
+                            <span>View on Maps</span>
+                            <span>↗</span>
+                        </a>
+                    )
+                }
+                {
+                    frontmatter.rating && (
+                        <span class="flex items-center gap-0.5">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                                <span
+                                    class={
+                                        i < frontmatter.rating!
+                                            ? "text-carbon"
+                                            : "text-carbon-lighter"
+                                    }
+                                >
+                                    {i < frontmatter.rating! ? "★" : "☆"}
+                                </span>
+                            ))}
+                        </span>
+                    )
+                }
+            </div>
+
+            <figure class="mt-6">
+                <Image
+                    src={frontmatter.coverImage}
+                    width={1280}
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    format="webp"
+                    quality={72}
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    alt={frontmatter.title}
+                    class="w-full h-auto"
+                />
+            </figure>
+
+            <section class="mt-8">
+                <slot />
+            </section>
+
+            {
+                photos.length > 0 && (
+                    <section class="mt-8 not-prose">
+                        <h2 class="font-mono uppercase text-lg text-carbon-lighter mb-4">Photos</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                            {photos.map(({ src, caption, lightboxSrc, imageId }) => (
+                                <figure>
+                                    <Image
+                                        src={src}
+                                        width={400}
+                                        sizes="(max-width: 768px) 50vw, 33vw"
+                                        format="webp"
+                                        quality={70}
+                                        loading="lazy"
+                                        decoding="async"
+                                        alt={caption}
+                                        data-lightbox
+                                        data-full={lightboxSrc}
+                                        data-image-id={imageId}
+                                        class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
+                                    />
+                                    <figcaption class="text-xs text-carbon-lighter mt-1">
+                                        {caption}
+                                    </figcaption>
+                                </figure>
+                            ))}
+                        </div>
+                    </section>
+                )
+            }
+
+            {
+                frontmatter.tags && frontmatter.tags.length > 0 && (
+                    <section class="mt-8 not-prose">
+                        <div class="flex flex-wrap gap-2">
+                            {frontmatter.tags.map((tag) => (
+                                <Chip>{tag}</Chip>
+                            ))}
+                        </div>
+                    </section>
+                )
+            }
+
+            <Footer />
+        </article>
+    </main>
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center">
+        <button
+            id="lb-close"
+            class="absolute top-4 right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
+            >&times;</button
+        >
+        <button
+            id="lb-prev"
+            class="absolute left-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
+            >&larr;</button
+        >
+        <button
+            id="lb-next"
+            class="absolute right-4 text-white text-3xl cursor-pointer hover:text-yellow-400 transition-colors"
+            >&rarr;</button
+        >
+        <!-- Blurred placeholder (shows thumbnail) -->
+        <img
+            id="lb-placeholder"
+            class="absolute max-h-[90vh] max-w-[90vw] object-contain blur-lg scale-105 opacity-50 hidden"
+            alt=""
+        />
+        <!-- Full resolution image -->
+        <img
+            id="lb-img"
+            class="max-h-[90vh] max-w-[90vw] object-contain transition-opacity duration-300"
+            alt=""
+        />
+        <!-- Loading indicator -->
+        <div
+            id="lb-loader"
+            class="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 font-mono text-sm hidden"
+        >
+            Loading...
         </div>
+        <p id="lb-caption" class="absolute bottom-4 text-white text-center w-full font-mono"></p>
+    </div>
 
-        <script>
-            const lightbox = document.getElementById("lightbox");
-            const lbImg = document.getElementById("lb-img") as HTMLImageElement;
-            const lbPlaceholder = document.getElementById("lb-placeholder") as HTMLImageElement;
-            const lbLoader = document.getElementById("lb-loader");
-            const lbCaption = document.getElementById("lb-caption");
-            const images = Array.from(
-                document.querySelectorAll("[data-lightbox]"),
-            ) as HTMLImageElement[];
-            let currentIndex = 0;
+    <script>
+        const lightbox = document.getElementById("lightbox");
+        const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+        const lbPlaceholder = document.getElementById("lb-placeholder") as HTMLImageElement;
+        const lbLoader = document.getElementById("lb-loader");
+        const lbCaption = document.getElementById("lb-caption");
+        const images = Array.from(
+            document.querySelectorAll("[data-lightbox]"),
+        ) as HTMLImageElement[];
+        let currentIndex = 0;
 
-            function preloadAdjacentImages() {
-                const prevIndex = (currentIndex - 1 + images.length) % images.length;
-                const nextIndex = (currentIndex + 1) % images.length;
-                [prevIndex, nextIndex].forEach((idx) => {
-                    const img = images[idx];
-                    if (img?.dataset.full) {
-                        const preload = new Image();
-                        preload.src = img.dataset.full;
-                    }
-                });
-            }
-
-            function openLightbox(index: number, updateUrl = true) {
-                currentIndex = index;
-                const img = images[index];
-                if (!img) return;
-
-                const fullSrc = img.dataset.full || "";
-                const thumbSrc = img.src;
-
-                // Show placeholder immediately (already loaded thumbnail, blurred)
-                lbPlaceholder.src = thumbSrc;
-                lbPlaceholder.classList.remove("hidden");
-
-                // Hide main image and show loader
-                lbImg.classList.add("opacity-0");
-                lbLoader?.classList.remove("hidden");
-
-                // Update caption
-                if (lbCaption) lbCaption.textContent = img.alt;
-
-                // Show lightbox
-                lightbox?.classList.remove("hidden");
-                lightbox?.classList.add("flex");
-
-                // Load full image
-                const fullImage = new Image();
-                fullImage.onload = () => {
-                    lbImg.src = fullSrc;
-                    lbImg.classList.remove("opacity-0");
-                    lbPlaceholder.classList.add("hidden");
-                    lbLoader?.classList.add("hidden");
-                    preloadAdjacentImages();
-                };
-                fullImage.src = fullSrc;
-
-                // Update URL with photo hash
-                if (updateUrl) {
-                    const imageId = img.dataset.imageId;
-                    if (imageId) {
-                        const url = new URL(window.location.href);
-                        url.hash = `photo=${imageId}`;
-                        history.pushState({}, "", url);
-                    }
+        function preloadAdjacentImages() {
+            const prevIndex = (currentIndex - 1 + images.length) % images.length;
+            const nextIndex = (currentIndex + 1) % images.length;
+            [prevIndex, nextIndex].forEach((idx) => {
+                const img = images[idx];
+                if (img?.dataset.full) {
+                    const preload = new Image();
+                    preload.src = img.dataset.full;
                 }
-            }
+            });
+        }
 
-            function closeLightbox(updateUrl = true) {
-                lightbox?.classList.add("hidden");
-                lightbox?.classList.remove("flex");
+        function openLightbox(index: number, updateUrl = true) {
+            currentIndex = index;
+            const img = images[index];
+            if (!img) return;
 
-                // Remove photo hash from URL
-                if (updateUrl) {
+            const fullSrc = img.dataset.full || "";
+            const thumbSrc = img.src;
+
+            // Show placeholder immediately (already loaded thumbnail, blurred)
+            lbPlaceholder.src = thumbSrc;
+            lbPlaceholder.classList.remove("hidden");
+
+            // Hide main image and show loader
+            lbImg.classList.add("opacity-0");
+            lbLoader?.classList.remove("hidden");
+
+            // Update caption
+            if (lbCaption) lbCaption.textContent = img.alt;
+
+            // Show lightbox
+            lightbox?.classList.remove("hidden");
+            lightbox?.classList.add("flex");
+
+            // Load full image
+            const fullImage = new Image();
+            fullImage.onload = () => {
+                lbImg.src = fullSrc;
+                lbImg.classList.remove("opacity-0");
+                lbPlaceholder.classList.add("hidden");
+                lbLoader?.classList.add("hidden");
+                preloadAdjacentImages();
+            };
+            fullImage.src = fullSrc;
+
+            // Update URL with photo hash
+            if (updateUrl) {
+                const imageId = img.dataset.imageId;
+                if (imageId) {
                     const url = new URL(window.location.href);
-                    if (url.hash.startsWith("#photo=")) {
-                        history.pushState({}, "", url.pathname + url.search);
+                    url.hash = `photo=${imageId}`;
+                    history.pushState({}, "", url);
+                }
+            }
+        }
+
+        function closeLightbox(updateUrl = true) {
+            lightbox?.classList.add("hidden");
+            lightbox?.classList.remove("flex");
+
+            // Remove photo hash from URL
+            if (updateUrl) {
+                const url = new URL(window.location.href);
+                if (url.hash.startsWith("#photo=")) {
+                    history.pushState({}, "", url.pathname + url.search);
+                }
+            }
+        }
+
+        function navigate(delta: number) {
+            currentIndex = (currentIndex + delta + images.length) % images.length;
+            openLightbox(currentIndex);
+        }
+
+        // Initialize lightbox state from URL hash
+        function initFromHash() {
+            const hash = window.location.hash;
+            if (hash.startsWith("#photo=")) {
+                const imageId = hash.slice(7); // Remove '#photo='
+                const img = images.find((i) => i.dataset.imageId === imageId);
+                if (img) {
+                    const index = images.indexOf(img);
+                    if (index >= 0) {
+                        openLightbox(index, false);
                     }
                 }
             }
+        }
 
-            function navigate(delta: number) {
-                currentIndex = (currentIndex + delta + images.length) % images.length;
-                openLightbox(currentIndex);
-            }
+        images.forEach((img, i) => img.addEventListener("click", () => openLightbox(i)));
+        document.getElementById("lb-close")?.addEventListener("click", () => closeLightbox());
+        document.getElementById("lb-prev")?.addEventListener("click", () => navigate(-1));
+        document.getElementById("lb-next")?.addEventListener("click", () => navigate(1));
+        lightbox?.addEventListener("click", (e) => e.target === lightbox && closeLightbox());
+        document.addEventListener("keydown", (e) => {
+            if (lightbox?.classList.contains("hidden")) return;
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowLeft") navigate(-1);
+            if (e.key === "ArrowRight") navigate(1);
+        });
 
-            // Initialize lightbox state from URL hash
-            function initFromHash() {
-                const hash = window.location.hash;
-                if (hash.startsWith("#photo=")) {
-                    const imageId = hash.slice(7); // Remove '#photo='
-                    const img = images.find((i) => i.dataset.imageId === imageId);
-                    if (img) {
-                        const index = images.indexOf(img);
-                        if (index >= 0) {
-                            openLightbox(index, false);
-                        }
+        // Handle browser back/forward
+        window.addEventListener("popstate", () => {
+            const hash = window.location.hash;
+            if (hash.startsWith("#photo=")) {
+                const imageId = hash.slice(7);
+                const img = images.find((i) => i.dataset.imageId === imageId);
+                if (img) {
+                    const index = images.indexOf(img);
+                    if (index >= 0) {
+                        openLightbox(index, false);
                     }
                 }
+            } else {
+                closeLightbox(false);
             }
+        });
 
-            images.forEach((img, i) => img.addEventListener("click", () => openLightbox(i)));
-            document.getElementById("lb-close")?.addEventListener("click", () => closeLightbox());
-            document.getElementById("lb-prev")?.addEventListener("click", () => navigate(-1));
-            document.getElementById("lb-next")?.addEventListener("click", () => navigate(1));
-            lightbox?.addEventListener("click", (e) => e.target === lightbox && closeLightbox());
-            document.addEventListener("keydown", (e) => {
-                if (lightbox?.classList.contains("hidden")) return;
-                if (e.key === "Escape") closeLightbox();
-                if (e.key === "ArrowLeft") navigate(-1);
-                if (e.key === "ArrowRight") navigate(1);
-            });
-
-            // Handle browser back/forward
-            window.addEventListener("popstate", () => {
-                const hash = window.location.hash;
-                if (hash.startsWith("#photo=")) {
-                    const imageId = hash.slice(7);
-                    const img = images.find((i) => i.dataset.imageId === imageId);
-                    if (img) {
-                        const index = images.indexOf(img);
-                        if (index >= 0) {
-                            openLightbox(index, false);
-                        }
-                    }
-                } else {
-                    closeLightbox(false);
-                }
-            });
-
-            // Initialize on page load
-            initFromHash();
-        </script>
-    </body>
-</html>
+        // Initialize on page load
+        initFromHash();
+    </script>
+</BaseLayout>

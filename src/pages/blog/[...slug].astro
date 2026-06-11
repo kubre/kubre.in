@@ -1,14 +1,25 @@
 ---
 import { getCollection, render } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
+import { calculateReadTime } from "../../utils/text";
 
 export async function getStaticPaths() {
-    const blogEntries = await getCollection("blog");
+    const blogEntries = await getCollection("blog", ({ data }) => {
+        return import.meta.env.DEV || !data.draft;
+    });
+
     return blogEntries.map((entry) => {
-        entry.data.readTime = Math.ceil((entry.body ?? "").split(" ").length / 200);
         return {
             params: { slug: entry.id },
-            props: { entry },
+            props: {
+                entry: {
+                    ...entry,
+                    data: {
+                        ...entry.data,
+                        readTime: calculateReadTime(entry.body ?? ""),
+                    },
+                },
+            },
         };
     });
 }

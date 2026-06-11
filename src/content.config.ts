@@ -49,6 +49,7 @@ const travelCollection = defineCollection({
                 .optional(),
             tags: z.array(z.string()),
             rating: z.number().min(1).max(5).optional(),
+            draft: z.boolean().optional().default(false),
         }),
 });
 

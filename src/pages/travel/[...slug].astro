@@ -3,7 +3,10 @@ import { getCollection, render } from "astro:content";
 import TravelLayout from "../../layouts/TravelLayout.astro";
 
 export async function getStaticPaths() {
-    const travelEntries = await getCollection("travel");
+    const travelEntries = await getCollection("travel", ({ data }) => {
+        return import.meta.env.DEV || !data.draft;
+    });
+
     return travelEntries.map((entry) => {
         return {
             params: { slug: entry.id },
