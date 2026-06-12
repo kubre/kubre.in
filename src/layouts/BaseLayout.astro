@@ -8,6 +8,7 @@ export interface Props {
     description: string;
     ogImage?: string;
     ogType?: "website" | "article";
+    canonicalUrl?: string;
     noIndex?: boolean;
 }
 
@@ -16,10 +17,11 @@ const {
     description,
     ogImage = getDefaultOgImageUrl(),
     ogType = "website",
+    canonicalUrl: canonicalUrlProp,
     noIndex = false,
 } = Astro.props;
 
-const canonicalUrl = getCanonicalUrl(Astro.url.pathname);
+const canonicalUrl = canonicalUrlProp ?? getCanonicalUrl(Astro.url.pathname);
 const fullTitle = `${title} - ${SITE.name}`;
 ---
 
