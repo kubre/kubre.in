@@ -41,19 +41,27 @@ const modes = [
         keys: ["⌥", "⇧", "4"],
     },
     {
+        glyph: "◷",
+        title: "Delayed",
+        body: "Select a region, then a countdown before the shot fires.",
+        keys: ["⌥", "⇧", "5"],
+    },
+    {
         glyph: "↺",
         title: "Repeat last",
         body: "Re-grab the same region, window, or screen instantly.",
-        keys: null,
+        keys: ["⌥", "⇧", "R"],
     },
 ];
 
 const editorKeys = [
-    { keys: ["Q", "W", "E", "R", "T"], label: "Arrow / rect / counter / text / crop" },
-    { keys: ["1", "–", "7"], label: "Color shortcuts" },
+    { keys: ["Q", "W", "E", "R", "T", "Y"], label: "Arrow / rect / counter / text / pixelate / crop" },
+    { keys: ["1", "–", "5"], label: "Color shortcuts" },
+    { keys: ["Z", "X", "C"], label: "Small / medium / large size" },
     { keys: ["Esc"], label: "Copy to clipboard and close" },
     { keys: ["⌘", "C"], label: "Copy, keep editor open" },
-    { keys: ["⌘", "S"], label: "Save as PNG" },
+    { keys: ["⌘", "S"], label: "Save PNG to folder" },
+    { keys: ["⇧", "⌘", "S"], label: "Save as…" },
 ];
 
 const stats = [
@@ -84,7 +92,7 @@ const structuredData = {
             },
             inLanguage: "en",
             datePublished: "2026-06-12",
-            dateModified: "2026-06-12",
+            dateModified: "2026-06-13",
             author: {
                 "@type": "Person",
                 name: "Vaibhav Kubre",
@@ -125,8 +133,9 @@ const structuredData = {
                 "Window screenshot capture",
                 "Fullscreen screenshot capture",
                 "Scrolling screenshot capture",
+                "Delayed region capture",
                 "Repeat last capture",
-                "Screenshot annotation editor",
+                "Screenshot annotation editor with pixelate / redaction",
                 "Clipboard, PNG save, and drag-out export",
                 "Remappable keyboard shortcuts",
             ],
@@ -293,11 +302,12 @@ const structuredData = {
                 <h2 class="font-mono text-xl uppercase text-carbon">A direct editor</h2>
                 <p class="mt-3 font-sans leading-7 text-black">
                     The current tool stays armed, so drawing another arrow or rectangle never means
-                    switching back from a selection mode. Wrong mark? Undo and draw again.
+                    switching back from a selection mode. Pixelate anything sensitive, pick a size,
+                    and undo if a mark is wrong.
                 </p>
                 <p class="mt-3 font-sans leading-7 text-black">
-                    When you're done, copy to the clipboard, save as PNG, or Option-drag the
-                    flattened image straight into another app.
+                    When you're done, copy to the clipboard, save the PNG to your folder, or
+                    Option-drag the flattened image straight into another app.
                 </p>
             </div>
             <div>
@@ -330,8 +340,8 @@ const structuredData = {
                 <p class="mt-3 max-w-2xl font-sans leading-7 text-black">
                     The defaults are just a starting point. Open
                     <span class="bg-yellow-400 px-1 text-black">Preferences</span> to remap every capture
-                    and editor shortcut, change the annotation colors, and set your save location and
-                    export behavior.
+                    shortcut, change the annotation colors, set the capture delay, and choose your save
+                    location and export behavior.
                 </p>
             </div>
         </section>

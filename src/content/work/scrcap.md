@@ -23,7 +23,7 @@ scrcap is a native macOS screenshot tool built around speed: hit a shortcut, cap
 
 scrcap is a small macOS app for screenshots, annotations, and quick exports. It is written in Swift and AppKit, uses ScreenCaptureKit for capture, and keeps the core model separate from the macOS UI so the capture and editor logic stays easy to test.
 
-The app is built for the common screenshot flow: capture a region, window, full screen, or scrolling area; make quick annotations; then copy, save, or drag the finished image into another app.
+The app is built for the common screenshot flow: capture a region, window, full screen, scrolling area, or a delayed region; make quick annotations; then copy, save, or drag the finished image into another app.
 
 | Platform  | macOS 14+                                       |
 | --------- | ----------------------------------------------- |
@@ -37,24 +37,27 @@ The app is built for the common screenshot flow: capture a region, window, full 
 - Window capture with hover highlight and cycling for overlapping windows.
 - Fullscreen capture for the display under the cursor.
 - Scrolling capture that selects a region, scrolls, and stitches the result.
+- Delayed region capture with an on-screen countdown for transient UI.
 - Repeat-last capture for quickly grabbing the same region, window, or screen again.
 - Remappable global hotkeys in Preferences.
-- Editor tools for arrows, rectangles, counters, text, crop, undo, redo, and color shortcuts.
-- Copy, save as PNG, or Option-drag the flattened image into another app.
+- Editor tools for arrows, rectangles, counters, text, pixelate/redaction, crop, three sizes, undo, redo, and color shortcuts.
+- Copy, quick-save to your folder, or Option-drag the flattened image into another app.
 
 # Editor
 
 The editor is deliberately direct. The current tool stays armed, so drawing another arrow or rectangle does not require switching back from a selection mode. If a mark is wrong, use undo and draw again.
 
-| Key               | Action                                    |
-| ----------------- | ----------------------------------------- |
-| Q / W / E / R / T | arrow / rectangle / counter / text / crop |
-| 1-7               | color shortcuts                           |
-| Esc               | copy to clipboard and close               |
-| Command-C         | copy and keep the editor open             |
-| Command-S         | save as PNG                               |
-| Command-W         | discard and close                         |
-| Option-drag       | drag the flattened PNG out                |
+| Key                   | Action                                                |
+| --------------------- | ----------------------------------------------------- |
+| Q / W / E / R / T / Y | arrow / rectangle / counter / text / pixelate / crop  |
+| 1-5                   | color shortcuts                                       |
+| Z / X / C             | small / medium / large size                           |
+| Esc                   | copy to clipboard and close                           |
+| Command-C             | copy and keep the editor open                         |
+| Command-S             | save PNG to your folder                               |
+| Shift-Command-S       | save as…                                              |
+| Command-W             | discard and close                                     |
+| Option-drag           | drag the flattened PNG out                            |
 
 # Performance
 
