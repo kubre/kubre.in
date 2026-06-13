@@ -9,4 +9,5 @@ coordinates:
   lng: 98.325281
 tags: ["phuket", "international-trip", "air-travel"]
 rating: 4
+draft: true
 ---
