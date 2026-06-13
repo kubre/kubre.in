@@ -16,7 +16,6 @@ const staticEntries: SitemapEntry[] = [
     { url: `${SITE_URL}/blog/`, lastModified: SITE_LAST_MODIFIED },
     { url: `${SITE_URL}/work/`, lastModified: SITE_LAST_MODIFIED },
     { url: `${SITE_URL}/travel/`, lastModified: SITE_LAST_MODIFIED },
-    { url: `${SITE_URL}/guestbook/`, lastModified: SITE_LAST_MODIFIED },
     { url: SCRCAP_URL, lastModified: SITE_LAST_MODIFIED },
 ];
 
