@@ -46,7 +46,7 @@ import Layout from "../layouts/Layout.astro";
             }
         }
     </style>
-    <main class="py-8 grid lg:grid-cols-2 gap-x-4 gap-y-6">
+    <main id="main" class="py-8 grid lg:grid-cols-2 gap-x-4 gap-y-6">
         <h1 class="col-span-2 uppercase text-2xl font-bold text-carbon-lighter">
             Engineering Technology
         </h1>
@@ -82,7 +82,7 @@ import Layout from "../layouts/Layout.astro";
                 </tbody>
             </table>
             <fieldset
-                class="h-[370px] aspect-square w-[370px] border border-carbon mx-auto relative"
+                class="w-full max-w-[370px] aspect-square border border-carbon mx-auto relative overflow-hidden"
             >
                 <p
                     class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute"

@@ -17,7 +17,8 @@ import Layout from "../layouts/Layout.astro";
             z-index: 100;
         }
     </style>
-    <main class="space-y-12 pt-4 md:pt-8 pb-8 relative">
+    <main id="main" class="space-y-12 pt-4 md:pt-8 pb-8 relative">
+        <h1 class="sr-only">Vaibhav Kubre — Resume</h1>
         <div class="flex justify-end">
             <!-- <a
                 href="/Vaibhav-Kubre-Resume.pdf"
@@ -28,7 +29,7 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <div class="col-span-2 px-1">
             <div class="py-1 uppercase font-semibold text-2xl mb-8"># Work Experience</div>
-            <div class="grid">
+            <div class="grid grid-cols-3">
                 <span class="font-bold md:inline-block col-span-3 text-lg"
                     >Senior Software Engineer</span
                 >
@@ -149,10 +150,8 @@ import Layout from "../layouts/Layout.astro";
                 </li>
                 <li>
                     <span class="float-right text-sm font-thin text-carbon/80 pt-1">2015-2019</span>
-                    Diploma in CSE <span class="text-sm text-carbon"
-                        >(8.0 CGPA)<br />Maharashtra State Board of Technical Education, Maharashtra
-                        India.
-                    </span>
+                    Diploma in CSE <span class="text-sm text-carbon">(8.0 CGPA)</span><br /> Maharashtra
+                    State Board of Technical Education, Maharashtra India.
                 </li>
             </ul>
         </div>

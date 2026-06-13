@@ -35,6 +35,15 @@ const fullTitle = `${title} - ${SITE.name}`;
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
 
+        <!-- Preload display font to reduce FOUT -->
+        <link
+            rel="preload"
+            href="/fonts/DepartureMono-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+
         <!-- Primary Meta Tags -->
         <meta name="title" content={fullTitle} />
         <meta name="description" content={description} />

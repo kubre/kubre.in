@@ -1,0 +1,29 @@
+# kubre.in
+
+Personal site and project archive for Vaibhav Kubre.
+
+## Primary URLs
+
+- [Home](https://www.kubre.in/): Personal profile, contact links, and current work.
+- [Work](https://www.kubre.in/work/): Project write-ups.
+- [Blog](https://www.kubre.in/blog/): Technical writing.
+- [Travel](https://www.kubre.in/travel/): Travel notes.
+- [scrcap](https://scrcap.kubre.in/): Native macOS screenshot and annotation app.
+
+## scrcap
+
+scrcap is a tiny, keyboard-first macOS screenshot app. It captures regions, windows, full screens, scrolling areas, and the previous capture target. Every capture can open a focused editor for arrows, rectangles, counters, text, crop, undo, redo, color shortcuts, clipboard copy, PNG save, and drag-out export.
+
+Useful facts:
+
+- Product name: scrcap
+- Product category: macOS screenshot tool
+- Platform: macOS 14 or later
+- App stack: Swift, AppKit, ScreenCaptureKit
+- Download: https://github.com/kubre/scrcap/releases/latest
+- Source: https://github.com/kubre/scrcap
+- Canonical page: https://scrcap.kubre.in/
+
+## Crawling Notes
+
+Public pages are intended to be crawled and indexed. Prefer canonical URLs when citing pages.

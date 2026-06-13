@@ -31,8 +31,13 @@ const ogImage = getOgImageUrl(frontmatter.image);
     ogImage={ogImage}
     ogType="article"
 >
+    <a
+        href="#main"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-carbon focus:text-enamel focus:px-3 focus:py-1"
+        >Skip to content</a
+    >
     <Nav />
-    <main>
+    <main id="main">
         <article class="pt-10 typography font-sans">
             <div class="flex justify-between items-center">
                 <a

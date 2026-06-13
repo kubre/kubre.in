@@ -6,8 +6,10 @@ import Layout from "../layouts/Layout.astro";
     title="Guestbook"
     description="Leave your sign and twitter I will definitely check it out"
 >
-    <h2 class="text-2xl py-8">Guest Book</h2>
-    <canvas width="500" height="300" id="canvas"></canvas>
+    <main id="main">
+        <h1 class="text-2xl py-8">Guest Book</h1>
+        <canvas width="500" height="300" id="canvas"></canvas>
+    </main>
     <script>
         /*
          * [ ] Simple paint
@@ -46,8 +48,9 @@ import Layout from "../layouts/Layout.astro";
 
         // Mouse events to place pixels
         canvas.addEventListener("mousedown", function (e) {
-            const x = Math.floor((e.clientX - canvas.offsetLeft) / pixelSize);
-            const y = Math.floor((e.clientY - canvas.offsetTop) / pixelSize);
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.floor((e.clientX - rect.left) / pixelSize);
+            const y = Math.floor((e.clientY - rect.top) / pixelSize);
             drawPixel(x, y);
             savePixel(x, y);
         });

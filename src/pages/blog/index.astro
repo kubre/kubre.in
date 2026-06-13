@@ -25,7 +25,8 @@ const posts = await getCollection("blog", ({ data }) => {
 ---
 
 <Layout title="Blog" description="Vaibhav's articles related to tech and stuff he likes">
-    <main class="py-12 grid">
+    <main id="main" class="py-12 grid">
+        <h1 class="sr-only">Blog</h1>
         <div class="relative mt-12 ml-0 lg:ml-[200px]">
             <div
                 class="hidden absolute top-3 bottom-0 right-full mr-7 md:mr-[3.25rem] w-px bg-carbon-lighter sm:block"
