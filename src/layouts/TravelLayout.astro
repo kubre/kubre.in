@@ -3,9 +3,9 @@ import BaseLayout from "./BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import Chip from "../components/Chip.astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import { formatDateRange } from "../utils/date";
-import { toSentenceCase } from "../utils/text";
+import { slugify, toSentenceCase } from "../utils/text";
 import { getOgImageUrl } from "../utils/seo";
 import type { ImageMetadata } from "astro";
 
@@ -55,12 +55,18 @@ const photoEntries = Object.entries(allTravelImages)
 const photos = await Promise.all(
     photoEntries.map(async ({ importFn, caption }) => {
         const img = await importFn();
+        const lightboxImage = await getImage({
+            src: img.default,
+            width: 1600,
+            format: "webp",
+            quality: 82,
+        });
 
         return {
             src: img.default,
             caption,
-            lightboxSrc: img.default.src,
-            imageId: caption.toLowerCase().replace(/\s+/g, "-"),
+            lightboxSrc: lightboxImage.src,
+            imageId: slugify(caption),
         };
     }),
 );
