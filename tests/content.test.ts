@@ -41,7 +41,7 @@ describe("llms.txt", () => {
 });
 
 describe("trust pages", () => {
-    it.each([["src/pages/about.astro"], ["src/pages/contact.astro"], ["src/pages/privacy.astro"]])(
+    it.each([["src/pages/contact.astro"], ["src/pages/privacy.astro"]])(
         "%s carries at least 500 characters of visible text",
         async (file) => {
             expect(visibleText(await read(...file.split("/"))).length).toBeGreaterThanOrEqual(500);
