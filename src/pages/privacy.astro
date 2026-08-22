@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Privacy"
+    description="What data kubre.in collects, what it does not, and how comments and analytics are handled."
+>
+    <main id="main" class="py-8 space-y-6 text-xs md:text-sm text-carbon leading-6">
+        <h1 class="uppercase text-2xl font-bold text-carbon-lighter">Privacy</h1>
+
+        <p>
+            Short version: this site does not track you. There are no accounts, no cookies set by
+            the site itself, no advertising, and no cross-site trackers.
+        </p>
+
+        <section class="space-y-2">
+            <h2 class="font-bold uppercase tracking-wide text-carbon-lighter">Analytics</h2>
+            <p>
+                Pages are served through Cloudflare, which keeps standard server logs (IP address,
+                requested URL, timestamp) for security and abuse prevention. Aggregate, anonymized
+                traffic counts come from Cloudflare Web Analytics, which does not use cookies or
+                fingerprint individual visitors. Vaibhav can see that a page was visited; he cannot
+                see who you are.
+            </p>
+        </section>
+
+        <section class="space-y-2">
+            <h2 class="font-bold uppercase tracking-wide text-carbon-lighter">Comments</h2>
+            <p>
+                Blog posts use Giscus, which stores comments in the public
+                <a class="underline hover:bg-yellow-400/40" href="https://github.com/kubre"
+                    >GitHub</a
+                >
+                discussions of this site's repository. If you comment, GitHub handles your account, avatar,
+                and comment content under
+                <a
+                    class="underline hover:bg-yellow-400/40"
+                    href="https://docs.github.com/en/site-policy/github-privacy-statement"
+                    >GitHub's privacy statement</a
+                >. Comments are public by nature.
+            </p>
+        </section>
+
+        <section class="space-y-2">
+            <h2 class="font-bold uppercase tracking-wide text-carbon-lighter">Your content</h2>
+            <p>
+                Unless noted otherwise, writing and images on this site are licensed CC BY 4.0 —
+                quote, reuse, and cite freely with attribution to Vaibhav Kubre and a link back to
+                the canonical URL.
+            </p>
+        </section>
+
+        <p>
+            Questions about any of this? See the
+            <a class="underline hover:bg-yellow-400/40" href="/contact/">Contact</a> page. Last reviewed:
+            August 2026.
+        </p>
+    </main>
+</Layout>

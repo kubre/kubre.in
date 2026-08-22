@@ -6,11 +6,46 @@ import Layout from "../layouts/Layout.astro";
     title="404 — Page Not Found"
     description="The page you're looking for does not exist or has been removed."
 >
-    <main id="main" class="pt-8 pb-8">
+    <main id="main" class="pt-8 pb-8 space-y-6 text-xs md:text-sm text-carbon">
         <h1 class="sr-only">404 — Page Not Found</h1>
         <p class="font-bold">
-            <strong class="bg-red-700 text-white px-2">404</strong> Page you're looking for does not exists, or has been removed!
+            <strong class="bg-red-700 text-white px-2">404</strong> Page you're looking for does not exists,
+            or has been removed!
         </p>
+
+        <section class="space-y-2 leading-6">
+            <p>The URL may be mistyped or the content moved. Here is where to look next:</p>
+            <ul class="list-disc list-inside space-y-1">
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/">Home</a> — profile and contact
+                    links.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/work/">Work</a> — project write-ups.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/blog/">Blog</a> — technical writing.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/travel/">Travel</a> — travel notes.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/about/">About</a> — what this site
+                    runs on.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/contact/">Contact</a> — how to
+                    reach Vaibhav.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/sitemap.xml">Sitemap</a> — every
+                    public page.
+                </li>
+                <li>
+                    <a class="underline hover:bg-yellow-400/40" href="/llms.txt">llms.txt</a> — machine-readable
+                    site guide for agents.
+                </li>
+            </ul>
+        </section>
     </main>
 </Layout>
-

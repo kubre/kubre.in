@@ -51,6 +51,22 @@ import Layout from "../layouts/Layout.astro";
             Engineering Technology
         </h1>
         <p class="col-span-2">What kubre.in uses?</p>
+        <div class="col-span-2 space-y-4 leading-6">
+            <p>
+                This is the personal site of Vaibhav Kubre: a place where project write-ups,
+                technical blog posts, and travel notes live without any algorithm deciding who sees
+                them. Everything here is static HTML rendered ahead of time, so pages load fast,
+                work without JavaScript, and stay readable for people and machines alike. Agents can
+                request the same URL with an Accept header of text/markdown to get a markdown
+                variant instead.
+            </p>
+            <p>
+                The stack below is deliberately boring, because boring is what survives. Content
+                lives in markdown files checked into git, styling comes from utility classes with a
+                handful of custom colors, and hosting is on the edge so the site stays up whether or
+                not anyone is watching it.
+            </p>
+        </div>
         <div class="col-span-2 flex flex-col lg:flex-row gap-8">
             <table>
                 <thead>
@@ -84,14 +100,10 @@ import Layout from "../layouts/Layout.astro";
             <fieldset
                 class="w-full max-w-[370px] aspect-square border border-carbon mx-auto relative overflow-hidden"
             >
-                <p
-                    class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute"
-                >
+                <p class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute">
                     No Signal
                 </p>
-                <div
-                    class="px-2 bg-red-200 border border-white/40 dvd inline-block text-sm"
-                >
+                <div class="px-2 bg-red-200 border border-white/40 dvd inline-block text-sm">
                     kubre.in
                 </div>
             </fieldset>

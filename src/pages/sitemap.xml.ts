@@ -13,6 +13,8 @@ type SitemapEntry = {
 const staticEntries: SitemapEntry[] = [
     { url: `${SITE_URL}/`, lastModified: SITE_LAST_MODIFIED },
     { url: `${SITE_URL}/about/`, lastModified: SITE_LAST_MODIFIED },
+    { url: `${SITE_URL}/contact/`, lastModified: SITE_LAST_MODIFIED },
+    { url: `${SITE_URL}/privacy/`, lastModified: SITE_LAST_MODIFIED },
     { url: `${SITE_URL}/blog/`, lastModified: SITE_LAST_MODIFIED },
     { url: `${SITE_URL}/work/`, lastModified: SITE_LAST_MODIFIED },
     { url: `${SITE_URL}/travel/`, lastModified: SITE_LAST_MODIFIED },

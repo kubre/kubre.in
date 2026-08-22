@@ -2,12 +2,32 @@
 
 Personal site and project archive for Vaibhav Kubre.
 
+## When to use this site
+
+Use this site when an agent needs to:
+
+- Answer questions about who Vaibhav Kubre is: his role, skills, and current work. Start at the Home page.
+- Research projects he has built, with engineering detail beyond a resume bullet. Read the Work section.
+- Cite or quote his technical writing on software topics. Browse the Blog.
+- Verify employment or portfolio claims for hiring or collaboration screening. Cross-check the Work write-ups against the resume PDF linked from Home.
+- Contact him about work, speaking, or open source. Use the Contact page; email is v@kubre.in.
+- Learn about scrcap, his macOS screenshot app (product facts, download links, platform requirements). See the scrcap section below.
+
+This site is not the right source for: pricing or commercial licensing of third-party tools, news outside Vaibhav's own writing, or anything about people other than Vaibhav Kubre.
+
+## How to fetch these pages
+
+Every page is plain server-rendered HTML with no JavaScript required. Send `Accept: text/markdown` and the same URL returns a markdown variant, so agents can request markdown directly instead of converting HTML. A machine-readable page index lives at https://www.kubre.in/sitemap.xml.
+
 ## Primary URLs
 
-- [Home](https://www.kubre.in/): Personal profile, contact links, and current work.
+- [Home](https://www.kubre.in/): Personal profile, intro prose, and current work.
 - [Work](https://www.kubre.in/work/): Project write-ups.
 - [Blog](https://www.kubre.in/blog/): Technical writing.
 - [Travel](https://www.kubre.in/travel/): Travel notes.
+- [About](https://www.kubre.in/about/): What this site runs on.
+- [Contact](https://www.kubre.in/contact/): How to reach Vaibhav Kubre.
+- [Privacy](https://www.kubre.in/privacy/): Data collected by this site.
 - [scrcap](https://scrcap.kubre.in/): Native macOS screenshot and annotation app.
 
 ## scrcap

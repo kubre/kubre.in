@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { SITE, getCanonicalUrl, getDefaultOgImageUrl } from "../utils/seo";
+import { buildPersonJsonLd, buildWebSiteJsonLd, renderJsonLd } from "../utils/jsonld";
 
 export interface Props {
     title: string;
@@ -73,6 +74,12 @@ const fullTitle = `${title} - ${SITE.name}`;
             type="application/rss+xml"
             title="Vaibhav Kubre's Blog"
             href={`${SITE.url}/rss.xml`}
+        />
+
+        <!-- Structured data: identity for AI agents and search engines -->
+        <script
+            type="application/ld+json"
+            set:html={renderJsonLd([buildPersonJsonLd(), buildWebSiteJsonLd()])}
         />
 
         <slot name="head" />
