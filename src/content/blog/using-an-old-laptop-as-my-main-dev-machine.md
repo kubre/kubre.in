@@ -4,57 +4,36 @@ description: "How I moved all my heavy work to a Linux laptop that stays closed 
 image: ../../assets/remote-linux-workstation/desk.jpg
 publishedAt: 2026-09-30
 tags: ["linux", "fedora", "tailscale", "remote development", "workflow"]
-draft: true
+draft: false
 ---
 
 # Why
 
-My MacBook Air was doing everything. Docker, builds, and a few coding agents running at the same time. It was always hot, and I kept running out of disk space. At the same time I had an ASUS laptop that I barely used. It has 16 threads, 16 GB of RAM and a 1 TB disk, which is more than enough for what I do.
+I bought an M4 Air (512GB version) last December and shifted pretty much all my work stuff and personal stuff to it. It's a great laptop, I have never seen something that can stay on battery for so long (yes, this is my first MacBook). Even being so thin and no fans this thing can run everything I want. There is a problem though: the M4 is a powerful chip but it can thermal throttle after it heats, and in the summers of Aurangabad oh boy, it heats. My room has no AC, so the temperature can be anywhere from 25-41°C around the year. My room only has a window and a fan to cool it off. Now running all the dev servers, the AI agents, even being on call or being on WhatsApp this thing heats and throttles which annoys me, so I got one of those peltier cooler fans gamers use which works but still doesn't cool this thing that much.
 
-So I thought, why not let the ASUS do the work and use the Mac only to connect to it?
-
-_That's it!_ That's the entire idea. The rest of this post is how I set it up and what I learned.
-
-![My desk with the MacBook and monitor](../../assets/remote-linux-workstation/desk.jpg)
+Another problem that I have started seeing with my more active lifestyle I'm being less and less around my laptop even though I want to work remotely so running everything on an unplugged MacBook became a struggle. I love how using Codex I could keep instructing my agents to work, and now I use T3 Code to do the same thing. But keeping the MacBook on all the time did become annoying. So I decided, why not look into the remote machine thing I keep hearing about on Twitter?
 
 # The machine
 
-The ASUS runs Fedora with KDE Plasma. Its lid stays closed and it stays on all the time. I kept the full desktop instead of a server install, because sometimes an app needs you to click something in a GUI, and I didn't want to open the lid every time that happens.
+The machine is an ASUS ROG Strix laptop (Electric Pink). Yes, this is what got me through my last year of engineering and I used it till Dec 2025 before I got the M4 Air. Now it is not a joke: even though I fried one of its 16GB RAM sticks, it still has 16GB remaining, an AMD Ryzen 7 4800H processor and an NVIDIA RTX 3050. I know, unimpressive, but still more than good enough and it has two fans to keep itself cool.
 
 ![The ASUS laptop with its lid closed](../../assets/remote-linux-workstation/laptop.jpg)
 
-# Connecting the two laptops
+# The Setup
 
-I use Tailscale for this. It puts all your devices on a private network, and each one gets a name you can use from anywhere. So I don't need to forward ports or change anything on my router, and it works the same at home or outside.
+All I did was to charge this old laptop and put Fedora on a USB stick and install it. The KDE version has tbh everything I needed; all I installed extra on it was Helium browser, Claude Code, Codex, [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI), Tailscale and T3 Code. To be honest I didn't even install anything myself. After setting up T3 Code I just asked Claude to do everything from setting up SSH to Tailscale to copying all my projects to installing small tools like AWS CLI and all.
 
-After that, SSH is just a normal SSH config entry on the Mac with its own key, and I also set it up the other way, so the ASUS can SSH back to the Mac when it needs something.
+The result? It works just like my M4 Air without me having to put in any effort. I just made sure it is plugged in 24/7 with sleep turned off and T3 Code launches automatically. With 32GB swap this laptop runs all of my workload now and I use my M4 Air to type, take calls or browse around. This setup feels amazing even if the ASUS somehow deletes everything on it, my MacBook still has all the creds and setup, so I don't have to worry about being disconnected.
 
-One thing that confused me for a while: the Tailscale app on the Mac can be open while Tailscale itself is stopped. When that happens nothing connects and it looks like the other machine is down. If that happens to you, run `tailscale status` before anything else.
+Without t3code it would have been painful though to use this kind of setup as it provides easy way to connect multiple devices and spawn threads for multiple providers like claude code, codex, opencode etc. The UI is amazing and if you havent tried this I know it would hard to understand how easy everything feels. Now with t3code available as an iOS app, I can keep checking on work even when I'm out, it has its own remote connection layer (free for now), but if you don't want to sign up it supports Tailscale without any issue.
 
-# Using the desktop with the lid closed
+# Cost
 
-KDE has a built-in RDP server, so I didn't need to install anything extra. I made it listen only on the Tailscale network, and I connect from the Mac with Microsoft's Windows App.
+Well, I already paid off this laptop and it was just collecting dust so 0 for me, as for the energy of keeping the laptop turned on 24/7, I think it could cost 500-1000 INR a month, I have no idea. But not an issue as I really don't want to do the whole cloud dev machine from providers thing which costs based on usage.
 
-The first time I connected I only got a black screen. The connection was working fine. The problem was the laptop had locked itself and turned off its display because the lid was closed, so there was nothing to show. Once the display stayed on, it worked.
+# Is it worth it?
 
-# Moving my stuff over
+Yeah, not having to work on a slow M4 Air because you're running a lot of stuff just feels nice. And for a lot of the development I do, Linux is similar or better than macOS anyways (you can figure out this for yourself if this will be true for you or not).
 
-I copied my projects and config from the Mac using rsync, and skipped `node_modules` and build folders. That took it from about 31 GB to 9 GB.
-
-Before deleting anything from the Mac, I ran rsync in dry-run mode for each folder to make sure everything was copied, and moved things to the Trash instead of deleting them right away.
-
-# Installing tools
-
-I installed almost everything in my home folder without sudo: Node with `fnm`, `pnpm`, `bun`, `uv` for Python, and `rustup` for Rust. PATH and aliases go in their own file inside `~/.bashrc.d/`, which Fedora loads automatically.
-
-The few things that need root, like Docker and gcc, go in a separate script that I run myself.
-
-# Where the agents run
-
-Coding agents now run on the laptop, in the same place as the code. The Mac just shows me what's going on.
-
-# Was it worth it?
-
-Would I do it again? Yes! Would I go back to doing everything on one laptop? No!
-
-If you have any questions, reach out to me at v@kubre.in as always.
+# Any improvements to this setup?
+I guess I will need to find a better location than random table, but yeh that is it tbh. I dont see any other issues with this setup as of now.
