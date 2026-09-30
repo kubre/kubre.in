@@ -34,7 +34,7 @@ I also so many parallel problems that I already face in web but now in different
 1. Modularizing code and composing entire game from nodes. (Like components in React)
 1. Building and deploying game.
 
-If you want to find more about the game you can find game design document document I wrote for this game [here](/work/depot-gato). It's not 
+If you want to find more about the game you can find game design document document I wrote for this game [here](/work/depot-gato/). It's not 
 too big or technical but it's a small overview of what went behind in making the Depot Gato.
 
 # Why make a game as a Web Dev?

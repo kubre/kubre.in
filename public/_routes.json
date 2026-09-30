@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "include": ["/*"],
+    "exclude": [
+        "/_astro/*",
+        "/fonts/*",
+        "/images/*",
+        "/favicon.png",
+        "/favicon.svg",
+        "/robots.txt",
+        "/llms.txt",
+        "/rss.xml",
+        "/sitemap.xml",
+        "/Vaibhav-Kubre-Resume.pdf"
+    ]
+}

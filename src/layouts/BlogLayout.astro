@@ -21,7 +21,7 @@ export interface Props {
 
 const { frontmatter } = Astro.props;
 const url = Astro.url;
-const backUrl = "/" + url.pathname.split("/")[1];
+const backUrl = `/${url.pathname.split("/")[1]}/`;
 const ogImage = getOgImageUrl(frontmatter.image);
 ---
 
