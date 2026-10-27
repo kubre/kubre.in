@@ -17,23 +17,25 @@ const { data } = entry;
         >◆</span
     >
     <a
-        class="flex flex-col md:flex-row items-center gap-4 w-full px-0 md:px-2 h-full mb-2 hover:bg-yellow-400 transition-colors"
+        class="flex flex-col md:flex-row items-center gap-4 w-full px-0 md:px-2 pt-8 lg:pt-0 h-full mb-2 hover:bg-yellow-400 transition-colors"
         href={`/travel/${entry.id}/`}
     >
         <Image
             src={data.coverImage}
             width={128}
             height={128}
+            widths={[128, 256, 768]}
+            sizes="(min-width: 768px) 128px, 100vw"
             format="webp"
             quality={75}
             alt={data.title}
-            class="w-full md:w-32 md:h-32 object-cover"
+            class="w-full aspect-video md:aspect-square md:w-32 md:h-32 object-cover"
         />
         <div class="flex-1">
             <h2 class="text-lg tracking-tight text-carbon pt-2 lg:pt-0">
                 {data.title}
             </h2>
-            <p class="mt-1 text-carbon-light line-clamp-2 text-sm">
+            <p class="mt-1 text-carbon-light line-clamp-3 text-sm">
                 {data.description}
             </p>
             <div class="mt-2 flex items-center gap-4 text-xs text-carbon-lighter">

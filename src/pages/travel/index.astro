@@ -130,7 +130,7 @@ const groupedTrips = Object.values(imagesByTrip).sort(
             {
                 groupedTrips.map(({ tripTitle, tripSlug, visitedAt, images }) => (
                     <section>
-                        <header class="mb-3 flex items-baseline gap-3">
+                        <header class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
                             <a
                                 href={`/travel/${tripSlug}/`}
                                 class="font-mono text-lg text-carbon hover:text-yellow-600 transition-colors"
@@ -161,7 +161,7 @@ const groupedTrips = Object.values(imagesByTrip).sort(
                                         data-trip-slug={tripSlug}
                                         data-trip-title={tripTitle}
                                         data-image-id={imageId}
-                                        class="w-full h-auto cursor-pointer hover:opacity-80 transition-opacity"
+                                        class="w-full aspect-4/3 object-cover cursor-pointer hover:opacity-80 transition-opacity"
                                     />
                                 </figure>
                             ))}
@@ -170,7 +170,7 @@ const groupedTrips = Object.values(imagesByTrip).sort(
                 ))
             }
         </div>
-        <div class="pt-16 text-gray-700 text-center">
+        <div class="pt-16 text-carbon-light text-center">
             I will soon add more awesome trips from the past :D
         </div>
     </main>
