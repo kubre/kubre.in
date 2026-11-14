@@ -3,157 +3,173 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Resume" description="My Resume">
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        .tooltip {
-            visibility: hidden;
-            position: absolute;
-        }
-        .has-tooltip:hover .tooltip {
-            visibility: visible;
-            z-index: 100;
-        }
-    </style>
-    <main id="main" class="space-y-12 pt-4 md:pt-8 pb-8 relative">
+    <main id="main" class="font-sans leading-relaxed space-y-12 pt-4 md:pt-8 pb-8">
         <h1 class="sr-only">Vaibhav Kubre — Resume</h1>
         <div class="flex justify-end">
-            <!-- <a
+            <a
                 href="/Vaibhav-Kubre-Resume.pdf"
                 download="Vaibhav-Kubre-Resume.pdf"
-                class="underline ml-auto bg-yellow-200"
-                >↓ Download PDF Version</a
-            > -->
+                class="font-mono text-sm underline"
+            >
+                ↓ Download PDF
+            </a>
         </div>
-        <div class="col-span-2">
-            <div class="py-1 uppercase font-semibold text-2xl mb-8"># Work Experience</div>
-            <div class="grid grid-cols-3">
-                <span class="font-bold md:inline-block col-span-3 text-lg"
-                    >Senior Software Engineer</span
-                >
-                <span class="font-bold md:inline-block col-span-1 md:col-span-2"
-                    >TARS <span class="font-normal text-sm text-carbon hidden md:inline-block"
-                        >(Bangalore, India)</span
-                    ></span
-                >
-                <span
-                    class="font-bold text-right md:inline-block text-sm font-thin text-carbon/80 col-span-2 md:col-span-1 content-center"
-                    >Dec 2021 - Present</span
-                >
-                <ul class="pt-4 col-span-3 list-disc list-inside space-y-2">
-                    <li>
-                        Engineered Python/FastAPI backend system that automates AI chatbot creation
-                        from website URLs, integrating LangChain and Large Language Models (LLM),
-                        resulting in 1000% growth in user sign-ups and 30-second deployment time.
-                    </li>
-                    <li>
-                        Architected high-performance microservices infrastructure using Docker, AWS
-                        EKS, and Python, handling 10,000+ concurrent API requests with automated
-                        CI/CD pipeline via GitHub Actions and Prometheus-Grafana monitoring.
-                    </li>
-
-                    <li>
-                        Developed scalable WhatsApp Business API integration for enterprise customer
-                        support, implementing real-time chat functionality that successfully managed
-                        peak traffic during FIFA 2022 for Vodafone Qatar.
-                    </li>
-
-                    <li>
-                        Implemented frontend optimization using Webpack 5, TypeScript, and parallel
-                        processing, achieving 90% faster build times through advanced caching
-                        strategies and type-safe code architecture. Built automated testing
-                        framework for UI/UX validation, leveraging Selenium and Jest for end-to-end
-                        testing, reducing the customer success team's solution delivery time by
-                        200%.
-                    </li>
-                </ul>
-                <div class="min-h-[80px] col-span-3"></div>
-                <span class="font-bold md:inline-block col-span-3 text-lg">Full Stack Engineer</span
-                >
-                <span class="font-bold md:inline-block col-span-1 md:col-span-2">kubre.in</span>
-                <span
-                    class="font-bold text-right md:inline-block text-sm font-thin text-carbon/80 col-span-2 md:col-span-1 content-center"
-                    >Jan 2019 - Nov 2021</span
-                >
-                <ul class="pt-4 col-span-3 list-disc list-inside space-y-1">
-                    <li>
-                        Developed a website for the TaxGlobe community to share market trends and
-                        purchase books using Livewire, AlpineJS, and MySQL. Read more in detail at <a
-                            href="/work/taxglobe/"
-                            class="underline">Design Document</a
-                        >.
-                    </li>
-                    <li>
-                        Collaborated with Wonder Learning to implement their learning management
-                        system, allowing 20+ schools to transition to online learning during the
-                        pandemic using Laravel, VueJS, and MySQL. Read more in detail at <a
-                            href="/work/wonder-learning/"
-                            class="underline">Design Document</a
-                        >.
-                    </li>
-                    <li>
-                        Constructed GateArch's online exam portal for administering mock exams for
-                        architecture students using Laravel and MySQL. Read more in detail at <a
-                            href="/work/gatearch/"
-                            class="underline">Design Document</a
-                        >.
-                    </li>
-                </ul>
+        <p class="text-lg">
+            Senior backend engineer with 5 years at TARS, an enterprise platform for AI agents and
+            live chat. Built the first agent backend of its Asimov product, a PII detection model,
+            and the multi-region platform it runs on. TypeScript, Python, PostgreSQL, GCP.
+        </p>
+        <section class="space-y-3">
+            <h2 class="font-mono uppercase text-2xl mb-6"># Work Experience</h2>
+            <div class="flex flex-wrap justify-between items-baseline gap-x-4">
+                <span class="font-mono text-lg">Senior Software Engineer</span>
+                <span class="font-mono text-sm text-carbon-lighter">Dec 2021 - Present</span>
             </div>
-        </div>
-        <div class="pt-8">
-            <div class="py-1 uppercase font-semibold text-2xl mb-8">
-                # Technologies, Languages, and Skills
+            <div class="font-mono text-sm text-carbon-light">TARS, Bangalore</div>
+            <div class="font-mono uppercase text-sm text-carbon-lighter pt-4">AI and agents</div>
+            <div class="space-y-3">
+                <p>
+                    <span class="font-semibold">AI agent backend.</span> Built the first agent
+                    backend for Asimov, the AI agent product at TARS. It ingests large websites,
+                    PDFs, CRMs, and other sources, and gives LLM agents RAG and tool use, which
+                    turned scripted chatbots into AI-native agents. Tested ingestion on 2,000
+                    customer websites. FastAPI, Celery, Weaviate.
+                </p>
+                <p>
+                    <span class="font-semibold">PII detection model.</span> Trained Veil, a 1.19 MB
+                    model that finds personal data in customer chats: names, addresses, phone
+                    numbers, emails, ID numbers, and card numbers. It runs in 2.6 ms per message
+                    inside the backend or in the browser, with nothing else to deploy. It replaced a
+                    spaCy NER service that needed its own VM, with 80% fewer false masks.
+                </p>
+                <p>
+                    <span class="font-semibold">Performance.</span> Cut backend CPU per chat turn by
+                    50% and support inbox latency by 49% (1,154 ms to 584 ms). Eliminated backend
+                    timeouts in the new regions, from 415 in two days to zero.
+                </p>
+                <p>
+                    <span class="font-semibold">Reliability.</span> Fixed the memory leaks that made
+                    the Asimov service run out of memory and restart. It now runs for months with
+                    flat memory use.
+                </p>
             </div>
-
-            <div class="grid grid-cols-4">
-                <span class="font-semibold col-span-4 md:col-span-1">Programming Languages:</span>
-                <span class="col-span-4 md:col-span-3 pb-2">
-                    Python, Golang, TypeScript/JavaScript, PHP, Java, Kotlin
-                </span>
-
-                <span class="font-semibold col-span-4 md:col-span-1">Databases & Storage:</span>
-                <span class="col-span-4 md:col-span-3 pb-2">
-                    PostgreSQL, MySQL, MongoDB, Clickhouse, Weaviate Vector DB
-                </span>
-
-                <span class="font-semibold col-span-4 md:col-span-1">Web & Framework:</span>
-                <span class="col-span-4 md:col-span-3 pb-2">
-                    React.js, Express.js, FastAPI, Django, Laravel, TailwindCSS, LangChain
-                </span>
-
-                <span class="font-semibold col-span-4 md:col-span-1">Cloud & DevOps:</span>
-                <span class="col-span-4 md:col-span-3 pb-2">
-                    Docker, Kubernetes, AWS, Google Cloud (GCS), CI/CD, Git
-                </span>
-
-                <span class="font-semibold col-span-4 md:col-span-1">AI/ML & APIs:</span>
-                <span class="col-span-4 md:col-span-3 pb-2">
-                    OpenAI GPT, Anthropic Claude, REST, GraphQL, WebSockets
-                </span>
-
-                <span class="font-semibold col-span-4 md:col-span-1">Core Skills:</span>
-                <span class="col-span-4 md:col-span-3">
-                    Data Structures & Algorithms, System Design, Linux/Bash, Design Patterns
-                </span>
+            <div class="font-mono uppercase text-sm text-carbon-lighter pt-4">Platform</div>
+            <div class="space-y-3">
+                <p>
+                    <span class="font-semibold">Data residency.</span> Enterprise customers in
+                    Qatar, India, and the EU must keep their data in their own region. Designed and
+                    launched a full, separate deployment of the product in each one, on GCP with
+                    Convex, PostgreSQL, and Tinybird.
+                </p>
+                <p>
+                    <span class="font-semibold">Migrations.</span> Built the tools that move
+                    customers from TARS 2.0 to the rebuilt 3.0 platform, and between regions, with
+                    checks, resume, and rollback. Moved a large telecom customer's live account with
+                    only 8 minutes of read-only time.
+                </p>
+                <p>
+                    <span class="font-semibold">CI/CD.</span> Rebuilt CI/CD for the monorepo. Checks
+                    on every pull request went from 30 minutes to under 6, and one tested build
+                    ships to all 4 production regions.
+                </p>
             </div>
-        </div>
-        <div>
-            <div class="py-1 uppercase font-semibold text-2xl mb-8"># Education</div>
-            <ul class="list-disc list-inside space-y-2">
-                <li>
-                    <span class="float-right text-sm font-thin text-carbon/80 pt-1">2019-2022</span>
-                    B. Tech in CSE <span class="text-sm text-carbon">(9.3 CGPA)</span><br /> Dr. Babasaheb
-                    Amedbkar Technical University, Maharashtra, India.
-                </li>
-                <li>
-                    <span class="float-right text-sm font-thin text-carbon/80 pt-1">2015-2019</span>
-                    Diploma in CSE <span class="text-sm text-carbon">(8.0 CGPA)</span><br /> Maharashtra
-                    State Board of Technical Education, Maharashtra India.
-                </li>
-            </ul>
-        </div>
+            <div class="font-mono uppercase text-sm text-carbon-lighter pt-4">
+                Product and leadership
+            </div>
+            <div class="space-y-3">
+                <p>
+                    <span class="font-semibold">Live chat.</span> Shipped native live chat with
+                    chatbot-to-human handoff on web and WhatsApp, plus routing, CSAT, and analytics.
+                </p>
+                <p>
+                    <span class="font-semibold">Security.</span> Led SOC 2 compliance and
+                    penetration test remediation. Run monthly LLM-driven security reviews of the
+                    whole codebase, which keeps open findings at zero.
+                </p>
+                <p>
+                    <span class="font-semibold">Hiring and mentoring.</span> Ran 2026 intern hiring:
+                    shortlisted 200 from 3,000+ applicants, interviewed them, and trained the 5
+                    hires who joined the team. Review pull requests and help teammates debug every
+                    day: 186 PRs merged and 217 reviewed in 2026.
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-between items-baseline gap-x-4 pt-10">
+                <span class="font-mono text-lg">Full Stack Engineer</span>
+                <span class="font-mono text-sm text-carbon-lighter">Jan 2019 - Nov 2021</span>
+            </div>
+            <div class="font-mono text-sm text-carbon-light">Freelance</div>
+            <p>
+                Built an{" "}
+                <a href="/work/wonder-learning/" class="underline">
+                    LMS
+                </a>{" "}
+                that moved 20+ schools online, a{" "}
+                <a href="/work/taxglobe/" class="underline">
+                    community bookstore
+                </a>
+                , and a{" "}
+                <a href="/work/gatearch/" class="underline">
+                    mock-exam portal
+                </a>
+                . Laravel, Vue, MySQL.
+            </p>
+        </section>
+        <section class="space-y-3">
+            <h2 class="font-mono uppercase text-2xl mb-6"># Side Projects</h2>
+            <p>
+                <a href="/work/scrcap/" class="font-semibold underline">
+                    scrcap
+                </a>
+                , 2026. Native macOS screenshot tool with a markup editor and scrolling capture.
+                Swift.
+            </p>
+            <p>
+                <a href="/work/depot-gato/" class="font-semibold underline">
+                    Depot Gato
+                </a>
+                , 2024. Solo 2D pixel-art tower defense game, with its own art and design document.
+                Godot.
+            </p>
+            <p>
+                <a href="/blog/" class="font-semibold underline">
+                    Blog
+                </a>
+                . Engineering notes and essays.
+            </p>
+        </section>
+        <section class="space-y-2">
+            <h2 class="font-mono uppercase text-2xl mb-6"># Skills</h2>
+            <p>
+                <span class="font-semibold">Languages and backend.</span> TypeScript, Python, SQL,
+                Node.js, Convex, FastAPI, React, Next.js
+            </p>
+            <p>
+                <span class="font-semibold">Data and cloud.</span> PostgreSQL, MongoDB, ClickHouse,
+                Tinybird, Weaviate, Qdrant, GCP, AWS, Cloudflare, Docker, GitHub Actions
+            </p>
+        </section>
+        <section class="space-y-3">
+            <h2 class="font-mono uppercase text-2xl mb-6"># Education</h2>
+            <div>
+                <div class="flex flex-wrap justify-between items-baseline gap-x-4">
+                    <span>
+                        <span class="font-semibold">B.Tech in Computer Science</span>, 9.3 CGPA
+                    </span>
+                    <span class="font-mono text-sm text-carbon-lighter">2019 - 2022</span>
+                </div>
+                <div class="text-carbon-light">
+                    Dr. Babasaheb Ambedkar Technological University, Maharashtra
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-wrap justify-between items-baseline gap-x-4">
+                    <span>
+                        <span class="font-semibold">Diploma in Computer Science</span>, 8.0 CGPA
+                    </span>
+                    <span class="font-mono text-sm text-carbon-lighter">2015 - 2019</span>
+                </div>
+                <div class="text-carbon-light">Maharashtra State Board of Technical Education</div>
+            </div>
+        </section>
     </main>
 </Layout>

@@ -94,6 +94,7 @@ table td:first-child {
 /* Body styles */
 body {
     @apply font-mono text-carbon bg-enamel;
+    font-synthesis: none;
 }
 
 /* Typography styles for blog posts */
